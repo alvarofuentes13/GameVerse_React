@@ -1,8 +1,18 @@
 import React from "react";
 
 export const AppColors = {
-    primary: "#F4991A",
-    secondary: "#E14D2A",
-    background: "#EEEEEE",
-    dark: "#2A2A2A",
+    primary: "#4CA6E7",
+    secondary: "#264ad8",
+    background: "#0E0E2A",
+    alert: "#df0f0f",
+    white: "#ffffff",
+    grey: "#9e9e9e",
+}
+
+export const AppFonts = {
+    regular: "Poppins-Regular",
+    medium: "Poppins-Medium",
+    bold: "Poppins-Bold",
+    light: "Poppins-Light",
+    italic: "Poppins-Italic",
 }
