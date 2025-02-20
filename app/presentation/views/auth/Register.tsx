@@ -3,10 +3,11 @@ import styles from "./Styles";
 import {AppColors} from "../../theme/AppTheme";
 import {useNavigation} from "@react-navigation/native";
 import {NativeStackNavigationProp} from "@react-navigation/native-stack";
+import {RootStackParamsList} from "../../../../App";
 
 
-function Register() {
-    const navigation = useNavigation<NativeStackNavigationProp<any>>();
+function RegisterScreen() {
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamsList>>();
 
 
     return (
@@ -25,14 +26,17 @@ function Register() {
                 <TextInput style={styles.formInput} placeholderTextColor={AppColors.white} placeholder={"Contraseña"}></TextInput>
                 <TextInput style={styles.formInput} placeholderTextColor={AppColors.white} placeholder={"Repetir Contraseña"}></TextInput>
 
-                <TouchableOpacity style={styles.buttonForm} onPress={Register}>Entrar</TouchableOpacity>
+                <TouchableOpacity style={styles.buttonForm} onPress={() => {
+                    navigation.navigate("HomeScreen")}}>
+                    <Text style={styles.buttonFormText}>Registrarme</Text>
+                </TouchableOpacity>
                 <Text style={styles.redirectText}
                     onPress={() => {
-                        navigation.navigate("Login");
+                        navigation.navigate("LoginScreen");
                     }}>Ya tengo cuenta</Text>
             </View>
         </View>
     );
 }
 
-export default Register;
+export default RegisterScreen;

@@ -15,6 +15,17 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: 'bold',
     },
+    headerText: {
+      color: AppColors.white,
+      textAlign: 'center',
+      fontSize: 15,
+      fontFamily: AppFonts.regular
+    },
+    headerNumber: {
+        color: AppColors.primary,
+        fontSize: 20,
+        fontFamily: AppFonts.medium
+    },
     imageContainer: {
         alignSelf: 'center',
         marginTop: 130,
@@ -67,9 +78,10 @@ const styles = StyleSheet.create({
 
     },
     buttonFormText: {
-        color: "#FFF",
+        color: AppColors.background,
         textAlign: "center",
         fontSize: 17,
+        fontFamily: AppFonts.medium,
     },
     redirectButton: {
         width: "100%",
@@ -84,6 +96,22 @@ const styles = StyleSheet.create({
         textAlign: "center",
         fontSize: 12,
         fontFamily: AppFonts.regular,
+    },
+    bottomTab: {
+        backgroundColor: AppColors.background,
+        borderTopColor: AppColors.background,
+        borderWidth: 0,
+        height: "8%",
+        justifyContent: "center",
+        paddingTop: 10,
+    },
+    drawerNav: {
+        backgroundColor: AppColors.background,
+        width: 225,
+        height: "100%",
+    },
+    drawerItem: {
+        borderRadius: 20
     }
 });
 

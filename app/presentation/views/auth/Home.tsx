@@ -6,6 +6,11 @@ import {NavigationContainer, useNavigation} from "@react-navigation/native";
 import {FontAwesome, MaterialIcons} from "@expo/vector-icons";
 import {AppColors} from "../../theme/AppTheme";
 import styles from "./Styles";
+import LoginScreen from "./Login";
+import RegisterScreen from "./Register";
+import {NativeStackNavigationProp} from "@react-navigation/native-stack";
+import {RootStackParamsList} from "../../../../App";
+import ProfileScreen from "./Profile";
 
 const games = [
     {id: "1", title: "GTA V",},
@@ -18,7 +23,7 @@ const reviews = [
 ];
 
 function HomeScreen() {
-    const navigation = useNavigation();
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamsList>>();
 
     return (
     <ScrollView style={{backgroundColor: AppColors.background, flex: 1, padding: 20}}>
@@ -56,16 +61,23 @@ function HomeScreen() {
     ;
 }
 
-const Drawer = createDrawerNavigator();
-const Tab = createBottomTabNavigator();
+const Drawer = createDrawerNavigator<RootStackParamsList>();
+const Tab = createBottomTabNavigator<RootStackParamsList>();
 
 function HomeTabs() {
     return (
-        <Tab.Navigator screenOptions={{headerShown: false, tabBarStyle: {backgroundColor: "#1C1C3A"}}}>
-            <Tab.Screen name="Home" component={HomeScreen} options={{
+        <Tab.Navigator screenOptions={{headerShown: false, tabBarStyle: styles.bottomTab,
+            tabBarActiveTintColor: AppColors.primary, tabBarInactiveTintColor: AppColors.grey,}}>
+            <Tab.Screen name="HomeScreen" component={HomeScreen} options={{
+                tabBarLabel: "Inicio",
                 tabBarIcon: ({color}) => <FontAwesome name="home" size={24} color={color}/>,
             }}/>
-            <Tab.Screen name="Profile" component={HomeScreen} options={{
+            <Tab.Screen name="LoginScreen" component={LoginScreen} options={{
+                tabBarLabel: "Login",
+                tabBarIcon: ({color}) => <MaterialIcons name="person" size={24} color={color}/>,
+            }}/>
+            <Tab.Screen name="ProfileScreen" component={ProfileScreen} options={{
+                tabBarLabel: "Perfil",
                 tabBarIcon: ({color}) => <MaterialIcons name="person" size={24} color={color}/>,
             }}/>
         </Tab.Navigator>
@@ -75,8 +87,8 @@ function HomeTabs() {
 export default function DrawerNavigator() {
     return (
         <Drawer.Navigator
-            screenOptions={{drawerStyle: {backgroundColor: AppColors.background, width: 220}, headerShown: false}}>
-            <Drawer.Screen name="Home" component={HomeScreen}/>
+            screenOptions={{ drawerItemStyle:styles.drawerItem, drawerStyle: styles.drawerNav, headerShown: false, drawerActiveTintColor: AppColors.primary}}>
+            <Drawer.Screen name={"HomeScreen"} component={HomeTabs}/>
         </Drawer.Navigator>
     );
 }

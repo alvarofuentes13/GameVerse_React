@@ -6,13 +6,13 @@ import {useNavigation} from "@react-navigation/native";
 import Register from "./Register";
 import {NativeStackNavigationProp} from "@react-navigation/native-stack";
 import ScrollView = Animated.ScrollView;
-import {Drawer} from "../../components/NavigationDrawer";
+import {RootStackParamsList} from "../../../../App";
 
 
 
-function Login() {
+function LoginScreen() {
 
-    const navigation = useNavigation<NativeStackNavigationProp<any>>();
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamsList>>();
     return (
         <View style={styles.container}>
 
@@ -28,21 +28,16 @@ function Login() {
                 <TextInput style={styles.formInput} placeholderTextColor={AppColors.white} placeholder={"Contraseña"}></TextInput>
 
                 <TouchableOpacity style={styles.buttonForm} onPress={() => {
-                    navigation.navigate("Home")
-                }} >Entrar</TouchableOpacity>
+                    navigation.navigate("HomeScreen")}}>
+                    <Text style={styles.buttonFormText}>Entrar</Text>
+                </TouchableOpacity>
                 <Text style={styles.redirectText}
                       onPress={() => {
-                          navigation.navigate("Register")
+                          navigation.navigate("RegisterScreen")
                       }}>¿No tienes cuenta? Registrate aquí</Text>
             </View>
         </View>
     );
 }
 
-function DrawerNavigator() {
-    return (
-        <Drawer/>
-    )
-}
-
-export default Login;
+export default LoginScreen;

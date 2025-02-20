@@ -1,17 +1,26 @@
-import {StatusBar} from 'expo-status-bar';
+
 import {ActivityIndicator, StyleSheet, Text, View} from 'react-native';
 import * as React from 'react';
 import {NavigationContainer} from "@react-navigation/native";
 import {createStackNavigator} from '@react-navigation/stack';
-import Login from "./app/presentation/views/auth/Login";
 import {useFonts} from "expo-font";
 import {AppColors, AppFonts} from "./app/presentation/theme/AppTheme";
-import Register from "./app/presentation/views/auth/Register";
 import {createDrawerNavigator} from "@react-navigation/drawer";
 import HomeScreen from "./app/presentation/views/auth/Home";
+import LoginScreen from "./app/presentation/views/auth/Login";
+import RegisterScreen from "./app/presentation/views/auth/Register";
+import {createNativeStackNavigator} from "@react-navigation/native-stack";
+import ProfileScreen from "./app/presentation/views/auth/Profile";
 
+export type RootStackParamsList = {
+    LoginScreen: undefined,
+    RegisterScreen: undefined,
+    HomeScreen: undefined,
+    ProfileScreen: undefined,
+}
 
-const Stack = createStackNavigator();
+const Stack = createNativeStackNavigator<RootStackParamsList>();
+
 
 export default function App() {
     const [fontsLoaded] = useFonts({
@@ -35,9 +44,10 @@ export default function App() {
     return (
         <NavigationContainer>
             <Stack.Navigator screenOptions={{headerShown: false}}>
-                <Stack.Screen name="Login" component={Login}/>
-                <Stack.Screen name="Register" component={Register}/>
-                <Stack.Screen name="Home" component={HomeScreen}/>
+                <Stack.Screen name={"LoginScreen"} component={LoginScreen}/>
+                <Stack.Screen name={"RegisterScreen"} component={RegisterScreen}/>
+                <Stack.Screen name={"HomeScreen"} component={HomeScreen}/>
+                <Stack.Screen name={"ProfileScreen"} component={ProfileScreen}/>
             </Stack.Navigator>
         </NavigationContainer>
     );
