@@ -20,8 +20,8 @@ const styles = StyleSheet.create({
         marginTop: 130,
     },
     image: {
-        width: 125,
-        height: 125,
+        width: 220,
+        height: 220,
     },
     formContainer: {
         width: '95%',
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
         paddingVertical: 25,
         paddingHorizontal: 20,
         marginHorizontal: "auto",
-        marginTop: 80,
+        marginTop: 50,
         borderRadius: 10,
     },
     formTitle: {
@@ -62,7 +62,9 @@ const styles = StyleSheet.create({
         borderRadius: 25,
         textAlign: "center",
         fontFamily: AppFonts.medium,
-        margin: 20
+        margin: 20,
+        marginBottom: 7,
+
     },
     buttonFormText: {
         color: "#FFF",
@@ -76,6 +78,12 @@ const styles = StyleSheet.create({
         textAlign: "center",
         color: "darkorange",
         fontWeight: 'bold',
+    },
+    redirectText: {
+        color: AppColors.white,
+        textAlign: "center",
+        fontSize: 12,
+        fontFamily: AppFonts.regular,
     }
 });
 

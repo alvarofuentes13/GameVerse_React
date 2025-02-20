@@ -1,11 +1,15 @@
-import { StatusBar } from 'expo-status-bar';
+import {StatusBar} from 'expo-status-bar';
 import {ActivityIndicator, StyleSheet, Text, View} from 'react-native';
 import * as React from 'react';
 import {NavigationContainer} from "@react-navigation/native";
-import { createStackNavigator } from '@react-navigation/stack';
+import {createStackNavigator} from '@react-navigation/stack';
 import Login from "./app/presentation/views/auth/Login";
 import {useFonts} from "expo-font";
 import {AppColors, AppFonts} from "./app/presentation/theme/AppTheme";
+import Register from "./app/presentation/views/auth/Register";
+import {createDrawerNavigator} from "@react-navigation/drawer";
+import HomeScreen from "./app/presentation/views/auth/Home";
+
 
 const Stack = createStackNavigator();
 
@@ -26,20 +30,24 @@ export default function App() {
         return <ActivityIndicator size="large" color={AppColors.primary}/>;
     }
 
-  return (
-      <NavigationContainer>
-        <Stack.Navigator initialRouteName="Login">
-          <Stack.Screen name="Login" component={Login} options={{ headerShown: false }}/>
-        </Stack.Navigator>
-      </NavigationContainer>
-  );
+    const Menu = createDrawerNavigator();
+
+    return (
+        <NavigationContainer>
+            <Stack.Navigator screenOptions={{headerShown: false}}>
+                <Stack.Screen name="Login" component={Login}/>
+                <Stack.Screen name="Register" component={Register}/>
+                <Stack.Screen name="Home" component={HomeScreen}/>
+            </Stack.Navigator>
+        </NavigationContainer>
+    );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+    container: {
+        flex: 1,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
 });
