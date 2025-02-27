@@ -22,8 +22,8 @@ export type RootStackParamsList = {
     RegisterScreen: undefined,
     HomeScreen: undefined,
     ProfileScreen: undefined,
-    GameDescriptionScreen: undefined,
-    GameReviewScreen: undefined,
+    GameDescriptionScreen: { item: any };
+    GameReviewScreen: { item: any };
     SearchScreen: undefined,
     VideojuegosScreen: undefined,
 }

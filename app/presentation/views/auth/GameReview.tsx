@@ -11,7 +11,6 @@ type GameReviewRouteProp = RouteProp<RootStackParamsList, "GameReviewScreen">;
 export default function GameReviewScreen() {
     const navigation = useNavigation();
     const route = useRoute<GameReviewRouteProp>();
-
     const { game } = route.params;
     console.log(game)// Recibir datos del juego seleccionado
 
