@@ -6,7 +6,8 @@ export const AppColors = {
     background: "#0E0E2A",
     alert: "#df0f0f",
     white: "#ffffff",
-    grey: "#9e9e9e",
+    grey: "#6a6a6a",
+    yellow: "#ffc107",
 }
 
 export const AppFonts = {

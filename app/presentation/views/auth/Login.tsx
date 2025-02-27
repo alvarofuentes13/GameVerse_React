@@ -28,7 +28,7 @@ function LoginScreen() {
                 <TextInput style={styles.formInput} placeholderTextColor={AppColors.white} placeholder={"Contraseña"}></TextInput>
 
                 <TouchableOpacity style={styles.buttonForm} onPress={() => {
-                    navigation.navigate("HomeScreen")}}>
+                    navigation.navigate("VideojuegosScreen")}}>
                     <Text style={styles.buttonFormText}>Entrar</Text>
                 </TouchableOpacity>
                 <Text style={styles.redirectText}

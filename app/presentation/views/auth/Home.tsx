@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {View, Text, Image, ScrollView, FlatList, TouchableOpacity, Button} from "react-native";
 import {createDrawerNavigator} from "@react-navigation/drawer";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
@@ -11,6 +11,8 @@ import RegisterScreen from "./Register";
 import {NativeStackNavigationProp} from "@react-navigation/native-stack";
 import {RootStackParamsList} from "../../../../App";
 import ProfileScreen from "./Profile";
+import SearchScreen from "./Search";
+import {getGames} from "../../../data/sources/remote/api/ApiDelivery";
 
 const games = [
     {id: "1", title: "GTA V",},
@@ -25,8 +27,14 @@ const reviews = [
 function HomeScreen() {
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamsList>>();
 
+    const [games, setGames] = useState([]);
+
+    useEffect(() => {
+        getGames().then(setGames);
+    }, []);
+
     return (
-    <ScrollView style={{backgroundColor: AppColors.background, flex: 1, padding: 20}}>
+    <View style={{backgroundColor: AppColors.background, flex: 1, padding: 20, width: "100%", height: "100%"}}>
 
         <TouchableOpacity onPress={() => navigation.openDrawer()} style={{ marginBottom: 20 }}>
             <FontAwesome name="bars" size={28} color="white" />
@@ -55,7 +63,7 @@ function HomeScreen() {
         ))}
 
 
-    </ScrollView>
+    </View>
 
 )
     ;
@@ -69,16 +77,19 @@ function HomeTabs() {
         <Tab.Navigator screenOptions={{headerShown: false, tabBarStyle: styles.bottomTab,
             tabBarActiveTintColor: AppColors.primary, tabBarInactiveTintColor: AppColors.grey,}}>
             <Tab.Screen name="HomeScreen" component={HomeScreen} options={{
-                tabBarLabel: "Inicio",
-                tabBarIcon: ({color}) => <FontAwesome name="home" size={24} color={color}/>,
+                tabBarShowLabel: false,
+                tabBarItemStyle: styles.tabItem,
+                tabBarIcon: ({color}) => <FontAwesome name="home" size={35} color={color}/>,
             }}/>
-            <Tab.Screen name="LoginScreen" component={LoginScreen} options={{
-                tabBarLabel: "Login",
-                tabBarIcon: ({color}) => <MaterialIcons name="person" size={24} color={color}/>,
+            <Tab.Screen name="SearchScreen" component={SearchScreen} options={{
+                tabBarShowLabel: false,
+                tabBarItemStyle: styles.tabItem,
+                tabBarIcon: ({color}) => <MaterialIcons name="search" size={35} color={color}/>,
             }}/>
             <Tab.Screen name="ProfileScreen" component={ProfileScreen} options={{
-                tabBarLabel: "Perfil",
-                tabBarIcon: ({color}) => <MaterialIcons name="person" size={24} color={color}/>,
+                tabBarShowLabel: false,
+                tabBarItemStyle: styles.tabItem,
+                tabBarIcon: ({color}) => <MaterialIcons name="person" size={35} color={color}/>,
             }}/>
         </Tab.Navigator>
     );

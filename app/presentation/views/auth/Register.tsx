@@ -19,7 +19,7 @@ function RegisterScreen() {
             </View>
 
             <View style={styles.imageContainer}>
-                <Text style={styles.formTitle}>Inicio Sesión</Text>
+                <Text style={styles.formTitle}>Registro</Text>
 
                 <TextInput style={styles.formInput} placeholderTextColor={AppColors.white} placeholder={"Usuario"}></TextInput>
                 <TextInput style={styles.formInput} placeholderTextColor={AppColors.white} placeholder={"Correo Electrónico"}></TextInput>

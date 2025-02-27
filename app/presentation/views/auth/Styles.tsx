@@ -16,10 +16,10 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     headerText: {
-      color: AppColors.white,
-      textAlign: 'center',
-      fontSize: 15,
-      fontFamily: AppFonts.regular
+        color: AppColors.white,
+        textAlign: 'center',
+        fontSize: 15,
+        fontFamily: AppFonts.regular
     },
     headerNumber: {
         color: AppColors.primary,
@@ -104,6 +104,11 @@ const styles = StyleSheet.create({
         height: "8%",
         justifyContent: "center",
         paddingTop: 10,
+    },
+    tabItem: {
+        justifyContent: "center",
+        textAlignVertical: "center",
+        paddingTop: 10
     },
     drawerNav: {
         backgroundColor: AppColors.background,
