@@ -31,7 +31,7 @@ const VideojuegosScreen = () => {
 
     const videojuegos = fetchGames();
 
-    const fetchGame = async () => {
+    const fetchGame = async (): Promise<VideojuegoInterface[]> => {
         try {
             const response = await fetch("https://api.igdb.com/v4/games", {
                 method: "POST",
@@ -49,9 +49,11 @@ const VideojuegosScreen = () => {
             }
 
             const data = await response.json();
-            console.log(data); // Aquí ves los juegos en la consola
+            console.log(data);
+            return data;// Aquí ves los juegos en la consola
         } catch (error) {
             console.error("Error al obtener juegos:", error);
+            return []
         }
     };
 

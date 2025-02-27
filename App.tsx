@@ -15,6 +15,7 @@ import GameDescriptionScreen from "./app/presentation/views/auth/GameDescription
 import GameReviewScreen from "./app/presentation/views/auth/GameReview";
 import SearchScreen from "./app/presentation/views/auth/Search";
 import VideojuegosScreen from "./app/presentation/views/auth/VideoJuegos";
+import {VideojuegoInterface} from "./app/data/sources/remote/api/VideojuegoInterface";
 
 export type RootStackParamsList = {
     LoginScreen: undefined,
@@ -24,7 +25,7 @@ export type RootStackParamsList = {
     GameDescriptionScreen: undefined,
     GameReviewScreen: undefined,
     SearchScreen: undefined,
-    VideojuegosScreen: undefined
+    VideojuegosScreen: undefined,
 }
 
 const Stack = createNativeStackNavigator<RootStackParamsList>();

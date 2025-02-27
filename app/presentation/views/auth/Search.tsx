@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import { View, Text, TextInput, FlatList, Image, TouchableOpacity } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import {useNavigation} from "@react-navigation/native";
+import {getGames} from "../../../data/sources/remote/api/ApiDelivery";
 
 const games = [
     { id: "1", title: "The Witcher 3", year: "2015", image: require("../../../../assets/img/witcher_3.png") },
@@ -13,7 +14,13 @@ const games = [
 export default function SearchScreen() {
     const navigation = useNavigation();
     const [search, setSearch] = useState("");
-    const filteredGames = games.filter((game) => game.title.toLowerCase().includes(search.toLowerCase()));
+    const [games, setGames] = useState([]);
+
+    useEffect(() => {
+        getGames().then(setGames);
+    }, []);
+
+    const filteredGames = games.filter((game) => game.titulo.toLowerCase().includes(search.toLowerCase()));
 
     return (
         <View style={{ flex: 1, backgroundColor: "#0D0D25", padding: 20 }}>
@@ -43,12 +50,12 @@ export default function SearchScreen() {
                             borderRadius: 10,
                             marginTop: 15,
                         }}
-                        onPress={() => navigation.navigate("GameDescriptionScreen")} // Pasar datos
+                        onPress={() => navigation.navigate("GameDescriptionScreen", {item})} // Pasar datos
                     >
-                        <Image source={item.image} style={{ width: 60, height: 80, borderRadius: 8, marginRight: 10 }} />
-                        <View>
-                            <Text style={{ color: "#FFF", fontSize: 18, fontWeight: "bold" }}>{item.title}</Text>
-                            <Text style={{ color: "#777", fontSize: 14 }}>{item.year}</Text>
+                        <Image source={item.portada} style={{ width: 60, height: 80, borderRadius: 8, marginRight: 10 }} />
+                        <View style={{ flex: 1 }}>
+                            <Text style={{ color: "#FFF", fontSize: 18, fontWeight: "bold", width:"70%" }}>{item.titulo}</Text>
+                            <Text style={{ color: "#777", fontSize: 14 }}>{item.fechaLanzamiento.split("-")[0]}</Text>
                         </View>
                     </TouchableOpacity>
                 )}

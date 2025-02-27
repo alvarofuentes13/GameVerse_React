@@ -1,11 +1,18 @@
 import React from "react";
 import { View, Text, Image, TouchableOpacity, ScrollView } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
-import {useNavigation} from "@react-navigation/native";
-import {AppColors} from "../../theme/AppTheme";
+import {RouteProp, useNavigation, useRoute} from "@react-navigation/native";
+import {AppColors, AppFonts} from "../../theme/AppTheme";
+import {RootStackParamsList} from "../../../../App";
+
+type GameDescriptionRouteProp = RouteProp<RootStackParamsList, "GameDescriptionScreen">;
 
 export default function GameDescriptionScreen() {
     const navigation = useNavigation();
+    const route = useRoute<GameDescriptionRouteProp>();
+
+    const { item } = route.params;
+    console.log("Game Description Screen", item);
 
     return (
         <ScrollView style={{ flex: 1, backgroundColor: "#0D0D25", padding: 20 }}>
@@ -17,14 +24,15 @@ export default function GameDescriptionScreen() {
             {/* Imagen y detalles del juego */}
             <View style={{ alignItems: "center", marginBottom: 20 }}>
                 <Image
-                    source={require("../../../../assets/img/red_dead.png")}
+                    source={{uri: item.portada}}
                     style={{ width: 150, height: 220, borderRadius: 10 }}
                 />
-                <Text style={{ color: "#FFF", fontSize: 24, fontWeight: "bold", marginTop: 10 }}>
-                    Zelda Skyward Sword <Text style={{ fontSize: 16, color: "#AAA" }}>2011</Text>
+                <Text style={{ color: "#FFF", fontSize: 24, fontWeight: "bold", marginTop: 10, fontFamily: AppFonts.bold }}>
+                    {item.titulo}
                 </Text>
+                <Text style={{ fontSize: 16, color: "#AAA", fontFamily: AppFonts.regular }}>{item.fechaLanzamiento.split("-")[0]}</Text>
                 <Text style={{ color: "#AAA", textAlign: "center", marginTop: 10 }}>
-                    En el relato más antiguo de la línea temporal de Zelda, Link debe viajar desde un mundo que se halla por encima de las nubes...
+                    {item.descripcion}
                 </Text>
             </View>
 
@@ -39,6 +47,7 @@ export default function GameDescriptionScreen() {
                         flexDirection: "row",
                         alignItems: "center",
                     }}
+                    onPress={() => navigation.navigate("GameReviewScreen", {item})} //No funciona :(
                 >
                     <FontAwesome name="star" size={16} color = {AppColors.yellow} style={{ marginRight: 5 }} />
                     <Text style={{ color: "#FFF" }}>Valorar</Text>
@@ -73,18 +82,18 @@ export default function GameDescriptionScreen() {
                 <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
                     <Text style={{ color: "#FFF", fontSize: 18 }}>All Reviews</Text>
                     <TouchableOpacity>
-                        <Text style={{ color: AppColors.yellow }}>Ver todas</Text>
+                        <Text style={{ color: AppColors.primary }}>Ver todas</Text>
                     </TouchableOpacity>
                 </View>
 
                 {[1, 2, 3].map((item) => (
                     <View key={item} style={{ backgroundColor: "#1C1C3A", padding: 15, borderRadius: 10, marginTop: 10 }}>
-                        <Text style={{ color: AppColors.yellow, fontSize: 16 }}>Reseña de Pedro ⭐⭐⭐⭐</Text>
+                        <Text style={{ color: AppColors.grey, fontSize: 16 }}>Reseña de Pedro ⭐⭐⭐⭐</Text>
                         <Text style={{ color: "#AAA", fontSize: 14, marginTop: 5 }}>
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua...
                         </Text>
                         <TouchableOpacity>
-                            <Text style={{ color: AppColors.yellow, marginTop: 5 }}>Leer más</Text>
+                            <Text style={{ color: AppColors.primary, marginTop: 5 }}>Leer más</Text>
                         </TouchableOpacity>
                     </View>
                 ))}

@@ -4,5 +4,5 @@ export interface VideojuegoInterface {
     imgUrl: string;
     description: string;
     developer: string;
-    date: string;
+    releaseDate: string;
 }

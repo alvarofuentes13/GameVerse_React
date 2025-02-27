@@ -1,8 +1,9 @@
 import axios from "axios";
+import {VideojuegoInterface} from "./VideojuegoInterface";
 
-const API_URL = "http://10.0.2.2:8080/api/games"; // Para emulador Android
+const API_URL = "http://localhost:8080/api/videojuegos"; // Para emulador Android
 
-export const getGames = async () => {
+export const getGames = async (): Promise<VideojuegoInterface[]> => {
     try {
         const response = await axios.get(API_URL);
         return response.data;

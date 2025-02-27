@@ -1,14 +1,20 @@
 import React, { useState } from "react";
 import { View, Text, Image, TouchableOpacity, TextInput } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
-import {useNavigation} from "@react-navigation/native";
+import {RouteProp, useNavigation, useRoute} from "@react-navigation/native";
 import {AppColors} from "../../theme/AppTheme";
+import {RootStackParamsList} from "../../../../App";
 
-// @ts-ignore
-export default function GameReviewScreen({ route }) {
+type GameReviewRouteProp = RouteProp<RootStackParamsList, "GameReviewScreen">;
+
+
+export default function GameReviewScreen() {
     const navigation = useNavigation();
+    const route = useRoute<GameReviewRouteProp>();
 
-    const { game } = route.params; // Recibir datos del juego seleccionado
+    const { game } = route.params;
+    console.log(game)// Recibir datos del juego seleccionado
+
     const [rating, setRating] = useState(0);
     const [review, setReview] = useState("");
 
@@ -27,10 +33,10 @@ export default function GameReviewScreen({ route }) {
 
             {/* Imagen y detalles del juego */}
             <View style={{ flexDirection: "row", alignItems: "center", marginBottom: 20 }}>
-                <Image source={game.image} style={{ width: 100, height: 150, borderRadius: 10, marginRight: 15 }} />
+                <Image source={game.portada} style={{ width: 100, height: 150, borderRadius: 10, marginRight: 15 }} />
                 <View>
-                    <Text style={{ color: "#FFF", fontSize: 20, fontWeight: "bold" }}>{game.title}</Text>
-                    <Text style={{ color: "#AAA", fontSize: 16 }}>{game.year}</Text>
+                    <Text style={{ color: "#FFF", fontSize: 20, fontWeight: "bold" }}>{game.titulo}</Text>
+                    <Text style={{ color: "#AAA", fontSize: 16 }}>{game.fechaLanzamiento}</Text>
                 </View>
             </View>
 
