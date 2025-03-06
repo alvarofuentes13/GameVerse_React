@@ -13,7 +13,7 @@ import {RootStackParamsList} from "../../../../App";
 import ProfileScreen from "./Profile";
 import SearchScreen from "./Search";
 import viewModel from "../client/category/list/ViewModel";
-import {VideojuegoCategoryList} from "../client/category/list/CategoryList";
+import {VideojuegoCategoryListHome} from "../client/category/list/CategoryList";
 
 
 const reviews = [
@@ -45,7 +45,7 @@ function HomeScreen() {
 
             <View>
                 <Text style={{color: "#fff", fontSize: 18, marginTop: 20}}>Videojuegos populares de este mes</Text>
-                <VideojuegoCategoryList videojuego={videojuego}/>
+                <VideojuegoCategoryListHome videojuego={videojuego}/>
             </View>
 
             <Text style={{color: "#fff", fontSize: 18, marginTop: 20}}>Reviews de amigos</Text>

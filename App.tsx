@@ -14,17 +14,16 @@ import ProfileScreen from "./app/presentation/views/auth/Profile";
 import GameDescriptionScreen from "./app/presentation/views/auth/GameDescription";
 import GameReviewScreen from "./app/presentation/views/auth/GameReview";
 import SearchScreen from "./app/presentation/views/auth/Search";
-import VideojuegosScreen from "./app/presentation/views/auth/VideoJuegos";
-import {VideojuegoInterface} from "./app/data/sources/remote/api/VideojuegoInterface";
+import {VideojuegoInterface} from "./app/domain/entitites/Videojuego";
 
 export type RootStackParamsList = {
     LoginScreen: undefined,
     RegisterScreen: undefined,
     HomeScreen: undefined,
     ProfileScreen: undefined,
-    GameDescriptionScreen: { item: any };
-    GameReviewScreen: { item: any };
-    SearchScreen: undefined,
+    GameDescriptionScreen: { item: VideojuegoInterface };
+    GameReviewScreen: { item: VideojuegoInterface };
+    SearchScreen: { item: VideojuegoInterface },
 }
 
 const Stack = createNativeStackNavigator<RootStackParamsList>();
