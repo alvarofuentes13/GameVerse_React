@@ -3,6 +3,7 @@ import { View, Text, TextInput, FlatList, Image, TouchableOpacity } from "react-
 import { FontAwesome } from "@expo/vector-icons";
 import {useNavigation} from "@react-navigation/native";
 import {getGames} from "../../../data/sources/remote/api/ApiDelivery";
+import {VideojuegoInterface} from "../../../domain/entitites/Videojuego";
 
 const games = [
     { id: "1", title: "The Witcher 3", year: "2015", image: require("../../../../assets/img/witcher_3.png") },
@@ -13,11 +14,12 @@ const games = [
 
 export default function SearchScreen() {
     const navigation = useNavigation();
+
     const [search, setSearch] = useState("");
     const [games, setGames] = useState([]);
 
     useEffect(() => {
-        getGames().then(setGames);
+        getV();
     }, []);
 
     const filteredGames = games.filter((game) => game.titulo.toLowerCase().includes(search.toLowerCase()));

@@ -12,25 +12,27 @@ import {NativeStackNavigationProp} from "@react-navigation/native-stack";
 import {RootStackParamsList} from "../../../../App";
 import ProfileScreen from "./Profile";
 import SearchScreen from "./Search";
-import {getGames} from "../../../data/sources/remote/api/ApiDelivery";
+import viewModel from "../client/category/list/ViewModel";
+import {VideojuegoCategoryList} from "../client/category/list/CategoryList";
+
 
 const reviews = [
     {id: "1", user: "Adrian", rating: 4, game: "GTA V", text: "Lorem ipsum dolor sit amet..."},
+    {id: "2", user: "Adrian", rating: 4, game: "GTA V", text: "Lorem ipsum dolor sit amet..."},
     {id: "2", user: "Adrian", rating: 4, game: "GTA V", text: "Lorem ipsum dolor sit amet..."},
 ];
 
 function HomeScreen() {
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamsList>>();
 
-    const [games, setGames] = useState([]);
+    const {videojuego, getVideojuegos} = viewModel.VideojuegoViewModel();
 
     useEffect(() => {
-        getGames().then(setGames);
+        getVideojuegos();
     }, []);
 
-    console.log(games)
+    console.log(videojuego);
 
-    // @ts-ignore
     return (
         <View style={{backgroundColor: AppColors.background, width:"100%", height:"100%", padding: 20}}>
 
@@ -41,21 +43,10 @@ function HomeScreen() {
             <Text style={{color: "#fff", fontSize: 24, fontWeight: "bold"}}>Hola, Gustavo!</Text>
             <Text style={{color: "#aaa", fontSize: 14}}>Opina sobre los videojuegos que has jugado</Text>
 
-            <Text style={{color: "#fff", fontSize: 18, marginTop: 20}}>Videojuegos populares de este mes</Text>
-            <FlatList
-                horizontal
-                data={games}
-                keyExtractor={({id}) => id}
-                contentContainerStyle={{paddingVertical: 10}}
-                showsHorizontalScrollIndicator={false}
-                renderItem={({item}) => (
-                    <TouchableOpacity onPress={() => navigation.navigate("GameDescriptionScreen", {item})}>
-                    <Image
-                        source={{uri: item.portada}}
-                        style={{width: 100, height: 140, margin: 5, borderRadius: 8}}/>
-                    </TouchableOpacity>
-                )}
-            />
+            <View>
+                <Text style={{color: "#fff", fontSize: 18, marginTop: 20}}>Videojuegos populares de este mes</Text>
+                <VideojuegoCategoryList videojuego={videojuego}/>
+            </View>
 
             <Text style={{color: "#fff", fontSize: 18, marginTop: 20}}>Reviews de amigos</Text>
             {reviews.map((review) => (

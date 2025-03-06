@@ -25,7 +25,6 @@ export type RootStackParamsList = {
     GameDescriptionScreen: { item: any };
     GameReviewScreen: { item: any };
     SearchScreen: undefined,
-    VideojuegosScreen: undefined,
 }
 
 const Stack = createNativeStackNavigator<RootStackParamsList>();
@@ -60,7 +59,6 @@ export default function App() {
                 <Stack.Screen name={"GameDescriptionScreen"} component={GameDescriptionScreen}/>
                 <Stack.Screen name={"GameReviewScreen"} component={GameReviewScreen}/>
                 <Stack.Screen name={"SearchScreen"} component={SearchScreen}/>
-                <Stack.Screen name={"VideojuegosScreen"} component={VideojuegosScreen}/>
             </Stack.Navigator>
         </NavigationContainer>
     );
