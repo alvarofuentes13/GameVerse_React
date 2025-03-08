@@ -2,31 +2,22 @@ import React, {useEffect, useState} from "react";
 import { View, Text, TextInput, FlatList, Image, TouchableOpacity } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import {useNavigation} from "@react-navigation/native";
-import {getGames} from "../../../data/sources/remote/api/ApiDelivery";
-import {VideojuegoInterface} from "../../../domain/entitites/Videojuego";
+import viewModel from "../client/category/list/ViewModel";
 
-const games = [
-    { id: "1", title: "The Witcher 3", year: "2015", image: require("../../../../assets/img/witcher_3.png") },
-    { id: "2", title: "Red Dead Redemption 2", year: "2019", image: require("../../../../assets/img/red_dead.png") },
-    { id: "3", title: "Cyberpunk 2077", year: "2020", image: require("../../../../assets/img/cyberpunk.png") },
-    { id: "4", title: "GTA V", year: "2013", image: require("../../../../assets/img/gta_v.png") },
-];
 
 export default function SearchScreen() {
     const navigation = useNavigation();
-
     const [search, setSearch] = useState("");
-    const [games, setGames] = useState([]);
+    const {videojuego, getVideojuegos} = viewModel.VideojuegoViewModel();
 
     useEffect(() => {
-        getV();
+        getVideojuegos();
     }, []);
 
-    const filteredGames = games.filter((game) => game.titulo.toLowerCase().includes(search.toLowerCase()));
+    const filteredGames = videojuego.filter((game) => game.titulo.toLowerCase().includes(search.toLowerCase()));
 
     return (
         <View style={{ flex: 1, backgroundColor: "#0D0D25", padding: 20 }}>
-            {/* Barra de búsqueda */}
             <View style={{ flexDirection: "row", alignItems: "center", backgroundColor: "#1C1C3A", borderRadius: 10, padding: 10 }}>
                 <FontAwesome name="search" size={20} color="#FFF" style={{ marginRight: 10 }} />
                 <TextInput
@@ -38,10 +29,9 @@ export default function SearchScreen() {
                 />
             </View>
 
-            {/* Lista de resultados */}
             <FlatList
                 data={filteredGames}
-                keyExtractor={(item) => item.id}
+                keyExtractor={(item) => item.id.toString()}
                 renderItem={({ item }) => (
                     <TouchableOpacity
                         style={{
@@ -52,9 +42,9 @@ export default function SearchScreen() {
                             borderRadius: 10,
                             marginTop: 15,
                         }}
-                        onPress={() => navigation.navigate("GameDescriptionScreen", {item})} // Pasar datos
+                        onPress={() => navigation.navigate("GameDescriptionScreen", {item: item})} // Pasar datos
                     >
-                        <Image source={item.portada} style={{ width: 60, height: 80, borderRadius: 8, marginRight: 10 }} />
+                        <Image source={{uri: item.portada}} style={{ width: 60, height: 80, borderRadius: 8, marginRight: 10 }} />
                         <View style={{ flex: 1 }}>
                             <Text style={{ color: "#FFF", fontSize: 18, fontWeight: "bold", width:"70%" }}>{item.titulo}</Text>
                             <Text style={{ color: "#777", fontSize: 14 }}>{item.fechaLanzamiento.split("-")[0]}</Text>
