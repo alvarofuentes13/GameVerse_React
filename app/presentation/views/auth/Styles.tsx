@@ -1,6 +1,7 @@
 import {StyleSheet} from "react-native";
 import {AppColors, AppFonts} from "../../theme/AppTheme";
 
+const emailError:boolean = false;
 
 const styles = StyleSheet.create({
     container: {

@@ -1,26 +1,56 @@
 import React, { useState } from "react";
-import { View, Text, Image, TouchableOpacity, TextInput } from "react-native";
+import { View, Text, Image, TouchableOpacity, TextInput, Alert } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
-import {RouteProp, useNavigation, useRoute} from "@react-navigation/native";
-import {AppColors} from "../../theme/AppTheme";
-import {RootStackParamsList} from "../../../../App";
+import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
+import axios from "axios"; // Importar axios
+import { AppColors } from "../../theme/AppTheme";
+import { RootStackParamsList } from "../../../../App";
+import {useUser} from "../client/context/UserContext";
 
 type GameReviewRouteProp = RouteProp<RootStackParamsList, "GameReviewScreen">;
-
 
 export default function GameReviewScreen() {
     const navigation = useNavigation();
     const route = useRoute<GameReviewRouteProp>();
-    const { game } = route.params;
-    console.log(game)// Recibir datos del juego seleccionado
+    const { item } = route.params;
+    const usuario = useUser().user;
+    console.log(usuario);
 
     const [rating, setRating] = useState(0);
     const [review, setReview] = useState("");
 
-    const [isFavorite, setIsFavorite] = useState(false); // Estado para el corazón
 
-    const toggleFavorite = () => {
-        setIsFavorite(!isFavorite); // Cambia entre true/false al presionar
+
+    // Función para manejar el envío de la reseña
+    const handleSubmitReview = async () => {
+        if (!rating || !review) {
+            Alert.alert("Error", "Por favor, completa la calificación y el comentario.");
+            return;
+        }
+
+        const reviewData = {
+            calificacion: rating,
+            comentario: review,
+            usuario: {
+                id: usuario?.id,
+            },
+            videojuego: {
+                id: item.id
+            },
+        };
+
+        try {
+            // Enviar reseña al backend
+            const response = await axios.post("http://localhost:8080/api/reviews", reviewData);
+
+            if (response.status === 200) {
+                Alert.alert("Éxito", "Reseña enviada exitosamente.");
+                navigation.goBack(); // Regresar a la pantalla anterior
+            }
+        } catch (error) {
+            console.error("Error al enviar la reseña:", error);
+            Alert.alert("Error", "Hubo un problema al enviar la reseña.");
+        }
     };
 
     return (
@@ -32,10 +62,10 @@ export default function GameReviewScreen() {
 
             {/* Imagen y detalles del juego */}
             <View style={{ flexDirection: "row", alignItems: "center", marginBottom: 20 }}>
-                <Image source={game.portada} style={{ width: 100, height: 150, borderRadius: 10, marginRight: 15 }} />
+                <Image source={{ uri: item.portada }} style={{ width: 100, height: 150, borderRadius: 10, marginRight: 15 }} />
                 <View>
-                    <Text style={{ color: "#FFF", fontSize: 20, fontWeight: "bold" }}>{game.titulo}</Text>
-                    <Text style={{ color: "#AAA", fontSize: 16 }}>{game.fechaLanzamiento}</Text>
+                    <Text style={{ color: "#FFF", fontSize: 20, fontWeight: "bold" }}>{item.titulo}</Text>
+                    <Text style={{ color: "#AAA", fontSize: 16 }}>{item.fechaLanzamiento}</Text>
                 </View>
             </View>
 
@@ -47,9 +77,6 @@ export default function GameReviewScreen() {
                         <FontAwesome name="star" size={28} color={star <= rating ? AppColors.yellow : AppColors.grey} style={{ marginRight: 5 }} />
                     </TouchableOpacity>
                 ))}
-                <TouchableOpacity onPress={toggleFavorite} style={{ marginLeft: 10 }}>
-                    <FontAwesome name="heart" size={28} color={isFavorite ? AppColors.alert : AppColors.grey} />
-                </TouchableOpacity>
             </View>
 
             {/* Área de texto para la reseña */}
@@ -79,7 +106,7 @@ export default function GameReviewScreen() {
                     alignItems: "center",
                     marginTop: 20,
                 }}
-                onPress={() => console.log("Reseña enviada:", review)}
+                onPress={handleSubmitReview}
             >
                 <Text style={{ color: "#FFF", fontSize: 18 }}>Listo</Text>
             </TouchableOpacity>

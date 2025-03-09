@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from "react";
-import {View, Text, Image, ScrollView, FlatList, TouchableOpacity, Button} from "react-native";
-import {createDrawerNavigator} from "@react-navigation/drawer";
+import {View, Text, Image, ScrollView, FlatList, TouchableOpacity, Button, ActivityIndicator} from "react-native";
+import {createDrawerNavigator, DrawerNavigationProp} from "@react-navigation/drawer";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
-import {NavigationContainer, useNavigation} from "@react-navigation/native";
+import {NavigationContainer, RouteProp, useNavigation, useRoute} from "@react-navigation/native";
 import {FontAwesome, MaterialIcons} from "@expo/vector-icons";
 import {AppColors} from "../../theme/AppTheme";
 import styles from "./Styles";
@@ -14,22 +14,46 @@ import ProfileScreen from "./Profile";
 import SearchScreen from "./Search";
 import viewModel from "../client/category/list/ViewModel";
 import {VideojuegoCategoryListHome} from "../client/category/list/CategoryList";
+import {useUser} from "../client/context/UserContext";
+import {ReviewInterface} from "../../../domain/entitites/Review";
 
-
-const reviews = [
-    {id: "1", user: "Adrian", rating: 4, game: "GTA V", text: "Lorem ipsum dolor sit amet..."},
-    {id: "2", user: "Adrian", rating: 4, game: "GTA V", text: "Lorem ipsum dolor sit amet..."},
-    {id: "2", user: "Adrian", rating: 4, game: "GTA V", text: "Lorem ipsum dolor sit amet..."},
-];
+export type DrawerParamsList = {
+    HomeScreen: undefined,
+}
 
 function HomeScreen() {
-    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamsList>>();
+    const navigation = useNavigation<DrawerNavigationProp<DrawerParamsList>>();
+
+    const usuario = useUser().user;
+    console.log(usuario);
 
     const {videojuego, getVideojuegos} = viewModel.VideojuegoViewModel();
 
     useEffect(() => {
         getVideojuegos();
     }, []);
+
+    const [reviews, setReviews] = useState<ReviewInterface[]>([]);
+    const [cargando, setCargando] = useState(true);
+
+    useEffect(() => {
+        const fetchReviews = async () => {
+            if (!usuario) return; // Si el usuario no está definido, no hacemos la petición.
+
+            try {
+                const response = await fetch(`http://localhost:8080/api/reviews`);
+                const data = await response.json();
+                setReviews(data);
+                console.log(data);
+            } catch (error) {
+                console.error("Error al obtener reviews:", error);
+            } finally {
+                setCargando(false);
+            }
+        };
+
+        fetchReviews();
+    }, [usuario]);
 
     console.log(videojuego);
 
@@ -40,7 +64,7 @@ function HomeScreen() {
                 <FontAwesome name="bars" size={28} color="white"/>
             </TouchableOpacity>
 
-            <Text style={{color: "#fff", fontSize: 24, fontWeight: "bold"}}>Hola, Gustavo!</Text>
+            <Text style={{color: "#fff", fontSize: 24, fontWeight: "bold"}}>Hola, {usuario?.name}!</Text>
             <Text style={{color: "#aaa", fontSize: 14}}>Opina sobre los videojuegos que has jugado</Text>
 
             <View>
@@ -48,15 +72,18 @@ function HomeScreen() {
                 <VideojuegoCategoryListHome videojuego={videojuego}/>
             </View>
 
-            <Text style={{color: "#fff", fontSize: 18, marginTop: 20}}>Reviews de amigos</Text>
-            {reviews.map((review) => (
-                <View key={review.id}
-                      style={{backgroundColor: "#1C1C3A", padding: 15, borderRadius: 10, marginTop: 10}}>
-                    <Text style={{color: "#fff", fontWeight: "bold"}}>{review.game}</Text>
-                    <Text style={{color: "#aaa"}}>Reseña de {review.user} ★★★★☆</Text>
-                    <Text style={{color: "#ccc", marginTop: 5}}>{review.text}</Text>
-                </View>
-            ))}
+            <Text style={{color: "#fff", fontSize: 18, marginTop: 20}}>Reviews populares</Text>
+            {cargando ? (
+                <ActivityIndicator size="large" color={AppColors.yellow} style={{ marginTop: 10 }} />
+            ) : (
+                reviews.map((review) => (
+                    <View key={review.id} style={{ backgroundColor: "#1C1C3A", padding: 15, borderRadius: 10, marginTop: 10 }}>
+                        <Text style={{ color: AppColors.white, fontSize: 16 }}>{review.videojuego.titulo}</Text>
+                        <Text style={{ color: "#aaa", fontSize: 14 }}>Reseña de {review.usuario.name} {"⭐".repeat(review.calificacion)}</Text>
+                        <Text style={{ color: "#fff", fontSize: 12, marginTop: 5 }}>{review.comentario}</Text>
+                    </View>
+                ))
+            )}
 
 
         </View>
@@ -65,7 +92,7 @@ function HomeScreen() {
         ;
 }
 
-const Drawer = createDrawerNavigator<RootStackParamsList>();
+const Drawer = createDrawerNavigator<DrawerParamsList>();
 const Tab = createBottomTabNavigator<RootStackParamsList>();
 
 function HomeTabs() {

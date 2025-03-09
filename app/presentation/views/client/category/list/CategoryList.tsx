@@ -15,15 +15,15 @@ interface Props{
 export const VideojuegoCategoryListHome = ({videojuego}: Props) => {
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamsList>>();
 
-    if (videojuego.length > 0) {
-        const renderItem = useCallback(({item}: {item: VideojuegoInterface}) =>
-            <TouchableOpacity onPress={() => navigation.navigate("GameDescriptionScreen", {item: item})}>
-                <Image
-                    source={{uri: item.portada}}
-                    style={{width: 100, height: 140, margin: 5, borderRadius: 8}}
-                />
-            </TouchableOpacity>, []);
+    const renderItem = useCallback(({item}: {item: VideojuegoInterface}) =>
+        <TouchableOpacity onPress={() => navigation.navigate("GameDescriptionScreen", {item: item})}>
+            <Image
+                source={{uri: item.portada}}
+                style={{width: 100, height: 140, margin: 5, borderRadius: 8}}
+            />
+        </TouchableOpacity>, [navigation]);
 
+    if (videojuego.length > 0) {
         return (
             <FlatList
                 data={videojuego}
@@ -37,37 +37,7 @@ export const VideojuegoCategoryListHome = ({videojuego}: Props) => {
         )
     }
     else {
-        <ActivityIndicator size={"large"}></ActivityIndicator>
-    }
-
-}
-
-export const VideojuegoCategoryListSearch = ({videojuego}: Props) => {
-    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamsList>>();
-
-    if (videojuego.length > 0) {
-        const renderItem = useCallback(({item}: {item: VideojuegoInterface}) =>
-            <TouchableOpacity onPress={() => navigation.navigate("GameDescriptionScreen", {item: item})}>
-                <Image
-                    source={{uri: item.portada}}
-                    style={{width: 100, height: 140, margin: 5, borderRadius: 8}}
-                />
-            </TouchableOpacity>, []);
-
-        return (
-            <FlatList
-                data={videojuego}
-                renderItem={renderItem}
-                keyExtractor={item => item.id.toString()}
-                initialNumToRender={10}
-                horizontal={true}
-                removeClippedSubviews={true}
-                showsHorizontalScrollIndicator={false}
-            ></FlatList>
-        )
-    }
-    else {
-        <ActivityIndicator size={"large"}></ActivityIndicator>
+       return <ActivityIndicator size={"large"}></ActivityIndicator>
     }
 
 }

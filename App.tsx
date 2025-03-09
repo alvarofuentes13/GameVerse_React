@@ -15,6 +15,8 @@ import GameDescriptionScreen from "./app/presentation/views/auth/GameDescription
 import GameReviewScreen from "./app/presentation/views/auth/GameReview";
 import SearchScreen from "./app/presentation/views/auth/Search";
 import {VideojuegoInterface} from "./app/domain/entitites/Videojuego";
+import {UserProvider} from "./app/presentation/views/client/context/UserContext";
+import DrawerNavigator from "./app/presentation/views/auth/Home";
 
 export type RootStackParamsList = {
     LoginScreen: undefined,
@@ -49,6 +51,7 @@ export default function App() {
     const Menu = createDrawerNavigator();
 
     return (
+        <UserProvider>
         <NavigationContainer>
             <Stack.Navigator screenOptions={{headerShown: false}}>
                 <Stack.Screen name={"LoginScreen"} component={LoginScreen}/>
@@ -60,6 +63,7 @@ export default function App() {
                 <Stack.Screen name={"SearchScreen"} component={SearchScreen}/>
             </Stack.Navigator>
         </NavigationContainer>
+        </UserProvider>
     );
 }
 
