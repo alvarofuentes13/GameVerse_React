@@ -1,5 +1,5 @@
 import {StyleSheet} from "react-native";
-import {AppColors, AppFonts} from "../../theme/AppTheme";
+import {AppColors, AppFonts} from "./AppTheme";
 
 const emailError:boolean = false;
 

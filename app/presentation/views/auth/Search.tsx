@@ -1,12 +1,13 @@
 import React, {useEffect, useState} from "react";
 import { View, Text, TextInput, FlatList, Image, TouchableOpacity } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
-import {useNavigation} from "@react-navigation/native";
+import {NavigationProp, useNavigation} from "@react-navigation/native";
 import viewModel from "../client/category/list/ViewModel";
+import {RootStackParamsList} from "../../../../App";
 
 
 export default function SearchScreen() {
-    const navigation = useNavigation();
+    const navigation = useNavigation<NavigationProp<RootStackParamsList>>();
     const [search, setSearch] = useState("");
     const {videojuego, getVideojuegos} = viewModel.VideojuegoViewModel();
 
@@ -30,6 +31,7 @@ export default function SearchScreen() {
             </View>
 
             <FlatList
+                showsVerticalScrollIndicator={false}
                 data={filteredGames}
                 keyExtractor={(item) => item.id.toString()}
                 renderItem={({ item }) => (

@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, Image, FlatList, ScrollView, ActivityIndicator } from "react-native";
-import styles from "./Styles";
+import styles from "../../theme/Styles";
 import { AppColors } from "../../theme/AppTheme";
 import { useUser } from "../client/context/UserContext";
 import {ReviewInterface} from "../../../domain/entitites/Review";
+import {useFocusEffect} from "@react-navigation/native";
 
 export default function ProfileScreen() {
     const usuario = useUser().user;
     const [reviews, setReviews] = useState<ReviewInterface[]>([]);
     const [cargando, setCargando] = useState(true);
 
-    useEffect(() => {
+
         const fetchReviews = async () => {
             if (!usuario) return; // Si el usuario no está definido, no hacemos la petición.
 
@@ -26,8 +27,13 @@ export default function ProfileScreen() {
             }
         };
 
-        fetchReviews();
-    }, [usuario]);
+    useFocusEffect(
+        React.useCallback(() => {
+            setCargando(true); // Iniciamos el estado de carga cada vez que la pantalla se enfoque
+            fetchReviews(); // Cargamos las reseñas
+        }, [usuario]) // Dependemos de usuario, ya que si el usuario cambia, queremos que se recargue la data
+    );
+
 
     return (
         <ScrollView style={{ flex: 1, backgroundColor: "#0D0D25", padding: 20 }}>

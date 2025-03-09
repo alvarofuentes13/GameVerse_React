@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {View, Text, Image, TouchableOpacity, ScrollView, ActivityIndicator} from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
-import {RouteProp, useNavigation, useRoute} from "@react-navigation/native";
+import {NavigationProp, RouteProp, useNavigation, useRoute} from "@react-navigation/native";
 import {AppColors, AppFonts} from "../../theme/AppTheme";
 import {RootStackParamsList} from "../../../../App";
 import {useUser} from "../client/context/UserContext";
@@ -10,7 +10,7 @@ import {ReviewInterface} from "../../../domain/entitites/Review";
 type GameDescriptionRouteProp = RouteProp<RootStackParamsList, "GameDescriptionScreen">;
 
 export default function GameDescriptionScreen() {
-    const navigation = useNavigation();
+    const navigation = useNavigation<NavigationProp<RootStackParamsList>>();
     const route = useRoute<GameDescriptionRouteProp>();
     const usuario = useUser().user;
     console.log(usuario?.name, " ha iniciado sesión");
@@ -75,7 +75,7 @@ export default function GameDescriptionScreen() {
                         flexDirection: "row",
                         alignItems: "center",
                     }}
-                    onPress={() => navigation.navigate("GameReviewScreen", {item: item})} //No funciona :(
+                    onPress={() => navigation.navigate("GameReviewScreen", {item: item})} //Si funciona :)
                 >
                     <FontAwesome name="star" size={16} color = {AppColors.yellow} style={{ marginRight: 5 }} />
                     <Text style={{ color: "#FFF" }}>Valorar</Text>

@@ -5,7 +5,7 @@ import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import {NavigationContainer, RouteProp, useNavigation, useRoute} from "@react-navigation/native";
 import {FontAwesome, MaterialIcons} from "@expo/vector-icons";
 import {AppColors} from "../../theme/AppTheme";
-import styles from "./Styles";
+import styles from "../../theme/Styles";
 import LoginScreen from "./Login";
 import RegisterScreen from "./Register";
 import {NativeStackNavigationProp} from "@react-navigation/native-stack";
@@ -58,7 +58,7 @@ function HomeScreen() {
     console.log(videojuego);
 
     return (
-        <View style={{backgroundColor: AppColors.background, width:"100%", height:"100%", padding: 20}}>
+        <ScrollView style={{backgroundColor: AppColors.background, width:"100%", height:"100%", padding: 20}}>
 
             <TouchableOpacity onPress={() => navigation.openDrawer()} style={{marginBottom: 20}}>
                 <FontAwesome name="bars" size={28} color="white"/>
@@ -86,7 +86,7 @@ function HomeScreen() {
             )}
 
 
-        </View>
+        </ScrollView>
 
     )
         ;
