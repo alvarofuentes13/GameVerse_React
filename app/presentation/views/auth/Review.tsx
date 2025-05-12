@@ -7,17 +7,16 @@ import { AppColors } from "../../theme/AppTheme";
 import { RootStackParamsList } from "../../../../App";
 import {useUser} from "../client/context/UserContext";
 
-type GameReviewRouteProp = RouteProp<RootStackParamsList, "GameReviewScreen">;
+type ReviewRouteProp = RouteProp<RootStackParamsList, "ReviewScreen">;
 
-export default function GameReviewScreen() {
+export default function ReviewScreen() {
     const navigation = useNavigation();
-    const route = useRoute<GameReviewRouteProp>();
+    const route = useRoute<ReviewRouteProp>();
     const { item } = route.params;
     const usuario = useUser().user;
-    console.log(usuario);
-
     const [rating, setRating] = useState(0);
     const [review, setReview] = useState("");
+    const [favorite, setFavorite] = useState(false);
 
 
 
@@ -31,6 +30,7 @@ export default function GameReviewScreen() {
         const reviewData = {
             calificacion: rating,
             comentario: review,
+            favorito: favorite,
             usuario: {
                 id: usuario?.id,
             },
@@ -69,7 +69,7 @@ export default function GameReviewScreen() {
                 </View>
             </View>
 
-            {/* Estrellas para calificación */}
+            {/* Estrellas y favorito para calificación */}
             <Text style={{ color: "#FFF", fontSize: 16, marginBottom: 10 }}>¿Qué valoración le das?</Text>
             <View style={{ flexDirection: "row", marginBottom: 20 }}>
                 {[1, 2, 3, 4, 5].map((star) => (
@@ -77,6 +77,14 @@ export default function GameReviewScreen() {
                         <FontAwesome name="star" size={28} color={star <= rating ? AppColors.yellow : AppColors.grey} style={{ marginRight: 5 }} />
                     </TouchableOpacity>
                 ))}
+                <TouchableOpacity onPress={() => setFavorite(!favorite)}>
+                    <FontAwesome
+                        name={favorite ? "heart" : "heart-o"} // "heart" si favorito, "heart-o" si no
+                        size={28}
+                        color={favorite ? AppColors.alert : AppColors.grey}
+                        style={{ marginLeft: 10 }}
+                    />
+                </TouchableOpacity>
             </View>
 
             {/* Área de texto para la reseña */}

@@ -6,12 +6,13 @@ import {AppColors, AppFonts} from "../../theme/AppTheme";
 import {RootStackParamsList} from "../../../../App";
 import {useUser} from "../client/context/UserContext";
 import {ReviewInterface} from "../../../domain/entitites/Review";
+import ReviewCard from "../../components/ReviewCard";
 
-type GameDescriptionRouteProp = RouteProp<RootStackParamsList, "GameDescriptionScreen">;
+type DescriptionRouteProp = RouteProp<RootStackParamsList, "DescriptionScreen">;
 
-export default function GameDescriptionScreen() {
+export default function DescriptionScreen() {
     const navigation = useNavigation<NavigationProp<RootStackParamsList>>();
-    const route = useRoute<GameDescriptionRouteProp>();
+    const route = useRoute<DescriptionRouteProp>();
     const usuario = useUser().user;
     console.log(usuario?.name, " ha iniciado sesión");
     const { item } = route.params;
@@ -75,7 +76,7 @@ export default function GameDescriptionScreen() {
                         flexDirection: "row",
                         alignItems: "center",
                     }}
-                    onPress={() => navigation.navigate("GameReviewScreen", {item: item})} //Si funciona :)
+                    onPress={() => navigation.navigate("ReviewScreen", {item: item})} //Si funciona :)
                 >
                     <FontAwesome name="star" size={16} color = {AppColors.yellow} style={{ marginRight: 5 }} />
                     <Text style={{ color: "#FFF" }}>Valorar</Text>
@@ -96,11 +97,7 @@ export default function GameDescriptionScreen() {
                 <ActivityIndicator size="large" color={AppColors.yellow} style={{ marginTop: 10 }} />
             ) : (
                 reviews.map((review) => (
-                    <View key={review.id} style={{ backgroundColor: "#1C1C3A", padding: 15, borderRadius: 10, marginTop: 10 }}>
-                        <Text style={{ color: AppColors.white, fontSize: 16 }}>{review.videojuego.titulo}</Text>
-                        <Text style={{ color: "#aaa", fontSize: 14 }}>Reseña de {usuario?.name} {"⭐".repeat(review.calificacion)}</Text>
-                        <Text style={{ color: "#fff", fontSize: 12, marginTop: 5 }}>{review.comentario}</Text>
-                    </View>
+                    <ReviewCard review={review} />
                 ))
             )}
         </ScrollView>

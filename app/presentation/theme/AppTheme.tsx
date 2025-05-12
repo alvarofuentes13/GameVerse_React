@@ -8,6 +8,7 @@ export const AppColors = {
     white: "#ffffff",
     grey: "#6a6a6a",
     yellow: "#ffc107",
+
 }
 
 export const AppFonts = {

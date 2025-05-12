@@ -16,6 +16,7 @@ import viewModel from "../client/category/list/ViewModel";
 import {VideojuegoCategoryListHome} from "../client/category/list/CategoryList";
 import {useUser} from "../client/context/UserContext";
 import {ReviewInterface} from "../../../domain/entitites/Review";
+import ReviewCard from "../../components/ReviewCard";
 
 export type DrawerParamsList = {
     HomeScreen: undefined,
@@ -58,7 +59,7 @@ function HomeScreen() {
     console.log(videojuego);
 
     return (
-        <ScrollView style={{backgroundColor: AppColors.background, width:"100%", height:"100%", padding: 20}}>
+        <ScrollView style={{backgroundColor: AppColors.background, width: "100%", height: "100%", padding: 20}}>
 
             <TouchableOpacity onPress={() => navigation.openDrawer()} style={{marginBottom: 20}}>
                 <FontAwesome name="bars" size={28} color="white"/>
@@ -74,14 +75,10 @@ function HomeScreen() {
 
             <Text style={{color: "#fff", fontSize: 18, marginTop: 20}}>Reviews populares</Text>
             {cargando ? (
-                <ActivityIndicator size="large" color={AppColors.yellow} style={{ marginTop: 10 }} />
+                <ActivityIndicator size="large" color={AppColors.yellow} style={{marginTop: 10}}/>
             ) : (
                 reviews.map((review) => (
-                    <View key={review.id} style={{ backgroundColor: "#1C1C3A", padding: 15, borderRadius: 10, marginTop: 10 }}>
-                        <Text style={{ color: AppColors.white, fontSize: 16 }}>{review.videojuego.titulo}</Text>
-                        <Text style={{ color: "#aaa", fontSize: 14 }}>Reseña de {review.usuario.name} {"⭐".repeat(review.calificacion)}</Text>
-                        <Text style={{ color: "#fff", fontSize: 12, marginTop: 5 }}>{review.comentario}</Text>
-                    </View>
+                    <ReviewCard review={review} />
                 ))
             )}
 
@@ -129,7 +126,7 @@ export default function DrawerNavigator() {
                 headerShown: false,
                 drawerActiveTintColor: AppColors.primary
             }}>
-            <Drawer.Screen name={"HomeScreen"} component={HomeTabs}/>
+            <Drawer.Screen name="HomeScreen" component={HomeTabs}/>
         </Drawer.Navigator>
     );
 }

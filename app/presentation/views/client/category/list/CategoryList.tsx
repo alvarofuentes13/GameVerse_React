@@ -16,7 +16,7 @@ export const VideojuegoCategoryListHome = ({videojuego}: Props) => {
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamsList>>();
 
     const renderItem = useCallback(({item}: {item: VideojuegoInterface}) =>
-        <TouchableOpacity onPress={() => navigation.navigate("GameDescriptionScreen", {item: item})}>
+        <TouchableOpacity onPress={() => navigation.navigate("DescriptionScreen", {item: item})}>
             <Image
                 source={{uri: item.portada}}
                 style={{width: 100, height: 140, margin: 5, borderRadius: 8}}

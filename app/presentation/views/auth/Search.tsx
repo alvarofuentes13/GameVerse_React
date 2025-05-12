@@ -44,7 +44,7 @@ export default function SearchScreen() {
                             borderRadius: 10,
                             marginTop: 15,
                         }}
-                        onPress={() => navigation.navigate("GameDescriptionScreen", {item: item})} // Pasar datos
+                        onPress={() => navigation.navigate("DescriptionScreen", {item: item})} // Pasar datos
                     >
                         <Image source={{uri: item.portada}} style={{ width: 60, height: 80, borderRadius: 8, marginRight: 10 }} />
                         <View style={{ flex: 1 }}>

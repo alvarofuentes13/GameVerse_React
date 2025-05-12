@@ -11,8 +11,8 @@ import LoginScreen from "./app/presentation/views/auth/Login";
 import RegisterScreen from "./app/presentation/views/auth/Register";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import ProfileScreen from "./app/presentation/views/auth/Profile";
-import GameDescriptionScreen from "./app/presentation/views/auth/GameDescription";
-import GameReviewScreen from "./app/presentation/views/auth/GameReview";
+import DescriptionScreen from "./app/presentation/views/auth/Description";
+import ReviewScreen from "./app/presentation/views/auth/Review";
 import SearchScreen from "./app/presentation/views/auth/Search";
 import {VideojuegoInterface} from "./app/domain/entitites/Videojuego";
 import {UserProvider} from "./app/presentation/views/client/context/UserContext";
@@ -23,8 +23,8 @@ export type RootStackParamsList = {
     RegisterScreen: undefined,
     HomeScreen: undefined,
     ProfileScreen: undefined,
-    GameDescriptionScreen: { item: VideojuegoInterface };
-    GameReviewScreen: { item: VideojuegoInterface };
+    DescriptionScreen: { item: VideojuegoInterface };
+    ReviewScreen: { item: VideojuegoInterface };
     SearchScreen: { item: VideojuegoInterface },
 }
 
@@ -58,8 +58,8 @@ export default function App() {
                 <Stack.Screen name={"RegisterScreen"} component={RegisterScreen}/>
                 <Stack.Screen name={"HomeScreen"} component={HomeScreen}/>
                 <Stack.Screen name={"ProfileScreen"} component={ProfileScreen}/>
-                <Stack.Screen name={"GameDescriptionScreen"} component={GameDescriptionScreen}/>
-                <Stack.Screen name={"GameReviewScreen"} component={GameReviewScreen}/>
+                <Stack.Screen name={"DescriptionScreen"} component={DescriptionScreen}/>
+                <Stack.Screen name={"ReviewScreen"} component={ReviewScreen}/>
                 <Stack.Screen name={"SearchScreen"} component={SearchScreen}/>
             </Stack.Navigator>
         </NavigationContainer>
