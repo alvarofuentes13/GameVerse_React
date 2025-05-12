@@ -7,6 +7,7 @@ export interface ReviewInterface {
     fechaCompra: string;
     calificacion: number;
     comentario: string;
+    favorito: boolean;
     usuario: UsuarioInterface;
     videojuego: VideojuegoInterface;
 }

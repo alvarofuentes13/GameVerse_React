@@ -101,7 +101,7 @@ function LoginScreen() {
                     onChangeText={handleEmailChange} // Actualiza email y valida en tiempo real
                     style={[styles.formInput, emailError && { borderColor: 'red' }]} // Mostrar borde rojo si hay error
                     placeholderTextColor={AppColors.white}
-                    placeholder={"Usuario"}
+                    placeholder={"Correo electrónico"}
                     keyboardType={"email-address"}
                 />
 
