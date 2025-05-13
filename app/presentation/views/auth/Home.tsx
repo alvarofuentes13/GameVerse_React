@@ -16,7 +16,7 @@ import viewModel from "../client/category/list/ViewModel";
 import {VideojuegoCategoryListHome} from "../client/category/list/CategoryList";
 import {useUser} from "../client/context/UserContext";
 import {ReviewInterface} from "../../../domain/entitites/Review";
-import ReviewCard from "../../components/ReviewCard";
+import ReviewCard from "../../components/cards/ReviewCard";
 
 export type DrawerParamsList = {
     HomeScreen: undefined,
@@ -26,7 +26,6 @@ function HomeScreen() {
     const navigation = useNavigation<DrawerNavigationProp<DrawerParamsList>>();
 
     const usuario = useUser().user;
-    console.log(usuario);
 
     const {videojuego, getVideojuegos} = viewModel.VideojuegoViewModel();
 
@@ -45,7 +44,6 @@ function HomeScreen() {
                 const response = await fetch(`http://localhost:8080/api/reviews`);
                 const data = await response.json();
                 setReviews(data);
-                console.log(data);
             } catch (error) {
                 console.error("Error al obtener reviews:", error);
             } finally {
@@ -56,7 +54,6 @@ function HomeScreen() {
         fetchReviews();
     }, [usuario]);
 
-    console.log(videojuego);
 
     return (
         <ScrollView style={{backgroundColor: AppColors.background, width: "100%", height: "100%", padding: 20}}>
