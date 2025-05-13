@@ -16,7 +16,7 @@ import viewModel from "../client/category/list/ViewModel";
 import {VideojuegoCategoryListHome} from "../client/category/list/CategoryList";
 import {useUser} from "../client/context/UserContext";
 import {ReviewInterface} from "../../../domain/entitites/Review";
-import ReviewCard from "../../components/ReviewCard";
+import ReviewCard from "../../components/cards/ReviewCard";
 
 export type DrawerParamsList = {
     HomeScreen: undefined,

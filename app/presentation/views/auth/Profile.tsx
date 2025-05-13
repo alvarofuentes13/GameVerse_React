@@ -5,7 +5,7 @@ import {AppColors} from "../../theme/AppTheme";
 import {useUser} from "../client/context/UserContext";
 import {ReviewInterface} from "../../../domain/entitites/Review";
 import {useFocusEffect} from "@react-navigation/native";
-import ReviewCard from "../../components/ReviewCard";
+import ReviewCard from "../../components/cards/ReviewCard";
 
 export default function ProfileScreen() {
     const usuario = useUser().user;
