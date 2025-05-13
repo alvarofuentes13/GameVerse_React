@@ -1,34 +1,38 @@
-import React, {useEffect, useState} from "react";
-import {View, Text, Image, FlatList, ScrollView, ActivityIndicator} from "react-native";
-import styles from "../../theme/Styles";
+import React, {useState} from "react";
+import {ActivityIndicator, FlatList, Image, ScrollView, Text, TouchableOpacity, View} from "react-native";
 import {AppColors} from "../../theme/AppTheme";
 import {useUser} from "../client/context/UserContext";
 import {ReviewInterface} from "../../../domain/entitites/Review";
 import {useFocusEffect} from "@react-navigation/native";
-import ReviewCard from "../../components/ReviewCard";
+import ReviewCard from "../../components/cards/ReviewCard";
+import AvatarPickModal from "../../components/modals/AvatarPickModal"; // Ajusta la ruta si es necesario
 
 export default function ProfileScreen() {
-    const usuario = useUser().user;
+    const { user: usuario, setUserData } = useUser();
     const [reviews, setReviews] = useState<ReviewInterface[]>([]);
     const [cargando, setCargando] = useState(true);
+    const [modalVisible, setModalVisible] = useState(false);
 
-    const reviewsFavoritas = reviews.filter(review => review.favorito);
+    const avatarOptions = [
+        require("../../../../assets/img/bigahhforehead.png"),
+        require("../../../../assets/img/bigahhforehead.png"),
+        require("../../../../assets/img/bigahhforehead.png"),
+        require("../../../../assets/img/bigahhforehead.png"),
+    ];
+
+    const reviewsFavoritas = reviews.filter((review) => review.favorito);
 
     const videojuegosUnicos = Array.from(
-        new Map(
-            reviewsFavoritas.map(review => [review.videojuego.id, review.videojuego])
-        ).values()
+        new Map(reviewsFavoritas.map((review) => [review.videojuego.id, review.videojuego])).values()
     );
 
-
     const fetchReviews = async () => {
-        if (!usuario) return; // Si el usuario no está definido, no hacemos la petición.
+        if (!usuario) return;
 
         try {
             const response = await fetch(`http://localhost:8080/api/reviews/usuario/${usuario.id}`);
             const data = await response.json();
             setReviews(data);
-            console.log(data);
         } catch (error) {
             console.error("Error al obtener reviews:", error);
         } finally {
@@ -38,52 +42,73 @@ export default function ProfileScreen() {
 
     useFocusEffect(
         React.useCallback(() => {
-            setCargando(true); // Iniciamos el estado de carga cada vez que la pantalla se enfoque
-            fetchReviews(); // Cargamos las reseñas
-        }, [usuario]) // Dependemos de usuario, ya que si el usuario cambia, queremos que se recargue la data
+            setCargando(true);
+            fetchReviews();
+        }, [usuario])
     );
 
-
     return (
-        <ScrollView style={{flex: 1, backgroundColor: "#0D0D25", padding: 20}}>
+        <ScrollView style={{ flex: 1, backgroundColor: "#0D0D25", padding: 20 }}>
+            {/* Modal de selección de avatar */}
+            <AvatarPickModal
+                visible={modalVisible}
+                onClose={() => setModalVisible(false)}
+                onSelect={(avatar) => {
+                    if (!usuario){
+                        console.log("NO hay usuario");
+                        return;
+                    }
+                    const avatarUri = Image.resolveAssetSource(avatar).uri;
+                    setUserData({ ...usuario, avatar: avatarUri });
+                    setModalVisible(false);
+                }}
+                avatarOptions={avatarOptions}
+            />
+
             {/* Información del usuario */}
-            <View style={{alignItems: "center", marginBottom: 20}}>
-                <Image
-                    source={usuario?.avatar ? usuario.avatar : require("../../../../assets/img/bigahhforehead.png")}
-                    style={{width: 100, height: 100, borderRadius: 50, marginBottom: 10}}
-                />
-                <Text style={{color: "#fff", fontSize: 24, fontWeight: "bold"}}>{usuario?.name}</Text>
+            <View style={{ alignItems: "center", marginBottom: 20 }}>
+                <TouchableOpacity onPress={() => setModalVisible(true)}>
+                    <Image
+                        source={
+                            usuario?.avatar
+                                ? { uri: usuario.avatar }
+                                : require("../../../../assets/img/bigahhforehead.png")
+                        }
+                        style={{ width: 100, height: 100, borderRadius: 50, marginBottom: 10 }}
+                    />
+                </TouchableOpacity>
+                <Text style={{ color: "#fff", fontSize: 24, fontWeight: "bold" }}>{usuario?.name}</Text>
             </View>
 
-            {/* Videojuegos favoritos (de las reviews) */}
-            <View style={{flexDirection: "row", justifyContent: "space-between", marginTop: 20, marginBottom: 15}}>
-                <Text style={{color: "#fff", fontSize: 18}}>Tus videojuegos favoritos</Text>
+            {/* Videojuegos favoritos */}
+            <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 20, marginBottom: 15 }}>
+                <Text style={{ color: "#fff", fontSize: 18 }}>Tus videojuegos favoritos</Text>
             </View>
             {cargando ? (
-                <ActivityIndicator size="large" color={AppColors.yellow}/>
+                <ActivityIndicator size="large" color={AppColors.yellow} />
             ) : (
                 <FlatList
                     horizontal
-                    data={videojuegosUnicos} // Extraemos los videojuegos de las reviews
+                    data={videojuegosUnicos}
                     keyExtractor={(item) => item.id.toString()}
-                    renderItem={({item}) => (
-                        <Image source={{uri: item.portada}}
-                               style={{width: 100, height: 140, marginRight: 10, borderRadius: 8}}/>
+                    renderItem={({ item }) => (
+                        <Image
+                            source={{ uri: item.portada }}
+                            style={{ width: 100, height: 140, marginRight: 10, borderRadius: 8 }}
+                        />
                     )}
                     showsHorizontalScrollIndicator={false}
                 />
             )}
 
-            {/* Reviews del usuario */}
-            <View style={{flexDirection: "row", justifyContent: "space-between", marginTop: 20}}>
-                <Text style={{color: "#fff", fontSize: 18}}>Últimas reseñas de {usuario?.name}</Text>
+            {/* Últimas reviews */}
+            <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 20 }}>
+                <Text style={{ color: "#fff", fontSize: 18 }}>Últimas reseñas de {usuario?.name}</Text>
             </View>
             {cargando ? (
-                <ActivityIndicator size="large" color={AppColors.yellow} style={{marginTop: 10}}/>
+                <ActivityIndicator size="large" color={AppColors.yellow} style={{ marginTop: 10 }} />
             ) : (
-                reviews.map((review) => (
-                    <ReviewCard review={review} />
-                ))
+                reviews.map((review) => <ReviewCard key={review.id} review={review} />)
             )}
         </ScrollView>
     );

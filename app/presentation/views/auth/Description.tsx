@@ -6,7 +6,7 @@ import {AppColors, AppFonts} from "../../theme/AppTheme";
 import {RootStackParamsList} from "../../../../App";
 import {useUser} from "../client/context/UserContext";
 import {ReviewInterface} from "../../../domain/entitites/Review";
-import ReviewCard from "../../components/ReviewCard";
+import ReviewCard from "../../components/cards/ReviewCard";
 
 type DescriptionRouteProp = RouteProp<RootStackParamsList, "DescriptionScreen">;
 
