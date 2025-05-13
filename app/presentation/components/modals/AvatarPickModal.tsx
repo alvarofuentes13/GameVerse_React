@@ -1,10 +1,11 @@
 import React from "react";
 import { Modal, View, TouchableOpacity, Text, Image } from "react-native";
+import {AppColors} from "../../theme/AppTheme";
 
 interface AvatarPickModalProps {
     visible: boolean;
     onClose: () => void;
-    onSelect: (avatarUri: string) => void;
+    onSelect: (avatar: object) => void;
     avatarOptions: any[];
 }
 
@@ -43,7 +44,7 @@ export default function AvatarPickModal({ visible, onClose, onSelect, avatarOpti
                         ))}
                     </View>
                     <TouchableOpacity onPress={onClose}>
-                        <Text style={{ color: '#FFD700', textAlign: 'center', marginTop: 15 }}>Cancelar</Text>
+                        <Text style={{ color: AppColors.yellow, textAlign: 'center', marginTop: 15 }}>Cancelar</Text>
                     </TouchableOpacity>
                 </View>
             </View>
