@@ -1,5 +1,5 @@
 import {Text, View} from "react-native";
-import {AppColors} from "../theme/AppTheme";
+import {AppColors} from "../../theme/AppTheme";
 import React from "react";
 
 
