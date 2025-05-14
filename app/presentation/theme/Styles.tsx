@@ -136,11 +136,20 @@ const styles = StyleSheet.create({
         fontFamily: AppFonts.regular,
     },
     reviewCard:{
-        backgroundColor: "#1C1C3A",
+        backgroundColor: AppColors.cardBackground,
         padding: 12,
         paddingVertical: 8,
-        borderRadius: 10,
-        marginTop: 10
+        borderRadius: 7,
+        marginTop: 10,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.23,
+        shadowRadius: 2.62,
+
+        elevation: 4,
     }
 });
 

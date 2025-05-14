@@ -1,5 +1,4 @@
 import {Text, View} from "react-native";
-import {AppColors, AppFonts} from "../../theme/AppTheme";
 import React from "react";
 import styles from "../../theme/Styles";
 
