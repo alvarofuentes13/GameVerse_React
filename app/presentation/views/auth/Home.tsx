@@ -66,9 +66,10 @@ function HomeScreen() {
             <Text style={{color: "#aaa", fontSize: 14}}>Opina sobre los videojuegos que has jugado</Text>
 
             <View>
-                <Text style={{color: "#fff", fontSize: 18, marginTop: 20}}>Videojuegos populares de este mes</Text>
-                <VideojuegoCategoryListHome videojuego={videojuego}/>
+                <Text style={{ color: "#fff", fontSize: 18, marginTop: 20 }}>Videojuegos populares de este mes</Text>
+                <VideojuegoCategoryListHome />
             </View>
+
 
             <Text style={{color: "#fff", fontSize: 18, marginTop: 20}}>Reviews populares</Text>
             {cargando ? (
