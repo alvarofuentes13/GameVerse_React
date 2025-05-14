@@ -9,18 +9,33 @@ const styles = StyleSheet.create({
         height: '100%',
         backgroundColor: AppColors.background
     },
+    superText:{ // Titulos muy grandes
+        color: AppColors.primary,
+        fontSize: 20,
+        fontFamily: AppFonts.bold,
+        marginVertical: 10
+    },
+    titleText:{ // Titulos normales en letra blanca y en negrita
+        color: AppColors.primary,
+        fontSize: 16,
+        fontFamily: AppFonts.medium,
+    },
+    headerText:{ // Titulos pero mas pequeños
+        color: AppColors.primary,
+        fontSize: 14,
+        fontFamily: AppFonts.regular,
+    },
+    normalText:{ // Texto normal
+        color: AppColors.grey,
+        fontSize: 12,
+        fontFamily: AppFonts.regular,
+    },
     title: {
         color: 'white',
         textAlign: 'center',
         marginTop: "6%",
         fontSize: 20,
         fontWeight: 'bold',
-    },
-    headerText: {
-        color: AppColors.white,
-        textAlign: 'center',
-        fontSize: 15,
-        fontFamily: AppFonts.regular
     },
     headerNumber: {
         color: AppColors.primary,
@@ -117,7 +132,15 @@ const styles = StyleSheet.create({
         height: "100%",
     },
     drawerItem: {
-        borderRadius: 20
+        borderRadius: 20,
+        fontFamily: AppFonts.regular,
+    },
+    reviewCard:{
+        backgroundColor: "#1C1C3A",
+        padding: 12,
+        paddingVertical: 8,
+        borderRadius: 10,
+        marginTop: 10
     }
 });
 
