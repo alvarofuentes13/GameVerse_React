@@ -3,9 +3,10 @@ import { View, Text, Image, TouchableOpacity, TextInput, Alert } from "react-nat
 import { FontAwesome } from "@expo/vector-icons";
 import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import axios from "axios"; // Importar axios
-import { AppColors } from "../../theme/AppTheme";
+import {AppColors, AppFonts} from "../../theme/AppTheme";
 import { RootStackParamsList } from "../../../../App";
 import {useUser} from "../client/context/UserContext";
+import styles from "../../theme/Styles";
 
 type ReviewRouteProp = RouteProp<RootStackParamsList, "ReviewScreen">;
 
@@ -64,13 +65,13 @@ export default function ReviewScreen() {
             <View style={{ flexDirection: "row", alignItems: "center", marginBottom: 20 }}>
                 <Image source={{ uri: item.portada }} style={{ width: 100, height: 150, borderRadius: 10, marginRight: 15 }} />
                 <View>
-                    <Text style={{ color: "#FFF", fontSize: 20, fontWeight: "bold" }}>{item.titulo}</Text>
-                    <Text style={{ color: "#AAA", fontSize: 16 }}>{item.fechaLanzamiento}</Text>
+                    <Text style={styles.titleText}>{item.titulo}</Text>
+                    <Text style={styles.normalText}>{item.fechaLanzamiento}</Text>
                 </View>
             </View>
 
             {/* Estrellas y favorito para calificación */}
-            <Text style={{ color: "#FFF", fontSize: 16, marginBottom: 10 }}>¿Qué valoración le das?</Text>
+            <Text style={styles.headerText}>¿Qué valoración le das?</Text>
             <View style={{ flexDirection: "row", marginBottom: 20 }}>
                 {[1, 2, 3, 4, 5].map((star) => (
                     <TouchableOpacity key={star} onPress={() => setRating(star)}>
@@ -93,6 +94,7 @@ export default function ReviewScreen() {
                     backgroundColor: "#1C1C3A",
                     color: "#FFF",
                     fontSize: 16,
+                    fontFamily: AppFonts.regular,
                     padding: 15,
                     borderRadius: 10,
                     height: 150,
@@ -107,16 +109,10 @@ export default function ReviewScreen() {
 
             {/* Botón de enviar */}
             <TouchableOpacity
-                style={{
-                    backgroundColor: "#3498db",
-                    padding: 12,
-                    borderRadius: 10,
-                    alignItems: "center",
-                    marginTop: 20,
-                }}
+                style={styles.buttonForm}
                 onPress={handleSubmitReview}
             >
-                <Text style={{ color: "#FFF", fontSize: 18 }}>Listo</Text>
+                <Text style={styles.buttonFormText}>Listo</Text>
             </TouchableOpacity>
         </View>
     );

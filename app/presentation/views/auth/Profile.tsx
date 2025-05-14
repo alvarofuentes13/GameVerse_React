@@ -94,7 +94,7 @@ export default function ProfileScreen() {
                         style={{width: 100, height: 100, borderRadius: 50, marginBottom: 10}}
                     />
                 </TouchableOpacity>
-                <Text style={{color: "#fff", fontSize: 24, fontWeight: "bold"}}>{usuario?.name}</Text>
+                <Text style={styles.superText}>{usuario?.name}</Text>
             </View>
 
             {/* Videojuegos favoritos */}

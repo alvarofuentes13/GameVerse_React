@@ -23,7 +23,7 @@ export default function SearchScreen() {
             <View style={{ flexDirection: "row", alignItems: "center", backgroundColor: "#1C1C3A", borderRadius: 10, padding: 10 }}>
                 <FontAwesome name="search" size={20} color="#FFF" style={{ marginRight: 10 }} />
                 <TextInput
-                    style={styles.normalText}
+                    style={styles.headerText}
                     placeholder="Buscar juegos..."
                     placeholderTextColor="#777"
                     value={search}

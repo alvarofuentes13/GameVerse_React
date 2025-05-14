@@ -7,6 +7,7 @@ import {RootStackParamsList} from "../../../../App";
 import {useUser} from "../client/context/UserContext";
 import {ReviewInterface} from "../../../domain/entitites/Review";
 import ReviewCard from "../../components/cards/ReviewCard";
+import styles from "../../theme/Styles";
 
 type DescriptionRouteProp = RouteProp<RootStackParamsList, "DescriptionScreen">;
 
@@ -56,11 +57,11 @@ export default function DescriptionScreen() {
                     source={{uri: item.portada}}
                     style={{ width: 150, height: 220, borderRadius: 10 }}
                 />
-                <Text style={{ color: "#FFF", fontSize: 24, fontWeight: "bold", marginTop: 10, fontFamily: AppFonts.bold }}>
+                <Text style={styles.superText}>
                     {item.titulo}
                 </Text>
                 <Text style={{ fontSize: 16, color: "#AAA", fontFamily: AppFonts.regular }}>{item.fechaLanzamiento.split("-")[0]}</Text>
-                <Text style={{ color: "#AAA", textAlign: "center", marginTop: 10 }}>
+                <Text style={styles.normalText}>
                     {item.descripcion}
                 </Text>
             </View>
@@ -79,7 +80,7 @@ export default function DescriptionScreen() {
                     onPress={() => navigation.navigate("ReviewScreen", {item: item})} //Si funciona :)
                 >
                     <FontAwesome name="star" size={16} color = {AppColors.yellow} style={{ marginRight: 5 }} />
-                    <Text style={{ color: "#FFF" }}>Valorar</Text>
+                    <Text style={styles.headerText}>Valorar</Text>
                 </TouchableOpacity>
             </View>
 
@@ -87,11 +88,11 @@ export default function DescriptionScreen() {
             {/* Reseñas */}
             {reviews.length != 0 ?
                 <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 20 }}>
-                    <Text style={{ color: "#fff", fontSize: 18, fontFamily: AppFonts.medium }}>Reviews de {item.titulo}</Text>
+                    <Text style={styles.titleText}>Reviews de {item.titulo}</Text>
                 </View>
                 :
                 <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 20 }}>
-                    <Text style={{ color: "#fff", fontSize: 18, fontFamily: AppFonts.medium  }}>Este juego no tiene reseñas,¡escribe una!</Text>
+                    <Text style={styles.titleText}>Este juego no tiene reseñas,¡escribe una!</Text>
                 </View>}
             {cargando ? (
                 <ActivityIndicator size="large" color={AppColors.yellow} style={{ marginTop: 10 }} />
