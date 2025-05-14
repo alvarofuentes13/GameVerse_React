@@ -59,7 +59,6 @@ function LoginScreen() {
         try {
             const response = await fetch(`http://localhost:8080/api/usuarios/email/${email}`);
             const user = await response.json();
-            console.log(user);
 
             if (!user) {
                 Alert.alert("Error", "Usuario no encontrado.");

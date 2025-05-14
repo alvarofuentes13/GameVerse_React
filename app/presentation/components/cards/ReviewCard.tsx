@@ -1,16 +1,17 @@
 import {Text, View} from "react-native";
-import {AppColors} from "../../theme/AppTheme";
+import {AppColors, AppFonts} from "../../theme/AppTheme";
 import React from "react";
+import styles from "../../theme/Styles";
 
 
 export default function ReviewCard({review}: any){
     return (
         <View key={review.id}
-              style={{backgroundColor: "#1C1C3A", padding: 15, borderRadius: 10, marginTop: 10}}>
-            <Text style={{color: AppColors.white, fontSize: 16}}>{review.videojuego.titulo}</Text>
-            <Text style={{color: "#aaa", fontSize: 14}}>Reseña
+              style={styles.reviewCard}>
+            <Text style={styles.titleText}>{review.videojuego.titulo}</Text>
+            <Text style={styles.headerText}>Reseña
                 de {review.usuario.name} {"⭐".repeat(review.calificacion)} {review.favorito ? " ❤️" : ""}</Text>
-            <Text style={{color: "#fff", fontSize: 12, marginTop: 5}}>{review.comentario}</Text>
+            <Text style={styles.normalText}>{review.comentario}</Text>
         </View>
     )
 }

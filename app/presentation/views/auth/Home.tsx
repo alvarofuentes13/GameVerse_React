@@ -62,15 +62,14 @@ function HomeScreen() {
                 <FontAwesome name="bars" size={28} color="white"/>
             </TouchableOpacity>
 
-            <Text style={{color: "#fff", fontSize: 24, fontWeight: "bold"}}>Hola, {usuario?.name}!</Text>
-            <Text style={{color: "#aaa", fontSize: 14}}>Opina sobre los videojuegos que has jugado</Text>
+            <Text style={styles.superText}>Hola, {usuario?.name}!</Text>
 
             <View>
-                <Text style={{color: "#fff", fontSize: 18, marginTop: 20}}>Videojuegos populares de este mes</Text>
+                <Text style={styles.titleText}>Videojuegos populares de este mes</Text>
                 <VideojuegoCategoryListHome videojuego={videojuego}/>
             </View>
 
-            <Text style={{color: "#fff", fontSize: 18, marginTop: 20}}>Reviews populares</Text>
+            <Text style={styles.titleText}>Reviews populares</Text>
             {cargando ? (
                 <ActivityIndicator size="large" color={AppColors.yellow} style={{marginTop: 10}}/>
             ) : (

@@ -1,7 +1,7 @@
 import React from "react";
 
 export const AppColors = {
-    primary: "#4CA6E7",
+    primary: "#cfd7dc",
     secondary: "#264ad8",
     background: "#0E0E2A",
     alert: "#df0f0f",

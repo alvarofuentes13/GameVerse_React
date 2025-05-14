@@ -4,6 +4,7 @@ import { FontAwesome } from "@expo/vector-icons";
 import {NavigationProp, useNavigation} from "@react-navigation/native";
 import viewModel from "../client/category/list/ViewModel";
 import {RootStackParamsList} from "../../../../App";
+import styles from "../../theme/Styles";
 
 
 export default function SearchScreen() {
@@ -22,7 +23,7 @@ export default function SearchScreen() {
             <View style={{ flexDirection: "row", alignItems: "center", backgroundColor: "#1C1C3A", borderRadius: 10, padding: 10 }}>
                 <FontAwesome name="search" size={20} color="#FFF" style={{ marginRight: 10 }} />
                 <TextInput
-                    style={{ flex: 1, color: "#FFF", fontSize: 16,}}
+                    style={styles.normalText}
                     placeholder="Buscar juegos..."
                     placeholderTextColor="#777"
                     value={search}
@@ -48,8 +49,8 @@ export default function SearchScreen() {
                     >
                         <Image source={{uri: item.portada}} style={{ width: 60, height: 80, borderRadius: 8, marginRight: 10 }} />
                         <View style={{ flex: 1 }}>
-                            <Text style={{ color: "#FFF", fontSize: 18, fontWeight: "bold", width:"70%" }}>{item.titulo}</Text>
-                            <Text style={{ color: "#777", fontSize: 14 }}>{item.fechaLanzamiento.split("-")[0]}</Text>
+                            <Text style={styles.titleText}>{item.titulo}</Text>
+                            <Text style={styles.normalText}>{item.fechaLanzamiento.split("-")[0]}</Text>
                         </View>
                     </TouchableOpacity>
                 )}

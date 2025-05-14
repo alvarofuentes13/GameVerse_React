@@ -6,7 +6,8 @@ import {ReviewInterface} from "../../../domain/entitites/Review";
 import {useFocusEffect} from "@react-navigation/native";
 import ReviewCard from "../../components/cards/ReviewCard";
 import AvatarPickModal from "../../components/modals/AvatarPickModal";
-import axios from "axios"; // Ajusta la ruta si es necesario
+import axios from "axios";
+import styles from "../../theme/Styles"; // Ajusta la ruta si es necesario
 
 export default function ProfileScreen() {
     const {user: usuario, setUserData} = useUser();
@@ -98,7 +99,7 @@ export default function ProfileScreen() {
 
             {/* Videojuegos favoritos */}
             <View style={{flexDirection: "row", justifyContent: "space-between", marginTop: 20, marginBottom: 15}}>
-                <Text style={{color: "#fff", fontSize: 18}}>Tus videojuegos favoritos</Text>
+                <Text style={styles.titleText}>Tus videojuegos favoritos</Text>
             </View>
             {cargando ? (
                 <ActivityIndicator size="large" color={AppColors.yellow}/>
@@ -119,7 +120,7 @@ export default function ProfileScreen() {
 
             {/* Últimas reviews */}
             <View style={{flexDirection: "row", justifyContent: "space-between", marginTop: 20}}>
-                <Text style={{color: "#fff", fontSize: 18}}>Últimas reseñas de {usuario?.name}</Text>
+                <Text style={styles.titleText}>Últimas reseñas de {usuario?.name}</Text>
             </View>
             {cargando ? (
                 <ActivityIndicator size="large" color={AppColors.yellow} style={{marginTop: 10}}/>
