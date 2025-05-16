@@ -1,7 +1,14 @@
-import React from "react";
-import { View, Text, ScrollView, StyleSheet, Image, FlatList } from "react-native";
+import React, {useEffect, useState} from "react";
+import {View, Text, ScrollView, StyleSheet, Image, FlatList, ActivityIndicator} from "react-native";
 import {AppColors} from "../../theme/AppTheme";
 import styles from "../../theme/Styles";
+import ListCard from "../../components/cards/ListCard";
+import {ReviewInterface} from "../../../domain/entitites/Review";
+import {useNavigation} from "@react-navigation/native";
+import {DrawerNavigationProp} from "@react-navigation/drawer";
+import {useUser} from "../client/context/UserContext";
+import {DrawerParamsList} from "./Home";
+import {ListInterface} from "../../../domain/entitites/List";
 
 const listasEjemplo = [
     {
@@ -32,47 +39,42 @@ const listasEjemplo = [
     }
 ];
 
-export default function ListScreen() {
-    return (
-        <ScrollView style={listStyles.container}>
-            {listasEjemplo.map((lista) => (
-                <View key={lista.id} style={listStyles.listaContainer}>
-                    <Text style={styles.titleText}>{lista.nombre}</Text>
-                    <Text style={styles.normalText}>{lista.descripcion}</Text>
-                    <Text style={styles.headerText}>{lista.autor}</Text>
-                    <Text style={styles.headerText}>{lista.cantidad} ítems</Text>
 
-                    <FlatList
-                        data={lista.juegos}
-                        horizontal
-                        keyExtractor={(item, index) => index.toString()}
-                        renderItem={({ item }) => (
-                            <Image source={item} style={listStyles.portada} />
-                        )}
-                        showsHorizontalScrollIndicator={false}
-                    />
-                </View>
-            ))}
+export default function ListScreen() {
+    const usuario = useUser().user;
+
+    const [listas, setListas] = useState<ListInterface[]>([]);
+    const [cargando, setCargando] = useState(true);
+
+    useEffect(() => {
+        const fetchReviews = async () => {
+            if (!usuario) return; // Si el usuario no está definido, no hacemos la petición.
+
+            try {
+                const response = await fetch(`http://localhost:8080/api/listas`);
+                const data = await response.json();
+                setListas(data);
+            } catch (error) {
+                console.error("Error al obtener listas:", error);
+            } finally {
+                setCargando(false);
+            }
+        };
+
+        fetchReviews();
+    }, [usuario]);
+
+    return (
+        <ScrollView style={styles.container}>
+            {cargando ? (
+                <ActivityIndicator size="large" color={AppColors.yellow}/>
+            ) : (
+                listas.map((lista) => (
+                    <ListCard lista={lista}/>
+                ))
+            )}
+
         </ScrollView>
     );
 }
 
-const listStyles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: AppColors.background,
-        padding: 20,
-    },
-    listaContainer: {
-        backgroundColor: AppColors.cardBackground,
-        borderRadius: 12,
-        padding: 16,
-        marginBottom: 20,
-    },
-    portada: {
-        width: 100,
-        height: 140,
-        borderRadius: 6,
-        marginRight: 10,
-    },
-});

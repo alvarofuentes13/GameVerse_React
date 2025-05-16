@@ -75,7 +75,7 @@ function HomeScreen() {
                 <ActivityIndicator size="large" color={AppColors.yellow} style={{marginTop: 10}}/>
             ) : (
                 reviews.map((review) => (
-                    <ReviewCard review={review} />
+                    <ReviewCard review={review}/>
                 ))
             )}
 
