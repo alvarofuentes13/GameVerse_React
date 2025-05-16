@@ -17,6 +17,7 @@ import {VideojuegoCategoryListHome} from "../client/category/list/CategoryList";
 import {useUser} from "../client/context/UserContext";
 import {ReviewInterface} from "../../../domain/entitites/Review";
 import ReviewCard from "../../components/cards/ReviewCard";
+import ListScreen from "./List";
 
 export type DrawerParamsList = {
     HomeScreen: undefined,
@@ -109,6 +110,11 @@ function HomeTabs() {
                 tabBarShowLabel: false,
                 tabBarItemStyle: styles.tabItem,
                 tabBarIcon: ({color}) => <MaterialIcons name="person" size={35} color={color}/>,
+            }}/>
+            <Tab.Screen name="ListScreen" component={ListScreen} options={{
+                tabBarShowLabel: false,
+                tabBarItemStyle: styles.tabItem,
+                tabBarIcon: ({color}) => <MaterialIcons name="storage" size={35} color={color}/>,
             }}/>
         </Tab.Navigator>
     );

@@ -5,6 +5,7 @@ import {NavigationProp, useNavigation} from "@react-navigation/native";
 import viewModel from "../client/category/list/ViewModel";
 import {RootStackParamsList} from "../../../../App";
 import styles from "../../theme/Styles";
+import {AppColors} from "../../theme/AppTheme";
 
 
 export default function SearchScreen() {
@@ -20,7 +21,7 @@ export default function SearchScreen() {
     const filteredGames = videojuego.filter((game) => game.titulo.toLowerCase().includes(search.toLowerCase()));
 */
     return (
-        <View style={{ flex: 1, backgroundColor: "#0D0D25", padding: 20 }}>
+        <View style={{backgroundColor: AppColors.background, width: "100%", height: "100%", padding: 20}}>
             <View style={{ flexDirection: "row", alignItems: "center", backgroundColor: "#1C1C3A", borderRadius: 10, padding: 10 }}>
                 <FontAwesome name="search" size={20} color="#FFF" style={{ marginRight: 10 }} />
                 <TextInput

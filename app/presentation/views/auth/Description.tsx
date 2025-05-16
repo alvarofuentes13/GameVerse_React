@@ -15,7 +15,6 @@ export default function DescriptionScreen() {
     const navigation = useNavigation<NavigationProp<RootStackParamsList>>();
     const route = useRoute<DescriptionRouteProp>();
     const usuario = useUser().user;
-    console.log(usuario?.name, " ha iniciado sesión");
     const { item } = route.params;
     console.log("Game Description Screen", item);
 

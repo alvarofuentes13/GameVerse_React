@@ -17,12 +17,14 @@ import SearchScreen from "./app/presentation/views/auth/Search";
 import {VideojuegoInterface} from "./app/domain/entitites/Videojuego";
 import {UserProvider} from "./app/presentation/views/client/context/UserContext";
 import DrawerNavigator from "./app/presentation/views/auth/Home";
+import ListScreen from "./app/presentation/views/auth/List";
 
 export type RootStackParamsList = {
     LoginScreen: undefined,
     RegisterScreen: undefined,
     HomeScreen: undefined,
     ProfileScreen: undefined,
+    ListScreen: undefined,
     DescriptionScreen: { item: VideojuegoInterface };
     ReviewScreen: { item: VideojuegoInterface };
     SearchScreen: { item: VideojuegoInterface },
@@ -61,6 +63,7 @@ export default function App() {
                 <Stack.Screen name={"DescriptionScreen"} component={DescriptionScreen}/>
                 <Stack.Screen name={"ReviewScreen"} component={ReviewScreen}/>
                 <Stack.Screen name={"SearchScreen"} component={SearchScreen}/>
+                <Stack.Screen name={"ListScreen"} component={ListScreen}/>
             </Stack.Navigator>
         </NavigationContainer>
         </UserProvider>
