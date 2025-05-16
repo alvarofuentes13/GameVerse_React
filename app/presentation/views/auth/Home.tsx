@@ -65,25 +65,17 @@ function HomeScreen() {
             <Text style={styles.superText}>Hola, {usuario?.name}!</Text>
 
             <View>
-<<<<<<< HEAD
-                <Text style={{ color: "#fff", fontSize: 18, marginTop: 20 }}>Videojuegos populares de este mes</Text>
-                <VideojuegoCategoryListHome />
+                <Text style={{color: "#fff", fontSize: 18, marginTop: 20}}>Videojuegos populares de este mes</Text>
+                <VideojuegoCategoryListHome/>
             </View>
 
 
             <Text style={{color: "#fff", fontSize: 18, marginTop: 20}}>Reviews populares</Text>
-=======
-                <Text style={styles.titleText}>Videojuegos populares de este mes</Text>
-                <VideojuegoCategoryListHome videojuego={videojuego}/>
-            </View>
-
-            <Text style={styles.titleText}>Reviews populares</Text>
->>>>>>> d9d48ed74510db616204c6c661ea1f11038d884f
             {cargando ? (
                 <ActivityIndicator size="large" color={AppColors.yellow} style={{marginTop: 10}}/>
             ) : (
                 reviews.map((review) => (
-                    <ReviewCard review={review} />
+                    <ReviewCard review={review}/>
                 ))
             )}
 

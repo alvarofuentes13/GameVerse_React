@@ -116,10 +116,10 @@ const styles = StyleSheet.create({
     bottomTab: {
         backgroundColor: AppColors.background,
         borderTopColor: AppColors.background,
-        borderWidth: 0,
         height: "8%",
         justifyContent: "center",
         paddingTop: 10,
+        borderColor: AppColors.background
     },
     tabItem: {
         justifyContent: "center",
