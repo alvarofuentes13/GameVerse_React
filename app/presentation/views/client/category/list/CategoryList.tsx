@@ -56,8 +56,8 @@ export const VideojuegoCategoryListHome = () => {
             >
 
                 <Image
-                    //source={{uri: item.portada}}
-                    source={{ uri: "https://api.igdb.com//images.igdb.com/igdb/image/upload/t_thumb/co9d8y.jpg" }}
+                    source={{uri: item.portada}}
+                    //source={{ uri: "https://api.igdb.com//images.igdb.com/igdb/image/upload/t_thumb/co9d8y.jpg" }}
                     style={{width: 60, height: 80, borderRadius: 8, marginRight: 10}}
                     onError={() => console.log("Error loading image")} // Manejo de errores
                 />

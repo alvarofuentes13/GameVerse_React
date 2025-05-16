@@ -136,11 +136,14 @@ const styles = StyleSheet.create({
         fontFamily: AppFonts.regular,
     },
     reviewCard:{
-        backgroundColor: "#1C1C3A",
+        backgroundColor: AppColors.cardBackground,
         padding: 12,
         paddingVertical: 8,
         borderRadius: 10,
         marginTop: 10
+    },
+    searchBar:{
+        backgroundColor: AppColors.cardBackground,
     }
 });
 

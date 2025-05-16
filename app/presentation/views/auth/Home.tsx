@@ -2,13 +2,10 @@ import React, {useEffect, useState} from "react";
 import {View, Text, Image, ScrollView, FlatList, TouchableOpacity, Button, ActivityIndicator} from "react-native";
 import {createDrawerNavigator, DrawerNavigationProp} from "@react-navigation/drawer";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
-import {NavigationContainer, RouteProp, useNavigation, useRoute} from "@react-navigation/native";
+import {useNavigation} from "@react-navigation/native";
 import {FontAwesome, MaterialIcons} from "@expo/vector-icons";
 import {AppColors} from "../../theme/AppTheme";
 import styles from "../../theme/Styles";
-import LoginScreen from "./Login";
-import RegisterScreen from "./Register";
-import {NativeStackNavigationProp} from "@react-navigation/native-stack";
 import {RootStackParamsList} from "../../../../App";
 import ProfileScreen from "./Profile";
 import SearchScreen from "./Search";
@@ -20,7 +17,8 @@ import ReviewCard from "../../components/cards/ReviewCard";
 import ListScreen from "./List";
 
 export type DrawerParamsList = {
-    HomeScreen: undefined,
+    Inicio: undefined,
+    Listas: undefined
 }
 
 function HomeScreen() {
@@ -90,7 +88,7 @@ function HomeScreen() {
 const Drawer = createDrawerNavigator<DrawerParamsList>();
 const Tab = createBottomTabNavigator<RootStackParamsList>();
 
-function HomeTabs() {
+export function HomeTabs() {
     return (
         <Tab.Navigator screenOptions={{
             headerShown: false, tabBarStyle: styles.bottomTab,
@@ -111,11 +109,6 @@ function HomeTabs() {
                 tabBarItemStyle: styles.tabItem,
                 tabBarIcon: ({color}) => <MaterialIcons name="person" size={35} color={color}/>,
             }}/>
-            <Tab.Screen name="ListScreen" component={ListScreen} options={{
-                tabBarShowLabel: false,
-                tabBarItemStyle: styles.tabItem,
-                tabBarIcon: ({color}) => <MaterialIcons name="storage" size={35} color={color}/>,
-            }}/>
         </Tab.Navigator>
     );
 }
@@ -127,9 +120,11 @@ export default function DrawerNavigator() {
                 drawerItemStyle: styles.drawerItem,
                 drawerStyle: styles.drawerNav,
                 headerShown: false,
-                drawerActiveTintColor: AppColors.primary
+                drawerActiveTintColor: AppColors.primary,
+                drawerInactiveTintColor: AppColors.grey,
             }}>
-            <Drawer.Screen name="HomeScreen" component={HomeTabs}/>
+            <Drawer.Screen name="Inicio" component={HomeTabs}/>
+            <Drawer.Screen name="Listas" component={ListScreen}/>
         </Drawer.Navigator>
     );
 }

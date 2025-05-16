@@ -51,7 +51,7 @@ export default function ProfileScreen() {
     );
 
     return (
-        <ScrollView style={{flex: 1, backgroundColor: "#0D0D25", padding: 20}}>
+        <ScrollView style={{flex: 1, backgroundColor: AppColors.background, padding: 20}}>
             {/* Modal de selección de avatar */}
             <AvatarPickModal
                 visible={modalVisible}

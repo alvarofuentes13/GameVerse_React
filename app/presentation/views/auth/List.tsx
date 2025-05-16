@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {View, Text, ScrollView, StyleSheet, Image, FlatList, ActivityIndicator} from "react-native";
+import {View, Text, ScrollView, StyleSheet, Image, FlatList, ActivityIndicator, TouchableOpacity} from "react-native";
 import {AppColors} from "../../theme/AppTheme";
 import styles from "../../theme/Styles";
 import ListCard from "../../components/cards/ListCard";
@@ -9,6 +9,7 @@ import {DrawerNavigationProp} from "@react-navigation/drawer";
 import {useUser} from "../client/context/UserContext";
 import {DrawerParamsList} from "./Home";
 import {ListInterface} from "../../../domain/entitites/List";
+import {FontAwesome} from "@expo/vector-icons";
 
 const listasEjemplo = [
     {
@@ -42,6 +43,7 @@ const listasEjemplo = [
 
 export default function ListScreen() {
     const usuario = useUser().user;
+    const navigation = useNavigation<DrawerNavigationProp<DrawerParamsList>>();
 
     const [listas, setListas] = useState<ListInterface[]>([]);
     const [cargando, setCargando] = useState(true);
@@ -65,7 +67,12 @@ export default function ListScreen() {
     }, [usuario]);
 
     return (
-        <ScrollView style={styles.container}>
+        <ScrollView style={{backgroundColor: AppColors.background, width: "100%", height: "100%", padding: 20}}>
+
+            <TouchableOpacity onPress={() => navigation.openDrawer()} style={{marginBottom: 20}}>
+                <FontAwesome name="bars" size={28} color="white"/>
+            </TouchableOpacity>
+
             {cargando ? (
                 <ActivityIndicator size="large" color={AppColors.yellow}/>
             ) : (

@@ -50,7 +50,6 @@ export default function App() {
         return <ActivityIndicator size="large" color={AppColors.primary}/>;
     }
 
-    const Menu = createDrawerNavigator();
 
     return (
         <UserProvider>

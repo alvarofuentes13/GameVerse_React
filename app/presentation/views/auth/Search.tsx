@@ -22,7 +22,7 @@ export default function SearchScreen() {
 */
     return (
         <View style={{backgroundColor: AppColors.background, width: "100%", height: "100%", padding: 20}}>
-            <View style={{ flexDirection: "row", alignItems: "center", backgroundColor: "#1C1C3A", borderRadius: 10, padding: 10 }}>
+            <View style={{ flexDirection: "row", alignItems: "center", backgroundColor: AppColors.cardBackground, borderRadius: 10, padding: 10 }}>
                 <FontAwesome name="search" size={20} color="#FFF" style={{ marginRight: 10 }} />
                 <TextInput
                     style={styles.headerText}
