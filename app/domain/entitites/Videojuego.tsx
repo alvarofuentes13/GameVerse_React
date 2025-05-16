@@ -1,5 +1,3 @@
-
-
 export interface VideojuegoInterface{
     id: number;
     titulo: string;

@@ -1,10 +1,8 @@
-import {useState} from "react";
-import {GetVideojuegoUseCase} from "../../../../../domain/useCases/GetVideojuegoUseCase";
-import {VideojuegoInterface} from "../../../../../domain/entitites/Videojuego";
-
+import { useState } from "react";
+import { GetVideojuegoUseCase } from "../../../../../domain/useCases/GetVideojuegoUseCase";
+import { VideojuegoInterface } from "../../../../../domain/entitites/Videojuego";
 
 export const VideojuegoViewModel = () => {
-
     const [videojuego, setVideojuego] = useState<VideojuegoInterface[]>([]);
 
     const getVideojuegos = async () => {
@@ -18,4 +16,4 @@ export const VideojuegoViewModel = () => {
     }
 }
 
-export default {VideojuegoViewModel};
+export default { VideojuegoViewModel };

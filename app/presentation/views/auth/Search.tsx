@@ -10,6 +10,7 @@ import styles from "../../theme/Styles";
 export default function SearchScreen() {
     const navigation = useNavigation<NavigationProp<RootStackParamsList>>();
     const [search, setSearch] = useState("");
+/*
     const {videojuego, getVideojuegos} = viewModel.VideojuegoViewModel();
 
     useEffect(() => {
@@ -17,7 +18,7 @@ export default function SearchScreen() {
     }, []);
 
     const filteredGames = videojuego.filter((game) => game.titulo.toLowerCase().includes(search.toLowerCase()));
-
+*/
     return (
         <View style={{ flex: 1, backgroundColor: "#0D0D25", padding: 20 }}>
             <View style={{ flexDirection: "row", alignItems: "center", backgroundColor: "#1C1C3A", borderRadius: 10, padding: 10 }}>
@@ -31,7 +32,7 @@ export default function SearchScreen() {
                 />
             </View>
 
-            <FlatList
+            {/*            <FlatList
                 showsVerticalScrollIndicator={false}
                 data={filteredGames}
                 keyExtractor={(item) => item.id.toString()}
@@ -54,7 +55,7 @@ export default function SearchScreen() {
                         </View>
                     </TouchableOpacity>
                 )}
-            />
+            >*/}
         </View>
     );
 }
