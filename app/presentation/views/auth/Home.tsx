@@ -64,7 +64,7 @@ function HomeScreen() {
             <Text style={styles.superText}>Hola, {usuario?.name}!</Text>
 
             <View>
-                <Text style={{color: "#fff", fontSize: 18, marginTop: 20}}>Videojuegos populares de este mes</Text>
+                <Text style={{color: "#fff", fontSize: 18, marginTop: 20, marginBottom: 5}}>Videojuegos populares de este mes</Text>
                 <VideojuegoCategoryListHome/>
             </View>
 

@@ -18,7 +18,6 @@ export default function ReviewScreen() {
     const [rating, setRating] = useState(0);
     const [review, setReview] = useState("");
     const [favorite, setFavorite] = useState(false);
-    console.log(item);
 
 
 
@@ -64,10 +63,10 @@ export default function ReviewScreen() {
 
             {/* Imagen y detalles del juego */}
             <View style={{ flexDirection: "row", alignItems: "center", marginBottom: 20 }}>
-                <Image source={{ uri: item.portada }} style={{ width: 100, height: 150, borderRadius: 10, marginRight: 15 }} />
+                <Image source={{ uri: item.coverUrl }} style={{ width: 100, height: 150, borderRadius: 10, marginRight: 15 }} />
                 <View>
-                    <Text style={styles.titleText}>{item.titulo}</Text>
-                    <Text style={styles.normalText}>{item.fechaLanzamiento}</Text>
+                    <Text style={styles.titleText}>{item.name}</Text>
+                    <Text style={styles.normalText}>{item.releaseDate}</Text>
                 </View>
             </View>
 

@@ -23,7 +23,7 @@ export const VideojuegoCategoryListHome = () => {
                 if (!response.ok) throw new Error('Network response was not ok');
 
                 const games = await response.json();
-
+/*
                 const mappedGames: VideojuegoInterface[] = games.map((game: any) => ({
                     id: game.id,
                     titulo: game.name,
@@ -36,9 +36,9 @@ export const VideojuegoCategoryListHome = () => {
                     portada: game.cover?.url
                         ? game.cover.url.replace("t_thumb", "t_cover_big") // Asegúrate de que esta URL sea válida
                         : "",
-                }));
+                }));*/
 
-                setVideojuegos(mappedGames);
+                setVideojuegos(games);
             } catch (error) {
                 console.error("Error fetching games from backend:", error);
             } finally {
@@ -52,14 +52,14 @@ export const VideojuegoCategoryListHome = () => {
     const renderItem = useCallback(
         ({ item }: { item: VideojuegoInterface }) => (
             <TouchableOpacity
-                style={{borderWidth: 1, borderColor: "#FFF", margin: 3}}
+                style={{ margin: 3}}
                 onPress={() => navigation.navigate("DescriptionScreen", { item })}
             >
 
                 <Image
-                    source={{uri: item.portada}}
+                    source={{uri: item.portada || item.coverUrl}}
                     //source={{ uri: "https://api.igdb.com//images.igdb.com/igdb/image/upload/t_thumb/co9d8y.jpg" }}
-                    style={{width: 60, height: 80, borderRadius: 8, marginRight: 10}}
+                    style={{width: 100, height: 140, marginRight: 10, borderRadius: 8}}
                     onError={() => console.log("Error loading image")} // Manejo de errores
                 />
 

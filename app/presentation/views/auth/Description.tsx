@@ -15,8 +15,6 @@ export default function DescriptionScreen() {
     const navigation = useNavigation<NavigationProp<RootStackParamsList>>();
     const route = useRoute<DescriptionRouteProp>();
     const { item } = route.params;
-    console.log("Game Description Screen", item);
-    console.log("Game Description Screen", item.portada);
 
     const [reviews, setReviews] = useState<ReviewInterface[]>([]);
     const [cargando, setCargando] = useState(true);
@@ -55,15 +53,15 @@ export default function DescriptionScreen() {
             {/* Imagen y detalles del juego */}
             <View style={{ alignItems: "center", marginBottom: 20 }}>
                 <Image
-                    source={{uri: item.portada}}
+                    source={{ uri: item.coverUrl || item.portada }}
                     style={{ width: 150, height: 220, borderRadius: 10 }}
                 />
                 <Text style={styles.superText}>
-                    {item.titulo}
+                    {item.name || item.titulo}
                 </Text>
-                <Text style={{ fontSize: 16, color: "#AAA", fontFamily: AppFonts.regular }}>{item.fechaLanzamiento.split("-")[0]}</Text>
+                <Text style={{ fontSize: 16, color: "#AAA", fontFamily: AppFonts.regular }}>{(item.releaseDate || item.fechaLanzamiento)?.split("/")[2] ?? "Sin año"}</Text>
                 <Text style={styles.normalText}>
-                    {item.descripcion}
+                    {item.descripcion || item.summary}
                 </Text>
             </View>
 
