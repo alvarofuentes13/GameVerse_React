@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from "react";
-import { View, Text, TextInput, FlatList, Image, TouchableOpacity } from "react-native";
+import { View, Text, TextInput, FlatList, Image, TouchableOpacity, Switch } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import {NavigationProp, useNavigation} from "@react-navigation/native";
-import viewModel from "../client/category/list/ViewModel";
 import {RootStackParamsList} from "../../../../App";
 import styles from "../../theme/Styles";
 import {AppColors} from "../../theme/AppTheme";
@@ -33,6 +32,8 @@ export default function SearchScreen() {
                 />
             </View>
 
+
+
             {/*            <FlatList
                 showsVerticalScrollIndicator={false}
                 data={filteredGames}
@@ -56,7 +57,8 @@ export default function SearchScreen() {
                         </View>
                     </TouchableOpacity>
                 )}
-            >*/}
+            >
+            */}
         </View>
     );
 }

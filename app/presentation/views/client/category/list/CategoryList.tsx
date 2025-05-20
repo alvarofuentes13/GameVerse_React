@@ -52,6 +52,7 @@ export const VideojuegoCategoryListHome = () => {
     const renderItem = useCallback(
         ({ item }: { item: VideojuegoInterface }) => (
             <TouchableOpacity
+                style={{borderWidth: 1, borderColor: "#FFF", margin: 3}}
                 onPress={() => navigation.navigate("DescriptionScreen", { item })}
             >
 
@@ -62,7 +63,7 @@ export const VideojuegoCategoryListHome = () => {
                     onError={() => console.log("Error loading image")} // Manejo de errores
                 />
 
-                <Text style={{ textAlign: 'center' }}>{item.titulo}</Text>
+                <Text style={{ textAlign: 'center', color:"#FFF" }}>{item.titulo}</Text>
             </TouchableOpacity>
         ),
         [navigation]

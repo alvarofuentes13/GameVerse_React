@@ -14,22 +14,23 @@ type DescriptionRouteProp = RouteProp<RootStackParamsList, "DescriptionScreen">;
 export default function DescriptionScreen() {
     const navigation = useNavigation<NavigationProp<RootStackParamsList>>();
     const route = useRoute<DescriptionRouteProp>();
-    const usuario = useUser().user;
     const { item } = route.params;
     console.log("Game Description Screen", item);
+    console.log("Game Description Screen", item.portada);
 
     const [reviews, setReviews] = useState<ReviewInterface[]>([]);
     const [cargando, setCargando] = useState(true);
 
     useEffect(() => {
         const fetchReviews = async () => {
-            if (!item) return; // Si el item no está definido, no hacemos la petición.
+            if (!item) return;
 
             try {
                 const response = await fetch(`http://localhost:8080/api/reviews/videojuego/${item.id}`);
+                if (!response.ok) throw new Error("No se pudo obtener reviews");
+
                 const data = await response.json();
                 setReviews(data);
-                console.log(data);
             } catch (error) {
                 console.error("Error al obtener reviews:", error);
             } finally {
@@ -39,6 +40,7 @@ export default function DescriptionScreen() {
 
         fetchReviews();
     }, []);
+
 
 
 
@@ -86,12 +88,12 @@ export default function DescriptionScreen() {
 
             {/* Reseñas */}
             {reviews.length != 0 ?
-                <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 20 }}>
+                <View style={{ flexDirection: "row", justifyContent: "center", marginTop: 20 }}>
                     <Text style={styles.titleText}>Reviews de {item.titulo}</Text>
                 </View>
                 :
-                <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 20 }}>
-                    <Text style={styles.titleText}>Este juego no tiene reseñas,¡escribe una!</Text>
+                <View style={{ flexDirection: "row", justifyContent: "center", marginTop: 20 }}>
+                    <Text style={styles.titleText}>Este juego no tiene reseñas, ¡escribe una!</Text>
                 </View>}
             {cargando ? (
                 <ActivityIndicator size="large" color={AppColors.yellow} style={{ marginTop: 10 }} />

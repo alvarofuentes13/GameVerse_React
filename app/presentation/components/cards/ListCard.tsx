@@ -6,19 +6,19 @@ import {ListInterface} from "../../../domain/entitites/List";
 
 
 export default function ListCard({lista}: any){
-    console.log(lista);
+    console.log(lista.videojuegos);
     return (
         <View key={lista.id} style={listCardStyles.listaContainer}>
             <Text style={styles.titleText}>{lista.nombre}</Text>
             <Text style={styles.normalText}>{lista.descripcion}</Text>
-            <Text style={styles.headerText}>{lista.cantidad} ítems</Text>
 
             <FlatList
+                style={{marginVertical: 4}}
                 data={lista.videojuegos}
                 horizontal
                 keyExtractor={(item, index) => index.toString()}
                 renderItem={({ item }) => (
-                    <Image source={item} style={listCardStyles.portada} />
+                    <Image source={item.portada} style={listCardStyles.portada} />
                 )}
                 showsHorizontalScrollIndicator={false}
             />
@@ -38,7 +38,6 @@ const listCardStyles = StyleSheet.create({
         backgroundColor: AppColors.cardBackground,
         borderRadius: 12,
         padding: 16,
-        margin: 20,
     },
     portada: {
         width: 100,

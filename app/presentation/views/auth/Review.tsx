@@ -18,6 +18,7 @@ export default function ReviewScreen() {
     const [rating, setRating] = useState(0);
     const [review, setReview] = useState("");
     const [favorite, setFavorite] = useState(false);
+    console.log(item);
 
 
 
