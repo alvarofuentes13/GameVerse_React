@@ -17,13 +17,13 @@ export const VideojuegoCategoryListHome = () => {
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify(7) // Enviar el límite como cuerpo de la solicitud
+                    body: JSON.stringify(10) // Enviar el límite como cuerpo de la solicitud
                 });
 
                 if (!response.ok) throw new Error('Network response was not ok');
 
                 const games = await response.json();
-/*
+            /*
                 const mappedGames: VideojuegoInterface[] = games.map((game: any) => ({
                     id: game.id,
                     titulo: game.name,
@@ -36,7 +36,8 @@ export const VideojuegoCategoryListHome = () => {
                     portada: game.cover?.url
                         ? game.cover.url.replace("t_thumb", "t_cover_big") // Asegúrate de que esta URL sea válida
                         : "",
-                }));*/
+                }));
+            */
 
                 setVideojuegos(games);
             } catch (error) {
@@ -59,7 +60,7 @@ export const VideojuegoCategoryListHome = () => {
                 <Image
                     source={{uri: item.portada || item.coverUrl}}
                     //source={{ uri: "https://api.igdb.com//images.igdb.com/igdb/image/upload/t_thumb/co9d8y.jpg" }}
-                    style={{width: 100, height: 140, marginRight: 10, borderRadius: 8}}
+                    style={{width: 100, height: 140, marginRight: 8, borderRadius: 4}}
                     onError={() => console.log("Error loading image")} // Manejo de errores
                 />
 

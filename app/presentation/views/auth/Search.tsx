@@ -45,7 +45,9 @@ export default function SearchScreen() {
                 alignItems: "center",
                 backgroundColor: AppColors.cardBackground,
                 borderRadius: 10,
-                padding: 10
+                padding: 10,
+                borderWidth: 2,
+                borderColor: "#24243C"
             }}>
                 <FontAwesome name="search" size={20} color="#FFF" style={{ marginRight: 10 }} />
                 <TextInput
@@ -68,7 +70,7 @@ export default function SearchScreen() {
                         style={{
                             flexDirection: "row",
                             alignItems: "center",
-                            backgroundColor: "#1C1C3A",
+                            backgroundColor: AppColors.cardBackground,
                             padding: 10,
                             borderRadius: 10,
                             marginTop: 15,

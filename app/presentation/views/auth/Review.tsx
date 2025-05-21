@@ -23,8 +23,8 @@ export default function ReviewScreen() {
 
     // Función para manejar el envío de la reseña
     const handleSubmitReview = async () => {
-        if (!rating || !review) {
-            Alert.alert("Error", "Por favor, completa la calificación y el comentario.");
+        if (!rating) {
+            Alert.alert("Error", "La reseña debe tener una calificacion.");
             return;
         }
 

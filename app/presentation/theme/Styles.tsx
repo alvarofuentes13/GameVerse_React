@@ -1,8 +1,6 @@
 import {StyleSheet} from "react-native";
 import {AppColors, AppFonts} from "./AppTheme";
 
-const emailError:boolean = false;
-
 const styles = StyleSheet.create({
     container: {
         width: '100%',
@@ -91,7 +89,6 @@ const styles = StyleSheet.create({
         fontFamily: AppFonts.medium,
         margin: 20,
         marginBottom: 7,
-
     },
     buttonFormText: {
         color: AppColors.background,
@@ -132,7 +129,8 @@ const styles = StyleSheet.create({
         height: "100%",
     },
     drawerItem: {
-        borderRadius: 20,
+        borderRadius: 25,
+        marginTop: 10,
         fontFamily: AppFonts.regular,
     },
     reviewCard:{
@@ -140,7 +138,9 @@ const styles = StyleSheet.create({
         padding: 12,
         paddingVertical: 8,
         borderRadius: 10,
-        marginTop: 10
+        marginTop: 10,
+        borderWidth: 2,
+        borderColor: "#24243C"
     },
     searchBar:{
         backgroundColor: AppColors.cardBackground,

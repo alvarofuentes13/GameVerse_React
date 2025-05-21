@@ -20,12 +20,15 @@ export default function DescriptionScreen() {
     const [cargando, setCargando] = useState(true);
 
     useEffect(() => {
+
         const fetchReviews = async () => {
             if (!item) return;
 
             try {
                 const response = await fetch(`http://localhost:8080/api/reviews/videojuego/${item.id}`);
-                if (!response.ok) throw new Error("No se pudo obtener reviews");
+                if (!response.ok) {
+                    console.error(response.statusText);
+                }
 
                 const data = await response.json();
                 setReviews(data);
@@ -76,7 +79,7 @@ export default function DescriptionScreen() {
                         flexDirection: "row",
                         alignItems: "center",
                     }}
-                    onPress={() => navigation.navigate("ReviewScreen", {item: item})} //Si funciona :)
+                    onPress={() => navigation.navigate("ReviewScreen", {item: item})}
                 >
                     <FontAwesome name="star" size={16} color = {AppColors.yellow} style={{ marginRight: 5 }} />
                     <Text style={styles.headerText}>Valorar</Text>

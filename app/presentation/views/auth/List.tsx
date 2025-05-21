@@ -10,6 +10,7 @@ import {useUser} from "../client/context/UserContext";
 import {DrawerParamsList} from "./Home";
 import {ListInterface} from "../../../domain/entitites/List";
 import {FontAwesome} from "@expo/vector-icons";
+import BottomDrawerExample from "../../components/modals/BottomDrawer";
 
 const listasEjemplo = [
     {
@@ -80,8 +81,9 @@ export default function ListScreen() {
                     <ListCard lista={lista}/>
                 ))
             )}
-
+            <BottomDrawerExample/>
         </ScrollView>
+
     );
 }
 

@@ -111,7 +111,7 @@ export default function ProfileScreen() {
                     renderItem={({item}) => (
                         <Image
                             source={{uri: item.portada}}
-                            style={{width: 100, height: 140, marginRight: 10, borderRadius: 8}}
+                            style={{width: 100, height: 140, marginRight: 18, borderRadius: 4}}
                         />
                     )}
                     showsHorizontalScrollIndicator={false}

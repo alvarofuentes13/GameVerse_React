@@ -1,6 +1,7 @@
 import React from "react";
 import { Modal, View, TouchableOpacity, Text, Image } from "react-native";
-import {AppColors} from "../../theme/AppTheme";
+import {AppColors, AppFonts} from "../../theme/AppTheme";
+import styles from "../../theme/Styles";
 
 interface AvatarPickModalProps {
     visible: boolean;
@@ -20,13 +21,13 @@ export default function AvatarPickModal({ visible, onClose, onSelect, avatarOpti
                 padding: 20
             }}>
                 <View style={{
-                    backgroundColor: '#1E1E2F',
+                    backgroundColor: AppColors.cardBackground,
                     padding: 20,
                     borderRadius: 10,
                     width: '90%'
                 }}>
-                    <Text style={{ color: '#fff', fontSize: 18, marginBottom: 10 }}>Elige tu avatar</Text>
-                    <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' }}>
+                    <Text style={ styles.titleText }>Elige tu avatar</Text>
+                    <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', marginTop: 10 }}>
                         {avatarOptions.map((avatar, index) => (
                             <TouchableOpacity key={index} onPress={() => onSelect(avatar)}>
                                 <Image
@@ -44,7 +45,7 @@ export default function AvatarPickModal({ visible, onClose, onSelect, avatarOpti
                         ))}
                     </View>
                     <TouchableOpacity onPress={onClose}>
-                        <Text style={{ color: AppColors.yellow, textAlign: 'center', marginTop: 15 }}>Cancelar</Text>
+                        <Text style={{ color: AppColors.yellow, textAlign: 'center', marginTop: 15, fontFamily: AppFonts.medium, fontSize: 16 }}>Cancelar</Text>
                     </TouchableOpacity>
                 </View>
             </View>

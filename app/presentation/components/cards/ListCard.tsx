@@ -2,11 +2,9 @@ import {FlatList, Image, StyleSheet, Text, View} from "react-native";
 import styles from "../../theme/Styles";
 import React from "react";
 import {AppColors} from "../../theme/AppTheme";
-import {ListInterface} from "../../../domain/entitites/List";
 
 
 export default function ListCard({lista}: any){
-    console.log(lista.videojuegos);
     return (
         <View key={lista.id} style={listCardStyles.listaContainer}>
             <Text style={styles.titleText}>{lista.nombre}</Text>
@@ -16,7 +14,7 @@ export default function ListCard({lista}: any){
                 style={{marginVertical: 4}}
                 data={lista.videojuegos}
                 horizontal
-                keyExtractor={(item, index) => index.toString()}
+                keyExtractor={(item) => item.id.toString()}
                 renderItem={({ item }) => (
                     <Image source={item.portada} style={listCardStyles.portada} />
                 )}
@@ -38,11 +36,14 @@ const listCardStyles = StyleSheet.create({
         backgroundColor: AppColors.cardBackground,
         borderRadius: 12,
         padding: 16,
+        marginTop: 15,
+        borderWidth: 2,
+        borderColor: "#24243C"
     },
     portada: {
         width: 100,
         height: 140,
-        borderRadius: 6,
-        marginRight: 10,
+        borderRadius: 4,
+        marginRight: 8,
     },
 });
