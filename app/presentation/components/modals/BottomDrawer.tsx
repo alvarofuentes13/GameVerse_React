@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, TouchableOpacity, StyleSheet, TextInput, FlatList, Image} from 'react-native';
+import {View, Text, TouchableOpacity, StyleSheet, TextInput, FlatList, Image, Button} from 'react-native';
 import Modal from 'react-native-modal';
 import {AppColors, AppFonts} from "../../theme/AppTheme";
 import styles from "../../theme/Styles";
 import {useUser} from "../../views/client/context/UserContext";
 import axios from "axios";
 import {VideojuegoInterface} from "../../../domain/entitites/Videojuego";
+import {MaterialIcons} from "@expo/vector-icons";
 
 export default function BottomDrawerExample() {
     const [isModalVisible, setModalVisible] = useState(false);
@@ -18,7 +19,7 @@ export default function BottomDrawerExample() {
 
     const handleSubmitList = async () => {
         if (!name) {
-            console.log("no hay bombre")
+            console.warn("La lista debe tener nombre")
             return;
         }
 
@@ -45,6 +46,7 @@ export default function BottomDrawerExample() {
         }
     };
 
+
     useEffect(() => {
         const delayDebounce = setTimeout(() => {
             if (search.trim().length > 0) {
@@ -66,14 +68,19 @@ export default function BottomDrawerExample() {
         }
     };
 
+    const handleRemoveGame = (id: number) => {
+        setGames(prevGames => prevGames.filter(game => game.id !== id));
+    };
+
     const toggleModal = () => {
         setModalVisible(!isModalVisible);
     };
 
+                    // Position: "fixed" da error pero es la unica manera de poner el boton abajo
     return (
         <View style={modalStyles.container}>
-            <TouchableOpacity style={modalStyles.button} onPress={toggleModal}>
-                <Text style={styles.buttonFormText}>Crear Lista</Text>
+            <TouchableOpacity style={{position: 'fixed', bottom: 35}} onPress={toggleModal}>
+                <MaterialIcons name="add-circle" size={60} color={AppColors.primary} />
             </TouchableOpacity>
 
             <Modal
@@ -88,7 +95,7 @@ export default function BottomDrawerExample() {
                         style={modalStyles.input}
                         value={name}
                         onChangeText={setName}
-                        placeholderTextColor={AppColors.white}
+                        placeholderTextColor={AppColors.grey}
                         placeholder={"Nombre"}
                     />
 
@@ -96,14 +103,14 @@ export default function BottomDrawerExample() {
                         style={modalStyles.input}
                         value={description}
                         onChangeText={setDescription}
-                        placeholderTextColor={AppColors.white}
+                        placeholderTextColor={AppColors.grey}
                         placeholder={"Esta lista contiene..."}
                     />
 
                     <TextInput
                         style={modalStyles.input}
                         placeholder="Buscar juegos..."
-                        placeholderTextColor="#777"
+                        placeholderTextColor={AppColors.grey}
                         value={search}
                         onChangeText={setSearch}
                     />
@@ -111,14 +118,22 @@ export default function BottomDrawerExample() {
                     <FlatList
                         horizontal
                         data={gamesFound}
-                        keyExtractor={(item: VideojuegoInterface) => item.id.toString()}
+                        keyExtractor={(item: VideojuegoInterface) => item.id.toString()} // para que el scroll se detenga más rápido
                         renderItem={({item}) => (
                             <TouchableOpacity
-                                onPress={() => {
-                                    if (!games) {
-                                        setGames([item]);
-                                    } if (!(games?.some(game => game.id === item.id))) {
-                                        setGames([...games, item]);
+                                onPress={async () => {
+                                    try {
+                                        // Llamar al backend para obtener o crear el juego
+                                        const response = await axios.get(`http://localhost:8080/api/videojuegos/get-or-create/${item.id}`);
+                                        const gameFromBackend = response.data;
+
+                                        // Añadir si no está ya en la lista
+                                        if (!games.some(game => game.id === gameFromBackend.id)) {
+                                            setGames([...games, gameFromBackend]);
+                                        }
+
+                                    } catch (error) {
+                                        console.error("Error al obtener o crear el videojuego:", error);
                                     }
                                 }}
                             >
@@ -136,7 +151,13 @@ export default function BottomDrawerExample() {
                         data={games}
                         keyExtractor={(item: VideojuegoInterface) => item.id.toString()}
                         renderItem={({item}) => (
-                            <Text style={styles.headerText}>{item.name || item.titulo}</Text>
+                            <View style={{ flex: 1, flexDirection: "row", justifyContent: "space-between", alignItems:"center", paddingHorizontal: 10 }}>
+                                <Text style={styles.headerText}>{item.name || item.titulo}</Text>
+                                <TouchableOpacity onPress={() => handleRemoveGame(item.id)}>
+                                    <Text style={modalStyles.removeButton}>x</Text>
+                                </TouchableOpacity>
+                            </View>
+
                         )}
                         showsHorizontalScrollIndicator={false}
                         initialNumToRender={10}
@@ -161,6 +182,7 @@ const modalStyles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         width: '100%',
+        height: "100%",
     },
     button: {
         backgroundColor: AppColors.primary,
@@ -183,8 +205,10 @@ const modalStyles = StyleSheet.create({
     modalContent: {
         backgroundColor: AppColors.background,
         padding: 20,
-        borderTopRightRadius: 20,
-        borderTopLeftRadius: 20,
+        borderTopRightRadius: 30,
+        borderTopLeftRadius: 30,
+        borderWidth: 2,
+        borderColor: "#24243C"
     },
     modalText: {
         fontSize: 18,
@@ -214,5 +238,11 @@ const modalStyles = StyleSheet.create({
         backgroundColor: 'transparent',
         fontFamily: AppFonts.medium,
         marginVertical: 10
+    },
+    removeButton: {
+        color: AppColors.alert,
+        fontSize: 16,
+        paddingHorizontal: 10,
+        fontFamily: AppFonts.bold,
     }
 });

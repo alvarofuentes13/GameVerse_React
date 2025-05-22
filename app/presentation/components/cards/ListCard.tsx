@@ -2,24 +2,50 @@ import {FlatList, Image, StyleSheet, Text, View} from "react-native";
 import styles from "../../theme/Styles";
 import React from "react";
 import {AppColors} from "../../theme/AppTheme";
+import {VideojuegoInterface} from "../../../domain/entitites/Videojuego";
 
 
 export default function ListCard({lista}: any){
+
+    console.log(lista);
     return (
         <View key={lista.id} style={listCardStyles.listaContainer}>
-            <Text style={styles.titleText}>{lista.nombre}</Text>
-            <Text style={styles.normalText}>{lista.descripcion}</Text>
 
-            <FlatList
-                style={{marginVertical: 4}}
-                data={lista.videojuegos}
-                horizontal
-                keyExtractor={(item) => item.id.toString()}
-                renderItem={({ item }) => (
-                    <Image source={item.portada} style={listCardStyles.portada} />
-                )}
-                showsHorizontalScrollIndicator={false}
-            />
+            <View style={listCardStyles.textContainer}>
+                <View style={{width: '70%'}}>
+                    <Text style={styles.titleText}>{lista.nombre}</Text>
+                    <Text style={styles.headerText}>
+                        Aqui van las etiquetas
+                    </Text>
+                    <Text numberOfLines={2} style={styles.normalText}>
+                        {lista.descripcion}
+                    </Text>
+                </View>
+
+                <View style={listCardStyles.footer}>
+                    <Image source={lista.usuario.avatar} style={{height: 20, width: 20, borderRadius: 50}}/>
+                    <Text style={styles.headerText}>{lista.usuario.name}</Text>
+                </View>
+            </View>
+
+
+            <View style={{alignContent: "flex-end"}}>
+                {lista.videojuegos.slice(0, 3).map((game: VideojuegoInterface, index: number) => (
+                    <Image
+                        key={game.id}
+                        source={{ uri: game.portada }}
+                        style={{
+                            position: "absolute",
+                            right: index * 12,
+                            height: 150,
+                            width: 107,
+                            borderTopRightRadius: 12,
+                            borderBottomRightRadius: 12,
+                            zIndex: lista.videojuegos.length - index,
+                        }}
+                    />
+                ))}
+            </View>
 
         </View>
     )
@@ -27,23 +53,22 @@ export default function ListCard({lista}: any){
 
 
 const listCardStyles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: AppColors.background,
-        padding: 20,
-    },
     listaContainer: {
         backgroundColor: AppColors.cardBackground,
         borderRadius: 12,
-        padding: 16,
         marginTop: 15,
-        borderWidth: 2,
-        borderColor: "#24243C"
+        borderColor: "#24243C",
+        flexDirection: "row",
+        height: 150
     },
-    portada: {
-        width: 100,
-        height: 140,
-        borderRadius: 4,
-        marginRight: 8,
+    textContainer: {
+        flex: 1,
+        paddingRight: 12,
+        justifyContent: "space-between",
+        margin: 20,
+    },
+    footer: {
+        flexDirection: "row",
+        gap: 8,
     },
 });
