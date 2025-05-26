@@ -12,36 +12,6 @@ import {ListInterface} from "../../../domain/entitites/List";
 import {FontAwesome} from "@expo/vector-icons";
 import BottomDrawerExample from "../../components/modals/BottomDrawer";
 
-const listasEjemplo = [
-    {
-        id: 1,
-        nombre: "El mundo es un infierno",
-        descripcion: "Mundos pesimistas. Para cuando quieras revolcarte en la desesperación.",
-        autor: "Darren Balsiger",
-        juegos: [
-            require("../../../../assets/img/gta_v.png"),
-            require("../../../../assets/img/cyberpunk.png"),
-            require("../../../../assets/img/witcher_3.png"),
-            require("../../../../assets/img/red_dead.png"),
-        ],
-        cantidad: 18
-    },
-    {
-        id: 2,
-        nombre: "Oscars 2024",
-        descripcion: "Top 150 juegos votados por los críticos. Ordenados por puntuación media.",
-        autor: "GameVerse AI",
-        juegos: [
-            require("../../../../assets/img/gta_v.png"),
-            require("../../../../assets/img/cyberpunk.png"),
-            require("../../../../assets/img/witcher_3.png"),
-            require("../../../../assets/img/red_dead.png"),
-        ],
-        cantidad: 150
-    }
-];
-
-
 export default function ListScreen() {
     const usuario = useUser().user;
     const navigation = useNavigation<DrawerNavigationProp<DrawerParamsList>>();
@@ -50,7 +20,7 @@ export default function ListScreen() {
     const [cargando, setCargando] = useState(true);
 
     useEffect(() => {
-        const fetchReviews = async () => {
+        const fetchLists = async () => {
             if (!usuario) return; // Si el usuario no está definido, no hacemos la petición.
 
             try {
@@ -64,7 +34,7 @@ export default function ListScreen() {
             }
         };
 
-        fetchReviews();
+        fetchLists();
     }, [usuario]);
 
     return (

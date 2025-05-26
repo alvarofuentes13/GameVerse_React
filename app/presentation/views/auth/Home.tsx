@@ -1,5 +1,15 @@
 import React, {useEffect, useState} from "react";
-import {View, Text, Image, ScrollView, FlatList, TouchableOpacity, Button, ActivityIndicator} from "react-native";
+import {
+    View,
+    Text,
+    Image,
+    ScrollView,
+    FlatList,
+    TouchableOpacity,
+    Button,
+    ActivityIndicator,
+    StyleSheet
+} from "react-native";
 import {createDrawerNavigator, DrawerNavigationProp} from "@react-navigation/drawer";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import {useNavigation} from "@react-navigation/native";
@@ -15,6 +25,8 @@ import {useUser} from "../client/context/UserContext";
 import {ReviewInterface} from "../../../domain/entitites/Review";
 import ReviewCard from "../../components/cards/ReviewCard";
 import ListScreen from "./List";
+import SmallListCard from "../../components/cards/ListCardSmall";
+import {ListInterface} from "../../../domain/entitites/List";
 
 export type DrawerParamsList = {
     Inicio: undefined,
@@ -33,9 +45,11 @@ function HomeScreen() {
     }, []);
 
     const [reviews, setReviews] = useState<ReviewInterface[]>([]);
+    const [listas, setListas] = useState<ListInterface[]>([]);
     const [cargando, setCargando] = useState(true);
 
     useEffect(() => {
+
         const fetchReviews = async () => {
             if (!usuario) return; // Si el usuario no está definido, no hacemos la petición.
 
@@ -50,6 +64,21 @@ function HomeScreen() {
             }
         };
 
+        const fetchLists = async () => {
+            if (!usuario) return; // Si el usuario no está definido, no hacemos la petición.
+
+            try {
+                const response = await fetch(`http://localhost:8080/api/listas`);
+                const data = await response.json();
+                setListas(data);
+            } catch (error) {
+                console.error("Error al obtener listas:", error);
+            } finally {
+                setCargando(false);
+            }
+        };
+
+        fetchLists();
         fetchReviews();
     }, [usuario]);
 
@@ -68,15 +97,29 @@ function HomeScreen() {
                 <VideojuegoCategoryListHome/>
             </View>
 
+            <View style={{marginVertical: 20}}>
+                <Text style={styles.titleText}>Listas populares</Text>
+                <View style={homeStyles.listContainer}>
+                    {cargando ? (
+                        <ActivityIndicator size="large" color={AppColors.yellow} style={{marginTop: 10}}/>
+                    ) : (
+                        listas.slice(0,3).map((lista) => (
+                            <SmallListCard lista={lista}/>
+                        ))
+                    )}
+                </View>
+            </View>
 
-            <Text style={styles.titleText}>Reviews populares</Text>
-            {cargando ? (
-                <ActivityIndicator size="large" color={AppColors.yellow} style={{marginTop: 10}}/>
-            ) : (
-                reviews.map((review) => (
-                    <ReviewCard review={review}/>
-                ))
-            )}
+            <View>
+                <Text style={styles.titleText}>Reviews populares</Text>
+                {cargando ? (
+                    <ActivityIndicator size="large" color={AppColors.yellow} style={{marginTop: 10}}/>
+                ) : (
+                    reviews.slice(0,4).map((review) => (
+                        <ReviewCard review={review}/>
+                    ))
+                )}
+            </View>
 
 
         </ScrollView>
@@ -128,3 +171,11 @@ export default function DrawerNavigator() {
         </Drawer.Navigator>
     );
 }
+
+const homeStyles = StyleSheet.create({
+    listContainer: {
+        flexDirection: "row",
+        height: 170,
+        gap: "33%"
+    }
+})

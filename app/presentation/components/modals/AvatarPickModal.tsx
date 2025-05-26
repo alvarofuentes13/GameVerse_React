@@ -24,7 +24,9 @@ export default function AvatarPickModal({ visible, onClose, onSelect, avatarOpti
                     backgroundColor: AppColors.cardBackground,
                     padding: 20,
                     borderRadius: 10,
-                    width: '90%'
+                    width: '90%',
+                    borderWidth: 3,
+                    borderColor: "#24243C"
                 }}>
                     <Text style={ styles.titleText }>Elige tu avatar</Text>
                     <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', marginTop: 10 }}>
