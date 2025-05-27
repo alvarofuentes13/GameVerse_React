@@ -4,7 +4,6 @@ import { FontAwesome } from "@expo/vector-icons";
 import {NavigationProp, RouteProp, useNavigation, useRoute} from "@react-navigation/native";
 import {AppColors, AppFonts} from "../../theme/AppTheme";
 import {RootStackParamsList} from "../../../../App";
-import {useUser} from "../client/context/UserContext";
 import {ReviewInterface} from "../../../domain/entitites/Review";
 import ReviewCard from "../../components/cards/ReviewCard";
 import styles from "../../theme/Styles";
@@ -48,12 +47,11 @@ export default function DescriptionScreen() {
 
     return (
         <ScrollView style={{ flex: 1, backgroundColor: "#0D0D25", padding: 20 }}>
-            {/* Botón de regreso */}
+
             <TouchableOpacity onPress={() => navigation.goBack()} style={{ marginBottom: 10 }}>
                 <FontAwesome name="arrow-left" size={24} color="#FFF" />
             </TouchableOpacity>
 
-            {/* Imagen y detalles del juego */}
             <View style={{ alignItems: "center", marginBottom: 20 }}>
                 <Image
                     source={{ uri: item.coverUrl || item.portada }}
@@ -68,7 +66,6 @@ export default function DescriptionScreen() {
                 </Text>
             </View>
 
-            {/* Botones */}
             <View style={{ flexDirection: "row", justifyContent: "center", marginBottom: 20 }}>
                 <TouchableOpacity
                     style={{
@@ -87,7 +84,6 @@ export default function DescriptionScreen() {
             </View>
 
 
-            {/* Reseñas */}
             {reviews.length != 0 ?
                 <View style={{ flexDirection: "row", justifyContent: "center", marginTop: 20 }}>
                     <Text style={styles.titleText}>Reviews de {item.titulo}</Text>

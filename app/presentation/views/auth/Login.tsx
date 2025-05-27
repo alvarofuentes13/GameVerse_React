@@ -4,7 +4,7 @@ import styles from "../../theme/Styles";
 import { AppColors } from "../../theme/AppTheme";
 import {NavigationProp, useNavigation} from "@react-navigation/native";
 import { useUser } from "../client/context/UserContext";
-import {RootStackParamsList} from "../../../../App"; // Importa el contexto para manejar el usuario
+import {RootStackParamsList} from "../../../../App";
 
 function LoginScreen() {
     const navigation = useNavigation<NavigationProp<RootStackParamsList>>();
@@ -99,7 +99,7 @@ function LoginScreen() {
                     value={email}
                     onChangeText={handleEmailChange} // Actualiza email y valida en tiempo real
                     style={[styles.formInput, emailError && { borderColor: 'red' }]} // Mostrar borde rojo si hay error
-                    placeholderTextColor={AppColors.white}
+                    placeholderTextColor={AppColors.primary}
                     placeholder={"Correo electrónico"}
                     keyboardType={"email-address"}
                 />
@@ -108,7 +108,7 @@ function LoginScreen() {
                     value={password}
                     onChangeText={handlePasswordChange} // Actualiza contraseña y valida en tiempo real
                     style={[styles.formInput, passwordError && { borderColor: 'red' }]} // Mostrar borde rojo si hay error
-                    placeholderTextColor={AppColors.white}
+                    placeholderTextColor={AppColors.primary}
                     placeholder={"Contraseña"}
                     secureTextEntry={true} // Aseguramos que la contraseña sea enmascarada
                 />

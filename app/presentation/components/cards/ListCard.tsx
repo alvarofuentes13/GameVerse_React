@@ -10,7 +10,6 @@ import {RootStackParamsList} from "../../../../App";
 export default function ListCard({lista}: any){
     const navigation = useNavigation<NavigationProp<RootStackParamsList>>();
 
-    console.log(lista);
     return (
         <TouchableOpacity onPress={() => navigation.navigate("ListDescriptionScreen", {lista})}>
             <View key={lista.id} style={listCardStyles.listaContainer}>

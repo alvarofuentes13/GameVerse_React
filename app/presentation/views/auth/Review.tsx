@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { View, Text, Image, TouchableOpacity, TextInput, Alert } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
-import axios from "axios"; // Importar axios
+import axios from "axios";
 import {AppColors, AppFonts} from "../../theme/AppTheme";
 import { RootStackParamsList } from "../../../../App";
 import {useUser} from "../client/context/UserContext";
@@ -56,12 +56,11 @@ export default function ReviewScreen() {
 
     return (
         <View style={{ flex: 1, backgroundColor: "#0D0D25", padding: 20 }}>
-            {/* Botón de regreso */}
+
             <TouchableOpacity onPress={() => navigation.goBack()} style={{ marginBottom: 10 }}>
                 <FontAwesome name="arrow-left" size={24} color="#FFF" />
             </TouchableOpacity>
 
-            {/* Imagen y detalles del juego */}
             <View style={{ flexDirection: "row", alignItems: "center", marginBottom: 20 }}>
                 <Image source={{ uri: item.coverUrl }} style={{ width: 100, height: 150, borderRadius: 10, marginRight: 15 }} />
                 <View>
@@ -70,7 +69,6 @@ export default function ReviewScreen() {
                 </View>
             </View>
 
-            {/* Estrellas y favorito para calificación */}
             <Text style={styles.headerText}>¿Qué valoración le das?</Text>
             <View style={{ flexDirection: "row", marginBottom: 20 }}>
                 {[1, 2, 3, 4, 5].map((star) => (
@@ -88,7 +86,6 @@ export default function ReviewScreen() {
                 </TouchableOpacity>
             </View>
 
-            {/* Área de texto para la reseña */}
             <TextInput
                 style={{
                     backgroundColor: "#1C1C3A",
@@ -107,7 +104,6 @@ export default function ReviewScreen() {
                 onChangeText={setReview}
             />
 
-            {/* Botón de enviar */}
             <TouchableOpacity
                 style={styles.buttonForm}
                 onPress={handleSubmitReview}

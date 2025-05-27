@@ -105,7 +105,7 @@ function RegisterScreen() {
                     value={name}
                     onChangeText={setName}
                     style={[styles.formInput, nameError && { borderColor: 'red' }]} // Borde rojo si hay error
-                    placeholderTextColor={AppColors.white}
+                    placeholderTextColor={AppColors.primary}
                     placeholder="Usuario"
                 />
 
@@ -113,7 +113,7 @@ function RegisterScreen() {
                     value={email}
                     onChangeText={setEmail}
                     style={[styles.formInput, emailError && { borderColor: 'red' }]} // Borde rojo si hay error
-                    placeholderTextColor={AppColors.white}
+                    placeholderTextColor={AppColors.primary}
                     placeholder="Correo Electrónico"
                     keyboardType="email-address"
                 />
@@ -122,7 +122,7 @@ function RegisterScreen() {
                     value={password}
                     onChangeText={setPassword}
                     style={[styles.formInput, passwordError && { borderColor: 'red' }]} // Borde rojo si hay error
-                    placeholderTextColor={AppColors.white}
+                    placeholderTextColor={AppColors.primary}
                     placeholder="Contraseña"
                     secureTextEntry={true}
                 />
@@ -131,7 +131,7 @@ function RegisterScreen() {
                     value={confirmPassword}
                     onChangeText={setConfirmPassword}
                     style={[styles.formInput, confirmPasswordError && { borderColor: 'red' }]} // Borde rojo si hay error
-                    placeholderTextColor={AppColors.white}
+                    placeholderTextColor={AppColors.primary}
                     placeholder="Repetir Contraseña"
                     secureTextEntry={true}
                 />
@@ -142,7 +142,7 @@ function RegisterScreen() {
                     disabled={loading}
                 >
                     {loading ? (
-                        <ActivityIndicator color={AppColors.white} />
+                        <ActivityIndicator color={AppColors.primary} />
                     ) : (
                         <Text style={styles.buttonFormText}>Registrarme</Text>
                     )}

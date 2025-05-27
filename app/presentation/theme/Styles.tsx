@@ -63,8 +63,8 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         borderTopWidth: 1,
         paddingTop: 9,
-        color: AppColors.white,
-        borderTopColor: AppColors.white,
+        color: AppColors.primary,
+        borderTopColor: AppColors.primary,
         fontFamily: AppFonts.bold,
     },
     formInputContainer: {
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
         paddingStart: 15,
         marginVertical: 7,
         borderRadius: 25,
-        color: AppColors.white,
+        color: AppColors.primary,
         backgroundColor: 'rgba(115,115,115,0.55)',
         fontFamily: AppFonts.regular,
     },
@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     redirectText: {
-        color: AppColors.white,
+        color: AppColors.primary,
         textAlign: "center",
         fontSize: 12,
         fontFamily: AppFonts.regular,
@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
         height: "100%",
     },
     drawerItem: {
-        borderRadius: 25,
+        borderRadius: 10,
         marginTop: 10,
         fontFamily: AppFonts.regular,
     },

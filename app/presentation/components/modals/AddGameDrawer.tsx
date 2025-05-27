@@ -1,50 +1,22 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, TouchableOpacity, StyleSheet, TextInput, FlatList, Image, Button} from 'react-native';
+import {View, Text, TouchableOpacity, StyleSheet, TextInput, FlatList, Image } from 'react-native';
 import Modal from 'react-native-modal';
 import {AppColors, AppFonts} from "../../theme/AppTheme";
 import styles from "../../theme/Styles";
-import {useUser} from "../../views/client/context/UserContext";
 import axios from "axios";
 import {VideojuegoInterface} from "../../../domain/entitites/Videojuego";
-import {MaterialIcons} from "@expo/vector-icons";
 
-export default function BottomDrawerExample() {
-    const [isModalVisible, setModalVisible] = useState(false);
-    const user = useUser().user;
-    const [description, setDescription] = useState("");
-    const [name, setName] = useState("");
+
+interface ModalProps {
+    listaId: number;
+    visible: boolean;
+    onClose: () => void;
+}
+
+export default function AddGameDrawer({ listaId, visible, onClose }: ModalProps) {
     const [search, setSearch] = useState("");
     const [gamesFound, setGamesFound] = useState([]);
     const [games, setGames] = useState<VideojuegoInterface[]>([]);
-
-    const handleSubmitList = async () => {
-        if (!name) {
-            console.warn("La lista debe tener nombre")
-            return;
-        }
-
-        console.log(name);
-        console.log(description);
-        console.log(user);
-
-        const listData = {
-            descripcion: description,
-            nombre: name,
-            usuario: {
-                id: user?.id,
-            },
-            videojuegos: games?.map(game => ({id: game.id}))
-        }
-
-        try {
-            // Enviar lista al backend
-            await axios.post("http://localhost:8080/api/listas", listData);
-            toggleModal();
-
-        } catch (error) {
-            console.error("Error al enviar la reseña:", error);
-        }
-    };
 
 
     useEffect(() => {
@@ -68,44 +40,42 @@ export default function BottomDrawerExample() {
         }
     };
 
+    const addGames = async () => {
+        try {
+            if (games.length === 0) return;
+
+            const ids = games.map(game => game.id);
+
+            await axios.post(`http://localhost:8080/api/listas/${listaId}/videojuegos`, ids, {
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            });
+
+            onClose(); // Cierra el modal
+            setGames([]); // Limpia la selección
+            setSearch(""); // Limpia búsqueda
+            console.log("Juegos añadidos")
+        } catch (error) {
+            console.error("Error al agregar juegos:", error);
+        }
+    };
+
     const handleRemoveGame = (id: number) => {
         setGames(prevGames => prevGames.filter(game => game.id !== id));
     };
 
-    const toggleModal = () => {
-        setModalVisible(!isModalVisible);
-    };
-
-                    // Position: "fixed" da error pero es la unica manera de poner el boton abajo
     return (
         <View style={modalStyles.container}>
-            <TouchableOpacity style={{position: 'fixed', bottom: 35}} onPress={toggleModal}>
-                <MaterialIcons name="add-circle" size={60} color={AppColors.primary} />
-            </TouchableOpacity>
 
             <Modal
-                isVisible={isModalVisible}
-                onBackdropPress={toggleModal}
+                isVisible={visible}
+                onBackdropPress={onClose}
                 style={modalStyles.modal}
                 swipeDirection="down"
-                onSwipeComplete={toggleModal}
+                onSwipeComplete={onClose}
             >
                 <View style={modalStyles.modalContent}>
-                    <TextInput
-                        style={modalStyles.input}
-                        value={name}
-                        onChangeText={setName}
-                        placeholderTextColor={AppColors.grey}
-                        placeholder={"Nombre"}
-                    />
-
-                    <TextInput
-                        style={modalStyles.input}
-                        value={description}
-                        onChangeText={setDescription}
-                        placeholderTextColor={AppColors.grey}
-                        placeholder={"Esta lista contiene..."}
-                    />
 
                     <TextInput
                         style={modalStyles.input}
@@ -163,11 +133,8 @@ export default function BottomDrawerExample() {
                         initialNumToRender={10}
                     />
 
-                    <TouchableOpacity// Deshabilitar el botón si hay errores
-                        onPress={handleSubmitList}
-                        style={modalStyles.inputButton}
-                    >
-                        <Text style={styles.headerText}>Crear</Text>
+                    <TouchableOpacity onPress={addGames} style={modalStyles.inputButton}>
+                        <Text style={styles.headerText}>Agregar</Text>
                     </TouchableOpacity>
                 </View>
             </Modal>

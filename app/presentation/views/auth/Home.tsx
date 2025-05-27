@@ -2,11 +2,8 @@ import React, {useEffect, useState} from "react";
 import {
     View,
     Text,
-    Image,
     ScrollView,
-    FlatList,
     TouchableOpacity,
-    Button,
     ActivityIndicator,
     StyleSheet
 } from "react-native";
@@ -19,7 +16,6 @@ import styles from "../../theme/Styles";
 import {RootStackParamsList} from "../../../../App";
 import ProfileScreen from "./Profile";
 import SearchScreen from "./Search";
-import viewModel from "../client/category/list/ViewModel";
 import {VideojuegoCategoryListHome} from "../client/category/list/CategoryList";
 import {useUser} from "../client/context/UserContext";
 import {ReviewInterface} from "../../../domain/entitites/Review";
@@ -30,7 +26,7 @@ import {ListInterface} from "../../../domain/entitites/List";
 
 export type DrawerParamsList = {
     Inicio: undefined,
-    Listas: undefined
+    Listas: undefined,
 }
 
 function HomeScreen() {
@@ -38,11 +34,6 @@ function HomeScreen() {
 
     const usuario = useUser().user;
 
-    const {videojuego, getVideojuegos} = viewModel.VideojuegoViewModel();
-
-    useEffect(() => {
-        getVideojuegos();
-    }, []);
 
     const [reviews, setReviews] = useState<ReviewInterface[]>([]);
     const [listas, setListas] = useState<ListInterface[]>([]);
@@ -120,7 +111,6 @@ function HomeScreen() {
                     ))
                 )}
             </View>
-
 
         </ScrollView>
 

@@ -12,7 +12,7 @@ interface AvatarPickModalProps {
 
 export default function AvatarPickModal({ visible, onClose, onSelect, avatarOptions }: AvatarPickModalProps) {
     return (
-        <Modal visible={visible} transparent animationType="fade">
+        <Modal visible={visible} transparent animationType="fade" >
             <View style={{
                 flex: 1,
                 backgroundColor: 'rgba(0,0,0,0.7)',

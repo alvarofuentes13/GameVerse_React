@@ -9,6 +9,7 @@ import AvatarPickModal from "../../components/modals/AvatarPickModal";
 import axios from "axios";
 import styles from "../../theme/Styles"; // Ajusta la ruta si es necesario
 
+
 export default function ProfileScreen() {
     const {user: usuario, setUserData} = useUser();
     const [reviews, setReviews] = useState<ReviewInterface[]>([]);
@@ -52,7 +53,6 @@ export default function ProfileScreen() {
 
     return (
         <ScrollView style={{flex: 1, backgroundColor: AppColors.background, padding: 20}}>
-            {/* Modal de selección de avatar */}
             <AvatarPickModal
                 visible={modalVisible}
                 onClose={() => setModalVisible(false)}
@@ -83,7 +83,7 @@ export default function ProfileScreen() {
             />
 
             {/* Información del usuario */}
-            <View style={{alignItems: "center", marginBottom: 20}}>
+            <View style={{alignItems: "center", marginVertical: 10}}>
                 <TouchableOpacity onPress={() => setModalVisible(true)}>
                     <Image
                         source={

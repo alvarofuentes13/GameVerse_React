@@ -22,6 +22,7 @@ export default function SmallListCard({lista}: any) {
                                 height: 150 - (6 * index),
                                 width: 107 - (6 * index),
                                 zIndex: lista.videojuegos.length - index,
+                                borderRadius: 4
                             }}
                         />
                     ))}

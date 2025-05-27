@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { View, Text, TextInput, FlatList, Image, TouchableOpacity, ActivityIndicator } from "react-native";
-import { FontAwesome } from "@expo/vector-icons";
-import { NavigationProp, useNavigation } from "@react-navigation/native";
-import { RootStackParamsList } from "../../../../App";
+import React, {useState, useEffect} from "react";
+import {View, Text, TextInput, FlatList, Image, TouchableOpacity, ActivityIndicator} from "react-native";
+import {FontAwesome} from "@expo/vector-icons";
+import {NavigationProp, useNavigation} from "@react-navigation/native";
+import {RootStackParamsList} from "../../../../App";
 import styles from "../../theme/Styles";
-import { AppColors } from "../../theme/AppTheme";
+import {AppColors, AppFonts} from "../../theme/AppTheme";
 import axios from "axios";
 import {VideojuegoInterface} from "../../../domain/entitites/Videojuego";
 
@@ -39,7 +39,8 @@ export default function SearchScreen() {
     };
 
     return (
-        <View style={{ backgroundColor: AppColors.background, width: "100%", height: "100%", padding: 20 }}>
+        <View style={{backgroundColor: AppColors.background, width: "100%", height: "100%", padding: 20}}>
+
             <View style={{
                 flexDirection: "row",
                 alignItems: "center",
@@ -49,9 +50,9 @@ export default function SearchScreen() {
                 borderWidth: 2,
                 borderColor: "#24243C"
             }}>
-                <FontAwesome name="search" size={20} color="#FFF" style={{ marginRight: 10 }} />
+                <FontAwesome name="search" size={20} color="#FFF" style={{marginRight: 10}}/>
                 <TextInput
-                    style={styles.headerText}
+                    style={{color: AppColors.grey, fontFamily: AppFonts.regular, fontSize: 14,}}
                     placeholder="Buscar juegos..."
                     placeholderTextColor="#777"
                     value={search}
@@ -59,13 +60,13 @@ export default function SearchScreen() {
                 />
             </View>
 
-            {loading && <ActivityIndicator size="large" color="#FFF" style={{ marginTop: 20 }} />}
+            {loading && <ActivityIndicator size="large" color="#FFF" style={{marginTop: 20}}/>}
 
             <FlatList
                 showsVerticalScrollIndicator={false}
                 data={games}
                 keyExtractor={(item: VideojuegoInterface) => item.id.toString()}
-                renderItem={({ item }) => (
+                renderItem={({item}) => (
                     <TouchableOpacity
                         style={{
                             flexDirection: "row",
@@ -75,10 +76,11 @@ export default function SearchScreen() {
                             borderRadius: 10,
                             marginTop: 15,
                         }}
-                        onPress={() => navigation.navigate("DescriptionScreen", { item })}
+                        onPress={() => navigation.navigate("DescriptionScreen", {item})}
                     >
-                        <Image source={{ uri: item.coverUrl || item.portada }} style={{ width: 60, height: 80, borderRadius: 8, marginRight: 10 }} />
-                        <View style={{ flex: 1 }}>
+                        <Image source={{uri: item.coverUrl || item.portada}}
+                               style={{width: 60, height: 80, borderRadius: 8, marginRight: 10}}/>
+                        <View style={{flex: 1}}>
                             <Text style={styles.titleText}>{item.name || item.titulo}</Text>
                             <Text style={styles.normalText}>
                                 {(item.releaseDate || item.fechaLanzamiento)?.split("/")[2] ?? "Sin año"}
