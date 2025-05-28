@@ -21,12 +21,14 @@ import {useUser} from "../client/context/UserContext";
 import {ReviewInterface} from "../../../domain/entitites/Review";
 import ReviewCard from "../../components/cards/ReviewCard";
 import ListScreen from "./List";
-import SmallListCard from "../../components/cards/ListCardSmall";
+import SmallListCard from "../../components/cards/SmallListCard";
 import {ListInterface} from "../../../domain/entitites/List";
+import GamesScreen from "./Games";
 
 export type DrawerParamsList = {
     Inicio: undefined,
     Listas: undefined,
+    Juegos: undefined,
 }
 
 function HomeScreen() {
@@ -115,7 +117,6 @@ function HomeScreen() {
         </ScrollView>
 
     )
-        ;
 }
 
 const Drawer = createDrawerNavigator<DrawerParamsList>();
@@ -157,6 +158,7 @@ export default function DrawerNavigator() {
                 drawerInactiveTintColor: AppColors.grey,
             }}>
             <Drawer.Screen name="Inicio" component={HomeTabs}/>
+            <Drawer.Screen name="Juegos" component={GamesScreen}/>
             <Drawer.Screen name="Listas" component={ListScreen}/>
         </Drawer.Navigator>
     );

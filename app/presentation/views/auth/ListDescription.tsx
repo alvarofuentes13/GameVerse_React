@@ -7,6 +7,7 @@ import {RootStackParamsList} from "../../../../App";
 import styles from "../../theme/Styles";
 import DeleteModal from "../../components/modals/DeleteModal";
 import AddGameDrawer from "../../components/modals/AddGameDrawer";
+import {useUser} from "../client/context/UserContext";
 
 
 type ListDescriptionRouteProp = RouteProp<RootStackParamsList, "ListDescriptionScreen">;
@@ -15,6 +16,7 @@ export default function ListDescriptionScreen() {
     const navigation = useNavigation<NavigationProp<RootStackParamsList>>();
     const route = useRoute<ListDescriptionRouteProp>();
     const {lista} = route.params;
+    const usuario = useUser().user;
     const [isModalVisible, setModalVisible] = useState(false);
     const [isDrawerVisible, setDrawerVisible] = useState(false);
 
@@ -53,23 +55,40 @@ export default function ListDescriptionScreen() {
                 <FontAwesome name="arrow-left" size={24} color="#FFF"/>
             </TouchableOpacity>
 
-            <View style={{alignItems: "center", marginBottom: 20}}>
+            <View style={{alignItems: "center"}}>
                 <Text style={styles.superText}>
                     {lista.nombre || "nombre"}
                 </Text>
                 <Text style={styles.normalText}>
                     {lista.descripcion || "Sin Descripción"}
                 </Text>
+                <View
+                    style={{
+                        flexDirection: "row",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        gap: 10, margin: 15
+                    }}>
+                    <Image source={lista.usuario.avatar} style={{height: 40, width: 40, borderRadius: 50}}/>
+                    <Text style={styles.titleText}>{lista.usuario.name}</Text>
+                </View>
+
             </View>
 
-            <View style={{flexDirection: "row", justifyContent: "center"}}>
-                <TouchableOpacity onPress={() => toggleDrawer()} style={listDescriptionStyles.button}>
-                    <Text style={{color: AppColors.primary, alignSelf: "center", fontFamily: AppFonts.bold}}>Agregar Juego</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => toggleModal()} style={listDescriptionStyles.buttonInversed}>
-                    <Text style={{color: AppColors.secondary, alignSelf: "center", fontFamily: AppFonts.bold}}>Borrar Lista</Text>
-                </TouchableOpacity>
-            </View>
+            {usuario?.email === lista.usuario.email && (
+                <View style={{flexDirection: "row", justifyContent: "center"}}>
+                    <TouchableOpacity onPress={() => toggleDrawer()} style={listDescriptionStyles.button}>
+                        <Text style={{color: AppColors.primary, alignSelf: "center", fontFamily: AppFonts.bold}}>
+                            Agregar Juego
+                        </Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => toggleModal()} style={listDescriptionStyles.buttonInversed}>
+                        <Text style={{color: AppColors.secondary, alignSelf: "center", fontFamily: AppFonts.bold}}>
+                            Borrar Lista
+                        </Text>
+                    </TouchableOpacity>
+                </View>
+            )}
 
             <View style={{alignItems: "center"}}>
                 <FlatList
@@ -77,21 +96,23 @@ export default function ListDescriptionScreen() {
                     data={lista.videojuegos}
                     keyExtractor={(item) => item.id.toString()}
                     renderItem={({item}) => (
-                        <Image
-                            source={{uri: item.portada}}
-                            style={{
-                                width: 114,
-                                height: 160,
-                                margin: 10,
-                                borderRadius: 4
-                            }}
-                        />
+                        <TouchableOpacity onPress={() => navigation.navigate("DescriptionScreen", {item})}>
+                            <Image
+                                source={{uri: item.portada}}
+                                style={{
+                                    width: 114,
+                                    height: 160,
+                                    margin: 10,
+                                    borderRadius: 4
+                                }}
+                            />
+                        </TouchableOpacity>
                     )}
                 />
             </View>
 
-            <DeleteModal visible={isModalVisible} onClose={toggleModal} onDelete={eliminarLista} />
-            <AddGameDrawer listaId={lista.id} visible={isDrawerVisible} onClose={toggleDrawer} />
+            <DeleteModal visible={isModalVisible} onClose={toggleModal} onDelete={eliminarLista}/>
+            <AddGameDrawer listaId={lista.id} visible={isDrawerVisible} onClose={toggleDrawer}/>
         </ScrollView>
 
     );

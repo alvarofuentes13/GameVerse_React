@@ -2,10 +2,8 @@
 import {ActivityIndicator, StyleSheet, Text, View} from 'react-native';
 import * as React from 'react';
 import {NavigationContainer} from "@react-navigation/native";
-import {createStackNavigator} from '@react-navigation/stack';
 import {useFonts} from "expo-font";
 import {AppColors, AppFonts} from "./app/presentation/theme/AppTheme";
-import {createDrawerNavigator} from "@react-navigation/drawer";
 import HomeScreen from "./app/presentation/views/auth/Home";
 import LoginScreen from "./app/presentation/views/auth/Login";
 import RegisterScreen from "./app/presentation/views/auth/Register";
@@ -16,10 +14,9 @@ import ReviewScreen from "./app/presentation/views/auth/Review";
 import SearchScreen from "./app/presentation/views/auth/Search";
 import {VideojuegoInterface} from "./app/domain/entitites/Videojuego";
 import {UserProvider} from "./app/presentation/views/client/context/UserContext";
-import DrawerNavigator from "./app/presentation/views/auth/Home";
 import ListScreen from "./app/presentation/views/auth/List";
-import {ListInterface} from "./app/domain/entitites/List";
 import ListDescriptionScreen from "./app/presentation/views/auth/ListDescription";
+import GamesScreen from "./app/presentation/views/auth/Games";
 
 export type RootStackParamsList = {
     LoginScreen: undefined,
@@ -27,6 +24,7 @@ export type RootStackParamsList = {
     HomeScreen: undefined,
     ProfileScreen: undefined,
     ListScreen: undefined,
+    GamesScreen: undefined,
     ListDescriptionScreen: { lista: any },
     DescriptionScreen: { item: VideojuegoInterface };
     ReviewScreen: { item: VideojuegoInterface };
@@ -66,18 +64,10 @@ export default function App() {
                 <Stack.Screen name={"ReviewScreen"} component={ReviewScreen}/>
                 <Stack.Screen name={"SearchScreen"} component={SearchScreen}/>
                 <Stack.Screen name={"ListScreen"} component={ListScreen}/>
+                <Stack.Screen name={"GamesScreen"} component={GamesScreen}/>
                 <Stack.Screen name={"ListDescriptionScreen"} component={ListDescriptionScreen}/>
             </Stack.Navigator>
         </NavigationContainer>
         </UserProvider>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-});

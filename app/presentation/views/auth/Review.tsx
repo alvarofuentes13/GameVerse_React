@@ -20,7 +20,6 @@ export default function ReviewScreen() {
     const [favorite, setFavorite] = useState(false);
 
 
-
     // Función para manejar el envío de la reseña
     const handleSubmitReview = async () => {
         if (!rating) {
@@ -62,10 +61,10 @@ export default function ReviewScreen() {
             </TouchableOpacity>
 
             <View style={{ flexDirection: "row", alignItems: "center", marginBottom: 20 }}>
-                <Image source={{ uri: item.coverUrl }} style={{ width: 100, height: 150, borderRadius: 10, marginRight: 15 }} />
+                <Image source={{ uri: item.coverUrl || item.portada }} style={{ width: 100, height: 150, borderRadius: 10, marginRight: 15 }} />
                 <View>
-                    <Text style={styles.titleText}>{item.name}</Text>
-                    <Text style={styles.normalText}>{item.releaseDate}</Text>
+                    <Text style={styles.titleText}>{item.name || item.titulo}</Text>
+                    <Text style={styles.normalText}>{item.releaseDate || item.fechaLanzamiento}</Text>
                 </View>
             </View>
 

@@ -29,7 +29,7 @@ export default function ListScreen() {
             if (!usuario) return; // Si el usuario no está definido, no hacemos la petición.
 
             try {
-                const response = await fetch(`http://localhost:8080/api/listas`);
+                const response = await fetch('http://localhost:8080/api/listas');
                 const data = await response.json();
                 setListas(data);
             } catch (error) {
@@ -68,7 +68,7 @@ export default function ListScreen() {
                 />
             </View>
 
-            <ScrollView>
+            <ScrollView style={{borderRadius: 10}}>
                 {cargando ? (
                     <ActivityIndicator size="large" color={AppColors.yellow}/>
                 ) : (
@@ -86,4 +86,3 @@ export default function ListScreen() {
 
     );
 }
-
