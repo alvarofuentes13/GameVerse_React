@@ -57,26 +57,36 @@ function LoginScreen() {
         }
 
         try {
-            const response = await fetch(`http://localhost:8080/api/usuarios/email/${email}`);
+            const response = await fetch('http://localhost:8080/api/usuarios/email/${email}');
             const user = await response.json();
 
-            if (!user) {
-                Alert.alert("Error", "Usuario no encontrado.");
-                return;
-            }
-
-            if (user.password !== password) {
-                Alert.alert("Error", "Contraseña incorrecta.");
-                return;
-            }
-
-            Alert.alert("Éxito", "Inicio de sesión exitoso.");
-
-            // Guardamos los datos del usuario en el contexto
             setUserData(user);
-
-            // Navegamos a la pantalla principal, pasando los datos del usuario
             navigation.navigate("HomeScreen");
+           /* const response = await fetch("http://localhost:8080/api/auth/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    username: email,
+                    password: password,
+                }),
+            });
+
+            if (!response.ok) {
+                throw new Error("Credenciales inválidas");
+            }
+
+            const data = await response.json();
+            console.log(data)
+            const user = data.user;
+            const token = data.token;
+
+            // Puedes guardar el token en AsyncStorage si quieres
+            // await AsyncStorage.setItem("token", token);
+
+            setUserData(user);
+            navigation.navigate("HomeScreen");*/
         } catch (error) {
             console.error("Error al iniciar sesión:", error);
             Alert.alert("Error", "Hubo un problema con la conexión.");
@@ -126,9 +136,7 @@ function LoginScreen() {
                     onPress={() => {
                         navigation.navigate("RegisterScreen");
                     }}
-                >
-                    ¿No tienes cuenta? Regístrate aquí
-                </Text>
+                >¿No tienes cuenta? Regístrate aquí</Text>
             </View>
         </View>
     );
