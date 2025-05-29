@@ -24,6 +24,7 @@ import ListScreen from "./List";
 import SmallListCard from "../../components/cards/SmallListCard";
 import {ListInterface} from "../../../domain/entitites/List";
 import GamesScreen from "./Games";
+import {useAuth} from "../client/context/AuthContext";
 
 export type DrawerParamsList = {
     Inicio: undefined,
@@ -34,12 +35,14 @@ export type DrawerParamsList = {
 function HomeScreen() {
     const navigation = useNavigation<DrawerNavigationProp<DrawerParamsList>>();
 
-    const usuario = useUser().user;
-
-
+    const token = useAuth().token;
+    const usuario = useAuth().user;
     const [reviews, setReviews] = useState<ReviewInterface[]>([]);
     const [listas, setListas] = useState<ListInterface[]>([]);
     const [cargando, setCargando] = useState(true);
+
+    console.log("Token: ", token)
+    console.log("Usuario: ", usuario)
 
     useEffect(() => {
 

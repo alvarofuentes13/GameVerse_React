@@ -14,7 +14,7 @@ export default function ReviewScreen() {
     const navigation = useNavigation();
     const route = useRoute<ReviewRouteProp>();
     const { item } = route.params;
-    const usuario = useUser().user;
+    const usuario = useAuth().user;
     const [rating, setRating] = useState(0);
     const [review, setReview] = useState("");
     const [favorite, setFavorite] = useState(false);

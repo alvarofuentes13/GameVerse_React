@@ -5,10 +5,12 @@ import { AppColors } from "../../theme/AppTheme";
 import {NavigationProp, useNavigation} from "@react-navigation/native";
 import { useUser } from "../client/context/UserContext";
 import {RootStackParamsList} from "../../../../App";
+import {useAuth} from "../client/context/AuthContext";
 
 function LoginScreen() {
     const navigation = useNavigation<NavigationProp<RootStackParamsList>>();
     const { setUserData } = useUser(); // Usamos el hook para actualizar el contexto
+    const { setAuth } = useAuth();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
@@ -57,25 +59,36 @@ function LoginScreen() {
         }
 
         try {
-            const response = await fetch(`http://localhost:8080/api/usuarios/email/${email}`);
+            /*const response = await fetch('http://localhost:8080/api/usuarios/email/${email}');
             const user = await response.json();
 
-            if (!user) {
-                Alert.alert("Error", "Usuario no encontrado.");
-                return;
-            }
-
-            if (user.password !== password) {
-                Alert.alert("Error", "Contraseña incorrecta.");
-                return;
-            }
-
-            Alert.alert("Éxito", "Inicio de sesión exitoso.");
-
-            // Guardamos los datos del usuario en el contexto
             setUserData(user);
+            navigation.navigate("HomeScreen");*/
+            const response = await fetch("http://localhost:8080/api/auth/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    email: email,
+                    password: password,
+                }),
+            });
 
-            // Navegamos a la pantalla principal, pasando los datos del usuario
+            if (!response.ok) {
+                throw new Error("Credenciales inválidas");
+            }
+
+            const data = await response.json();
+            console.log(data)
+            const user = data.usuario;
+            const token = data.token;
+
+            // Puedes guardar el token en AsyncStorage si quieres
+            // await AsyncStorage.setItem("token", token);
+
+            setUserData(user);
+            setAuth(data.usuario, data.token);
             navigation.navigate("HomeScreen");
         } catch (error) {
             console.error("Error al iniciar sesión:", error);
@@ -126,9 +139,7 @@ function LoginScreen() {
                     onPress={() => {
                         navigation.navigate("RegisterScreen");
                     }}
-                >
-                    ¿No tienes cuenta? Regístrate aquí
-                </Text>
+                >¿No tienes cuenta? Regístrate aquí</Text>
             </View>
         </View>
     );

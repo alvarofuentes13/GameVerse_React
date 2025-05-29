@@ -16,7 +16,7 @@ export default function ListDescriptionScreen() {
     const navigation = useNavigation<NavigationProp<RootStackParamsList>>();
     const route = useRoute<ListDescriptionRouteProp>();
     const {lista} = route.params;
-    const usuario = useUser().user;
+    const usuario = useAuth().user;
     const [isModalVisible, setModalVisible] = useState(false);
     const [isDrawerVisible, setDrawerVisible] = useState(false);
 

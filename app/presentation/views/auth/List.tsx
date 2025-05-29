@@ -17,7 +17,7 @@ import {FontAwesome} from "@expo/vector-icons";
 import NewListDrawer from "../../components/modals/NewListDrawer";
 
 export default function ListScreen() {
-    const usuario = useUser().user;
+    const usuario = useAuth().user;
     const navigation = useNavigation<DrawerNavigationProp<DrawerParamsList>>();
 
     const [listas, setListas] = useState<ListInterface[]>([]);
