@@ -83,7 +83,6 @@ export default function DescriptionScreen() {
                 </TouchableOpacity>
             </View>
 
-
             {reviews.length != 0 ?
                 <View style={{ flexDirection: "row", justifyContent: "center", marginTop: 20 }}>
                     <Text style={styles.titleText}>Reviews de {item.titulo}</Text>
@@ -99,6 +98,7 @@ export default function DescriptionScreen() {
                     <ReviewCard review={review} />
                 ))
             )}
+
         </ScrollView>
     );
 }

@@ -1,6 +1,8 @@
 import {Image, Text, View} from "react-native";
 import React from "react";
 import styles from "../../theme/Styles";
+import {FontAwesome, MaterialIcons} from "@expo/vector-icons";
+import {AppColors} from "../../theme/AppTheme";
 
 
 export default function ReviewCard({review}: any) {
@@ -12,7 +14,20 @@ export default function ReviewCard({review}: any) {
                 <Image source={review.usuario.avatar} style={{height: 20, width: 20, borderRadius: 50}}/>
                 <Text style={styles.headerText}>{review.usuario.name}</Text>
                 <Text style={styles.headerText}>
-                    {"⭐".repeat(review.calificacion)} {review.favorito ? " ❤️" : ""}
+                    <View style={{alignItems: "center", flexDirection: "row", gap: 1}}>
+                        {[...Array(review.calificacion)].map((_, index) => (
+                            <FontAwesome
+                                key={index}
+                                name="star"
+                                size={14}
+                                color={AppColors.yellow}
+                            />
+                        ))}
+                    </View>
+                    {review.favorito ?
+                        <FontAwesome name="heart" size={14} color={AppColors.alert} style={{marginLeft: 3}}/>
+                        :
+                        <Text/>}
                 </Text>
             </View>
             <Text style={styles.normalText}>{review.comentario}</Text>

@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-import {ActivityIndicator, FlatList, Image, ScrollView, Text, TouchableOpacity, View} from "react-native";
+import React, {useEffect, useState} from "react";
+import {ActivityIndicator, FlatList, Image, ScrollView, Text, TextInput, TouchableOpacity, View} from "react-native";
 import {AppColors} from "../../theme/AppTheme";
 import {useUser} from "../client/context/UserContext";
 import {ReviewInterface} from "../../../domain/entitites/Review";
@@ -7,14 +7,42 @@ import {useFocusEffect} from "@react-navigation/native";
 import ReviewCard from "../../components/cards/ReviewCard";
 import AvatarPickModal from "../../components/modals/AvatarPickModal";
 import axios from "axios";
-import styles from "../../theme/Styles"; // Ajusta la ruta si es necesario
-
+import styles from "../../theme/Styles";
+import {MaterialIcons} from "@expo/vector-icons";
 
 export default function ProfileScreen() {
     const {user: usuario, setUserData} = useUser();
     const [reviews, setReviews] = useState<ReviewInterface[]>([]);
     const [cargando, setCargando] = useState(true);
     const [modalVisible, setModalVisible] = useState(false);
+    const [isEditing, setIsEditing] = useState(false);
+    const [text, setText] = useState(usuario?.biografia || "");
+
+    useEffect(() => {
+        if (usuario?.biografia){
+            setText(usuario?.biografia);
+        }
+    }, [usuario]);
+
+    const toggleEdit = () => {
+        if(usuario?.biografia != text){
+            if (isEditing && usuario) {
+                // Guardar biografía
+                axios.put(`http://localhost:8080/api/usuarios/id/${usuario.id}`, {
+                    ...usuario,
+                    biografia: text,
+                })
+                    .then((response) => {
+                        setUserData(response.data); // Actualiza el contexto
+                        console.log("Biografía actualizada.");
+                    })
+                    .catch((error) => {
+                        console.error("Error al actualizar la biografía:", error);
+                    });
+            }
+        }
+        setIsEditing(!isEditing);
+    };
 
     const avatarOptions = [
         require("../../../../assets/img/avatars/KiAdiMundi.png"),
@@ -58,23 +86,26 @@ export default function ProfileScreen() {
                 onClose={() => setModalVisible(false)}
                 onSelect={async (avatar) => {
                     if (!usuario) {
-                        console.log("NO hay usuario");
+                        console.log("No hay usuario");
                         return;
                     }
                     // @ts-ignore
                     const avatarUri = avatar.uri
-                    setUserData({...usuario, avatar: avatarUri});
+                    if(avatarUri != usuario.avatar) {
+                        setUserData({...usuario, avatar: avatarUri});
 
-                    axios.put(`http://localhost:8080/api/usuarios/id/${usuario.id}`, {
-                        ...usuario,
-                        avatar: avatarUri, // Aquí va el nuevo avatar
-                    })
-                        .then((response) => {
-                            console.log("Usuario actualizado:", response.data);
+                        axios.put(`http://localhost:8080/api/usuarios/id/${usuario.id}`, {
+                            ...usuario,
+                            avatar: avatarUri, // Aquí va el nuevo avatar
                         })
-                        .catch((error) => {
-                            console.error("Error al actualizar usuario:", error);
-                        });
+                            .then((response) => {
+                                console.log("Usuario actualizado:", response.data);
+                            })
+                            .catch((error) => {
+                                console.error("Error al actualizar usuario:", error);
+                            });
+                    }
+
 
 
                     setModalVisible(false);
@@ -95,6 +126,20 @@ export default function ProfileScreen() {
                     />
                 </TouchableOpacity>
                 <Text style={styles.superText}>{usuario?.name}</Text>
+                <View style={{flexDirection: "row", gap: 5 }}>
+                    {isEditing ? (
+                        <TextInput
+                            style={styles.normalText}
+                            value={text}
+                            onChangeText={setText}
+                            onBlur={toggleEdit} // Cuando se pierde el foco, sale del modo edición
+                            autoFocus
+                        />
+                    ) : (
+                        <Text style={styles.normalText}>{text}</Text>
+                    )}
+                    <MaterialIcons name="edit" size={16} color={AppColors.grey} onPress={toggleEdit} />
+                </View>
             </View>
 
             {/* Videojuegos favoritos */}
