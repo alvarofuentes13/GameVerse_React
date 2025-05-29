@@ -5,10 +5,12 @@ import { AppColors } from "../../theme/AppTheme";
 import {NavigationProp, useNavigation} from "@react-navigation/native";
 import { useUser } from "../client/context/UserContext";
 import {RootStackParamsList} from "../../../../App";
+import {useAuth} from "../client/context/AuthContext";
 
 function LoginScreen() {
     const navigation = useNavigation<NavigationProp<RootStackParamsList>>();
     const { setUserData } = useUser(); // Usamos el hook para actualizar el contexto
+    const { setAuth } = useAuth();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
@@ -57,18 +59,18 @@ function LoginScreen() {
         }
 
         try {
-            const response = await fetch('http://localhost:8080/api/usuarios/email/${email}');
+            /*const response = await fetch('http://localhost:8080/api/usuarios/email/${email}');
             const user = await response.json();
 
             setUserData(user);
-            navigation.navigate("HomeScreen");
-           /* const response = await fetch("http://localhost:8080/api/auth/login", {
+            navigation.navigate("HomeScreen");*/
+            const response = await fetch("http://localhost:8080/api/auth/login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    username: email,
+                    email: email,
                     password: password,
                 }),
             });
@@ -79,14 +81,15 @@ function LoginScreen() {
 
             const data = await response.json();
             console.log(data)
-            const user = data.user;
+            const user = data.usuario;
             const token = data.token;
 
             // Puedes guardar el token en AsyncStorage si quieres
             // await AsyncStorage.setItem("token", token);
 
             setUserData(user);
-            navigation.navigate("HomeScreen");*/
+            setAuth(data.usuario, data.token);
+            navigation.navigate("HomeScreen");
         } catch (error) {
             console.error("Error al iniciar sesión:", error);
             Alert.alert("Error", "Hubo un problema con la conexión.");

@@ -17,6 +17,7 @@ import {UserProvider} from "./app/presentation/views/client/context/UserContext"
 import ListScreen from "./app/presentation/views/auth/List";
 import ListDescriptionScreen from "./app/presentation/views/auth/ListDescription";
 import GamesScreen from "./app/presentation/views/auth/Games";
+import {AuthProvider} from "./app/presentation/views/client/context/AuthContext";
 
 export type RootStackParamsList = {
     LoginScreen: undefined,
@@ -53,6 +54,7 @@ export default function App() {
 
 
     return (
+        <AuthProvider>
         <UserProvider>
         <NavigationContainer>
             <Stack.Navigator screenOptions={{headerShown: false}}>
@@ -69,5 +71,6 @@ export default function App() {
             </Stack.Navigator>
         </NavigationContainer>
         </UserProvider>
+        </AuthProvider>
     );
 }

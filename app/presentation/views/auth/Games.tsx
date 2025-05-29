@@ -17,7 +17,7 @@ import {FontAwesome} from "@expo/vector-icons";
 import GameCard from "../../components/cards/GameCard";
 
 export default function GamesScreen() {
-    const usuario = useUser().user;
+    const usuario = useAuth().user;
     const navigation = useNavigation<DrawerNavigationProp<DrawerParamsList>>();
     const [juegos, setJuegos] = useState<ListInterface[]>([]);
     const [cargando, setCargando] = useState(true);
