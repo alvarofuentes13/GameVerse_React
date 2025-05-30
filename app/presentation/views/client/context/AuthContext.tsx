@@ -14,7 +14,7 @@ interface User {
 interface AuthContextType {
     user: User | null;
     token: string | null;
-    setAuth: (user: User, token: string) => void;
+    setAuth: (user?: User, token?: string) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -23,9 +23,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const [user, setUser] = useState<User | null>(null);
     const [token, setToken] = useState<string | null>(null);
 
-    const setAuth = (newUser: User, newToken: string) => {
-        setUser(newUser);
-        setToken(newToken);
+    const setAuth = (newUser?: User, newToken?: string) => {
+       if(newUser) setUser(newUser);
+       if(newToken) setToken(newToken);
     };
 
     return (

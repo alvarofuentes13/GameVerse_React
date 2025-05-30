@@ -3,21 +3,20 @@ import {
     View,
     ScrollView,
     ActivityIndicator,
-    TouchableOpacity,
-    TextInput
+    TouchableOpacity
 } from "react-native";
 import {AppColors, AppFonts} from "../../theme/AppTheme";
-import ListCard from "../../components/cards/ListCard";
 import {useNavigation} from "@react-navigation/native";
 import {DrawerNavigationProp} from "@react-navigation/drawer";
-import {useUser} from "../client/context/UserContext";
 import {DrawerParamsList} from "./Home";
 import {ListInterface} from "../../../domain/entitites/List";
 import {FontAwesome} from "@expo/vector-icons";
 import GameCard from "../../components/cards/GameCard";
+import {useAuth} from "../client/context/AuthContext";
+import {ApiDelivery} from "../../../data/sources/remote/api/ApiDelivery";
 
 export default function GamesScreen() {
-    const usuario = useAuth().user;
+    const {user: usuario, token: token, setAuth} = useAuth();
     const navigation = useNavigation<DrawerNavigationProp<DrawerParamsList>>();
     const [juegos, setJuegos] = useState<ListInterface[]>([]);
     const [cargando, setCargando] = useState(true);
@@ -27,9 +26,8 @@ export default function GamesScreen() {
             if (!usuario) return; // Si el usuario no está definido, no hacemos la petición.
 
             try {
-                const response = await fetch('http://localhost:8080/api/reviews');
-                const data = await response.json();
-                setJuegos(data);
+                const response = await ApiDelivery.get('/reviews');
+                setJuegos(response.data);
             } catch (error) {
                 console.error("Error al obtener juegos:", error);
             } finally {

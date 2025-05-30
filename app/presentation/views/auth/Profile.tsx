@@ -9,9 +9,11 @@ import AvatarPickModal from "../../components/modals/AvatarPickModal";
 import axios from "axios";
 import styles from "../../theme/Styles";
 import {MaterialIcons} from "@expo/vector-icons";
+import {useAuth} from "../client/context/AuthContext";
+import {ApiDelivery} from "../../../data/sources/remote/api/ApiDelivery";
 
 export default function ProfileScreen() {
-    const {user: usuario, setUserData} = useUser();
+    const {user: usuario, token: token, setAuth} = useAuth();
     const [reviews, setReviews] = useState<ReviewInterface[]>([]);
     const [cargando, setCargando] = useState(true);
     const [modalVisible, setModalVisible] = useState(false);
@@ -28,12 +30,12 @@ export default function ProfileScreen() {
         if(usuario?.biografia != text){
             if (isEditing && usuario) {
                 // Guardar biografía
-                axios.put(`http://localhost:8080/api/usuarios/id/${usuario.id}`, {
+                ApiDelivery.put(`/usuarios/id/${usuario.id}`, {
                     ...usuario,
                     biografia: text,
                 })
                     .then((response) => {
-                        setUserData(response.data); // Actualiza el contexto
+                        setAuth(response.data); // Actualiza el contexto
                         console.log("Biografía actualizada.");
                     })
                     .catch((error) => {
@@ -62,9 +64,8 @@ export default function ProfileScreen() {
         if (!usuario) return;
 
         try {
-            const response = await fetch(`http://localhost:8080/api/reviews/usuario/${usuario.id}`);
-            const data = await response.json();
-            setReviews(data);
+            const response = await ApiDelivery.get(`/reviews/usuario/${usuario.id}`);
+            setReviews(response.data);
         } catch (error) {
             console.error("Error al obtener reviews:", error);
         } finally {
@@ -92,9 +93,9 @@ export default function ProfileScreen() {
                     // @ts-ignore
                     const avatarUri = avatar.uri
                     if(avatarUri != usuario.avatar) {
-                        setUserData({...usuario, avatar: avatarUri});
+                        setAuth({...usuario, avatar: avatarUri});
 
-                        axios.put(`http://localhost:8080/api/usuarios/id/${usuario.id}`, {
+                        ApiDelivery.put(`/usuarios/id/${usuario.id}`, {
                             ...usuario,
                             avatar: avatarUri, // Aquí va el nuevo avatar
                         })

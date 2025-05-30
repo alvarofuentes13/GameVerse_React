@@ -7,6 +7,8 @@ import {AppColors, AppFonts} from "../../theme/AppTheme";
 import { RootStackParamsList } from "../../../../App";
 import {useUser} from "../client/context/UserContext";
 import styles from "../../theme/Styles";
+import {useAuth} from "../client/context/AuthContext";
+import {ApiDelivery} from "../../../data/sources/remote/api/ApiDelivery";
 
 type ReviewRouteProp = RouteProp<RootStackParamsList, "ReviewScreen">;
 
@@ -41,7 +43,7 @@ export default function ReviewScreen() {
 
         try {
             // Enviar reseña al backend
-            const response = await axios.post("http://localhost:8080/api/reviews", reviewData);
+            const response = await ApiDelivery.post("/reviews", reviewData);
 
             if (response.status === 200) {
                 Alert.alert("Éxito", "Reseña enviada exitosamente.");

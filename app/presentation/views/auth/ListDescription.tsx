@@ -8,6 +8,8 @@ import styles from "../../theme/Styles";
 import DeleteModal from "../../components/modals/DeleteModal";
 import AddGameDrawer from "../../components/modals/AddGameDrawer";
 import {useUser} from "../client/context/UserContext";
+import {useAuth} from "../client/context/AuthContext";
+import {ApiDelivery} from "../../../data/sources/remote/api/ApiDelivery";
 
 
 type ListDescriptionRouteProp = RouteProp<RootStackParamsList, "ListDescriptionScreen">;
@@ -16,7 +18,7 @@ export default function ListDescriptionScreen() {
     const navigation = useNavigation<NavigationProp<RootStackParamsList>>();
     const route = useRoute<ListDescriptionRouteProp>();
     const {lista} = route.params;
-    const usuario = useAuth().user;
+    const {user: usuario, token: token, setAuth} = useAuth();
     const [isModalVisible, setModalVisible] = useState(false);
     const [isDrawerVisible, setDrawerVisible] = useState(false);
 
@@ -30,11 +32,9 @@ export default function ListDescriptionScreen() {
 
     const eliminarLista = async () => {
         try {
-            const response = await fetch(`http://localhost:8080/api/listas/${lista.id}`, {
-                method: 'DELETE',
-            });
+            const response = await ApiDelivery.delete(`/listas/${lista.id}`);
 
-            if (response.ok) {
+            if (response) {
                 console.log("Lista eliminada correctamente");
                 setModalVisible(false);
                 navigation.goBack(); // Vuelve a la pantalla anterior

@@ -5,6 +5,7 @@ import {AppColors, AppFonts} from "../../theme/AppTheme";
 import styles from "../../theme/Styles";
 import axios from "axios";
 import {VideojuegoInterface} from "../../../domain/entitites/Videojuego";
+import {ApiDelivery} from "../../../data/sources/remote/api/ApiDelivery";
 
 
 interface ModalProps {
@@ -33,7 +34,7 @@ export default function AddGameDrawer({ listaId, visible, onClose }: ModalProps)
 
     const searchGames = async (query: string) => {
         try {
-            const response = await axios.get(`http://localhost:8080/api/igdb/videojuegos/search/${query}`);
+            const response = await ApiDelivery.get(`/igdb/videojuegos/search/${query}`);
             setGamesFound(response.data);
         } catch (error) {
             console.error("Error al buscar juegos:", error);
@@ -46,11 +47,7 @@ export default function AddGameDrawer({ listaId, visible, onClose }: ModalProps)
 
             const ids = games.map(game => game.id);
 
-            await axios.post(`http://localhost:8080/api/listas/${listaId}/videojuegos`, ids, {
-                headers: {
-                    'Content-Type': 'application/json',
-                }
-            });
+            await ApiDelivery.post(`/listas/${listaId}/videojuegos`, ids);
 
             onClose(); // Cierra el modal
             setGames([]); // Limpia la selección
@@ -94,7 +91,7 @@ export default function AddGameDrawer({ listaId, visible, onClose }: ModalProps)
                                 onPress={async () => {
                                     try {
                                         // Llamar al backend para obtener o crear el juego
-                                        const response = await axios.get(`http://localhost:8080/api/videojuegos/get-or-create/${item.id}`);
+                                        const response = await ApiDelivery.get(`/videojuegos/get-or-create/${item.id}`);
                                         const gameFromBackend = response.data;
 
                                         // Añadir si no está ya en la lista

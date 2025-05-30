@@ -7,4 +7,12 @@ const ApiDelivery = axios.create({
     }
 })
 
+export const setAuthToken = (token: string | null) => {
+    if (token) {
+        ApiDelivery.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    } else {
+        delete ApiDelivery.defaults.headers.common["Authorization"];
+    }
+};
+
 export { ApiDelivery };

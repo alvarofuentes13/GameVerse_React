@@ -15,9 +15,11 @@ import {DrawerParamsList} from "./Home";
 import {ListInterface} from "../../../domain/entitites/List";
 import {FontAwesome} from "@expo/vector-icons";
 import NewListDrawer from "../../components/modals/NewListDrawer";
+import {useAuth} from "../client/context/AuthContext";
+import {ApiDelivery} from "../../../data/sources/remote/api/ApiDelivery";
 
 export default function ListScreen() {
-    const usuario = useAuth().user;
+    const {user: usuario, token: token, setAuth} = useAuth();
     const navigation = useNavigation<DrawerNavigationProp<DrawerParamsList>>();
 
     const [listas, setListas] = useState<ListInterface[]>([]);
@@ -29,9 +31,8 @@ export default function ListScreen() {
             if (!usuario) return; // Si el usuario no está definido, no hacemos la petición.
 
             try {
-                const response = await fetch('http://localhost:8080/api/listas');
-                const data = await response.json();
-                setListas(data);
+                const response = await ApiDelivery.get('/listas');
+                setListas(response.data);
             } catch (error) {
                 console.error("Error al obtener listas:", error);
             } finally {

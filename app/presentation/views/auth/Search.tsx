@@ -17,6 +17,7 @@ import {AppColors, AppFonts} from "../../theme/AppTheme";
 import axios from "axios";
 import {VideojuegoInterface} from "../../../domain/entitites/Videojuego";
 import ListCard from "../../components/cards/ListCard";
+import {ApiDelivery} from "../../../data/sources/remote/api/ApiDelivery";
 
 export default function SearchScreen() {
     const navigation = useNavigation<NavigationProp<RootStackParamsList>>();
@@ -56,7 +57,7 @@ export default function SearchScreen() {
                     ? `http://localhost:8080/api/igdb/videojuegos/search/${query}`
                     : `http://localhost:8080/api/listas/search/${query}`;
 
-            const response = await axios.get(endpoint);
+            const response = await ApiDelivery.get(endpoint);
 
             if (tipoBusqueda === "juegos") {
                 setGames(response.data);

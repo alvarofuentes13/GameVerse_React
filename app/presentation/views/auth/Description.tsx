@@ -7,6 +7,7 @@ import {RootStackParamsList} from "../../../../App";
 import {ReviewInterface} from "../../../domain/entitites/Review";
 import ReviewCard from "../../components/cards/ReviewCard";
 import styles from "../../theme/Styles";
+import {ApiDelivery} from "../../../data/sources/remote/api/ApiDelivery";
 
 type DescriptionRouteProp = RouteProp<RootStackParamsList, "DescriptionScreen">;
 
@@ -14,7 +15,6 @@ export default function DescriptionScreen() {
     const navigation = useNavigation<NavigationProp<RootStackParamsList>>();
     const route = useRoute<DescriptionRouteProp>();
     const { item } = route.params;
-
     const [reviews, setReviews] = useState<ReviewInterface[]>([]);
     const [cargando, setCargando] = useState(true);
 
@@ -24,13 +24,8 @@ export default function DescriptionScreen() {
             if (!item) return;
 
             try {
-                const response = await fetch(`http://localhost:8080/api/reviews/videojuego/${item.id}`);
-                if (!response.ok) {
-                    console.error(response.statusText);
-                }
-
-                const data = await response.json();
-                setReviews(data);
+                const response = await ApiDelivery.get(`http://localhost:8080/api/reviews/videojuego/${item.id}`);
+                setReviews(response.data);
             } catch (error) {
                 console.error("Error al obtener reviews:", error);
             } finally {

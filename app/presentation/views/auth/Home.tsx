@@ -25,6 +25,7 @@ import SmallListCard from "../../components/cards/SmallListCard";
 import {ListInterface} from "../../../domain/entitites/List";
 import GamesScreen from "./Games";
 import {useAuth} from "../client/context/AuthContext";
+import {ApiDelivery} from "../../../data/sources/remote/api/ApiDelivery";
 
 export type DrawerParamsList = {
     Inicio: undefined,
@@ -35,14 +36,11 @@ export type DrawerParamsList = {
 function HomeScreen() {
     const navigation = useNavigation<DrawerNavigationProp<DrawerParamsList>>();
 
-    const token = useAuth().token;
-    const usuario = useAuth().user;
+    const {user: usuario, token: token, setAuth} = useAuth();
     const [reviews, setReviews] = useState<ReviewInterface[]>([]);
     const [listas, setListas] = useState<ListInterface[]>([]);
     const [cargando, setCargando] = useState(true);
 
-    console.log("Token: ", token)
-    console.log("Usuario: ", usuario)
 
     useEffect(() => {
 
@@ -50,9 +48,9 @@ function HomeScreen() {
             if (!usuario) return; // Si el usuario no está definido, no hacemos la petición.
 
             try {
-                const response = await fetch(`http://localhost:8080/api/reviews`);
-                const data = await response.json();
-                setReviews(data);
+                const response = await ApiDelivery.get(`/reviews`);
+                console.log(response);
+                setReviews(response.data);
             } catch (error) {
                 console.error("Error al obtener reviews:", error);
             } finally {
@@ -64,9 +62,8 @@ function HomeScreen() {
             if (!usuario) return; // Si el usuario no está definido, no hacemos la petición.
 
             try {
-                const response = await fetch(`http://localhost:8080/api/listas`);
-                const data = await response.json();
-                setListas(data);
+                const response = await ApiDelivery.get(`/listas`);
+                setListas(response.data);
             } catch (error) {
                 console.error("Error al obtener listas:", error);
             } finally {

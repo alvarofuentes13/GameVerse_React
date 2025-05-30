@@ -6,6 +6,7 @@ import {NavigationProp, useNavigation} from "@react-navigation/native";
 import { useUser } from "../client/context/UserContext";
 import {RootStackParamsList} from "../../../../App";
 import {useAuth} from "../client/context/AuthContext";
+import {setAuthToken} from "../../../data/sources/remote/api/ApiDelivery";
 
 function LoginScreen() {
     const navigation = useNavigation<NavigationProp<RootStackParamsList>>();
@@ -87,6 +88,7 @@ function LoginScreen() {
             // Puedes guardar el token en AsyncStorage si quieres
             // await AsyncStorage.setItem("token", token);
 
+            setAuthToken(token);
             setUserData(user);
             setAuth(data.usuario, data.token);
             navigation.navigate("HomeScreen");
