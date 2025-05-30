@@ -1,12 +1,10 @@
 import React, {useEffect, useState} from "react";
 import {ActivityIndicator, FlatList, Image, ScrollView, Text, TextInput, TouchableOpacity, View} from "react-native";
 import {AppColors} from "../../theme/AppTheme";
-import {useUser} from "../client/context/UserContext";
 import {ReviewInterface} from "../../../domain/entitites/Review";
 import {useFocusEffect} from "@react-navigation/native";
 import ReviewCard from "../../components/cards/ReviewCard";
 import AvatarPickModal from "../../components/modals/AvatarPickModal";
-import axios from "axios";
 import styles from "../../theme/Styles";
 import {MaterialIcons} from "@expo/vector-icons";
 import {useAuth} from "../client/context/AuthContext";
@@ -21,13 +19,25 @@ export default function ProfileScreen() {
     const [text, setText] = useState(usuario?.biografia || "");
 
     useEffect(() => {
-        if (usuario?.biografia){
+        if (usuario?.biografia) {
             setText(usuario?.biografia);
         }
+
+        /*const userFollowers = async () => {
+            try {
+                const response = await ApiDelivery.get(`/perfil/1`);
+                console.log(response);
+            } catch (error) {
+                console.error("Error al obtener reviews:", error);
+            }
+        }
+
+        userFollowers()*/
+
     }, [usuario]);
 
     const toggleEdit = () => {
-        if(usuario?.biografia != text){
+        if (usuario?.biografia != text) {
             if (isEditing && usuario) {
                 // Guardar biografía
                 ApiDelivery.put(`/usuarios/id/${usuario.id}`, {
@@ -92,7 +102,7 @@ export default function ProfileScreen() {
                     }
                     // @ts-ignore
                     const avatarUri = avatar.uri
-                    if(avatarUri != usuario.avatar) {
+                    if (avatarUri != usuario.avatar) {
                         setAuth({...usuario, avatar: avatarUri});
 
                         ApiDelivery.put(`/usuarios/id/${usuario.id}`, {
@@ -106,7 +116,6 @@ export default function ProfileScreen() {
                                 console.error("Error al actualizar usuario:", error);
                             });
                     }
-
 
 
                     setModalVisible(false);
@@ -127,7 +136,7 @@ export default function ProfileScreen() {
                     />
                 </TouchableOpacity>
                 <Text style={styles.superText}>{usuario?.name}</Text>
-                <View style={{flexDirection: "row", gap: 5 }}>
+                <View style={{flexDirection: "row", gap: 5}}>
                     {isEditing ? (
                         <TextInput
                             style={styles.normalText}
@@ -139,7 +148,7 @@ export default function ProfileScreen() {
                     ) : (
                         <Text style={styles.normalText}>{text}</Text>
                     )}
-                    <MaterialIcons name="edit" size={16} color={AppColors.grey} onPress={toggleEdit} />
+                    <MaterialIcons name="edit" size={16} color={AppColors.grey} onPress={toggleEdit}/>
                 </View>
             </View>
 
