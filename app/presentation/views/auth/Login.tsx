@@ -60,11 +60,6 @@ function LoginScreen() {
         }
 
         try {
-            /*const response = await fetch('http://localhost:8080/api/usuarios/email/${email}');
-            const user = await response.json();
-
-            setUserData(user);
-            navigation.navigate("HomeScreen");*/
             const response = await fetch("http://localhost:8080/api/auth/login", {
                 method: "POST",
                 headers: {
@@ -84,9 +79,6 @@ function LoginScreen() {
             console.log(data)
             const user = data.usuario;
             const token = data.token;
-
-            // Puedes guardar el token en AsyncStorage si quieres
-            // await AsyncStorage.setItem("token", token);
 
             setAuthToken(token);
             setUserData(user);
