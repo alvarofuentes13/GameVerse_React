@@ -2,7 +2,7 @@ import {FlatList, Image, StyleSheet, Text, TouchableOpacity, View} from "react-n
 import styles from "../../theme/Styles";
 import React from "react";
 import {AppColors} from "../../theme/AppTheme";
-import {VideojuegoInterface} from "../../../domain/entitites/Videojuego";
+import {VideojuegoInterface} from "../../../domain/entities/Videojuego";
 import {NavigationProp, useNavigation} from "@react-navigation/native";
 import {RootStackParamsList} from "../../../../App";
 

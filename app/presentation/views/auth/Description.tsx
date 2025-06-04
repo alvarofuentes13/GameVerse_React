@@ -4,7 +4,7 @@ import { FontAwesome } from "@expo/vector-icons";
 import {NavigationProp, RouteProp, useNavigation, useRoute} from "@react-navigation/native";
 import {AppColors, AppFonts} from "../../theme/AppTheme";
 import {RootStackParamsList} from "../../../../App";
-import {ReviewInterface} from "../../../domain/entitites/Review";
+import {ReviewInterface} from "../../../domain/entities/Review";
 import ReviewCard from "../../components/cards/ReviewCard";
 import styles from "../../theme/Styles";
 import {ApiDelivery} from "../../../data/sources/remote/api/ApiDelivery";

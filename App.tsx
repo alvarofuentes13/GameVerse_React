@@ -3,7 +3,7 @@ import {ActivityIndicator, StyleSheet, Text, View} from 'react-native';
 import * as React from 'react';
 import {NavigationContainer} from "@react-navigation/native";
 import {useFonts} from "expo-font";
-import {AppColors, AppFonts} from "./app/presentation/theme/AppTheme";
+import {AppColors} from "./app/presentation/theme/AppTheme";
 import HomeScreen from "./app/presentation/views/auth/Home";
 import LoginScreen from "./app/presentation/views/auth/Login";
 import RegisterScreen from "./app/presentation/views/auth/Register";
@@ -12,18 +12,19 @@ import ProfileScreen from "./app/presentation/views/auth/Profile";
 import DescriptionScreen from "./app/presentation/views/auth/Description";
 import ReviewScreen from "./app/presentation/views/auth/Review";
 import SearchScreen from "./app/presentation/views/auth/Search";
-import {VideojuegoInterface} from "./app/domain/entitites/Videojuego";
+import {VideojuegoInterface} from "./app/domain/entities/Videojuego";
 import {UserProvider} from "./app/presentation/views/client/context/UserContext";
 import ListScreen from "./app/presentation/views/auth/List";
 import ListDescriptionScreen from "./app/presentation/views/auth/ListDescription";
 import GamesScreen from "./app/presentation/views/auth/Games";
 import {AuthProvider} from "./app/presentation/views/client/context/AuthContext";
+import {UsuarioInterface} from "./app/domain/entities/Usuario";
 
 export type RootStackParamsList = {
     LoginScreen: undefined,
     RegisterScreen: undefined,
     HomeScreen: undefined,
-    ProfileScreen: undefined,
+    ProfileScreen: { usuario: UsuarioInterface },
     ListScreen: undefined,
     GamesScreen: undefined,
     ListDescriptionScreen: { lista: any },

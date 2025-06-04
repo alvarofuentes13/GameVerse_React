@@ -11,7 +11,6 @@ export default function GameCard({reviewedGame}: any){
     const navigation = useNavigation<NavigationProp<RootStackParamsList>>();
     const calificacion = reviewedGame.calificacion ?? 0;
 
-    console.log(reviewedGame);
     return(
         <TouchableOpacity style={{height: 140, width: 90, marginVertical: 3}}
         onPress={() => navigation.navigate("DescriptionScreen", {item: reviewedGame.videojuego})}>

@@ -1,6 +1,6 @@
 import {Image, StyleSheet, TouchableOpacity, View} from "react-native";
 import React from "react";
-import {VideojuegoInterface} from "../../../domain/entitites/Videojuego";
+import {VideojuegoInterface} from "../../../domain/entities/Videojuego";
 import {NavigationProp, useNavigation} from "@react-navigation/native";
 import {RootStackParamsList} from "../../../../App";
 

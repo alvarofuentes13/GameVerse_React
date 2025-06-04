@@ -15,7 +15,7 @@ import App, {RootStackParamsList} from "../../../../App";
 import styles from "../../theme/Styles";
 import {AppColors, AppFonts} from "../../theme/AppTheme";
 import axios from "axios";
-import {VideojuegoInterface} from "../../../domain/entitites/Videojuego";
+import {VideojuegoInterface} from "../../../domain/entities/Videojuego";
 import ListCard from "../../components/cards/ListCard";
 import {ApiDelivery} from "../../../data/sources/remote/api/ApiDelivery";
 

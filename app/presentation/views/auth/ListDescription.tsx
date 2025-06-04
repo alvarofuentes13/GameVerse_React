@@ -1,7 +1,7 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {View, Text, Image, TouchableOpacity, ScrollView, FlatList, StyleSheet} from "react-native";
 import {FontAwesome} from "@expo/vector-icons";
-import {NavigationProp, RouteProp, useNavigation, useRoute} from "@react-navigation/native";
+import {NavigationProp, RouteProp, useFocusEffect, useNavigation, useRoute} from "@react-navigation/native";
 import {AppColors, AppFonts} from "../../theme/AppTheme";
 import {RootStackParamsList} from "../../../../App";
 import styles from "../../theme/Styles";
@@ -21,6 +21,7 @@ export default function ListDescriptionScreen() {
     const {user: usuario, token: token, setAuth} = useAuth();
     const [isModalVisible, setModalVisible] = useState(false);
     const [isDrawerVisible, setDrawerVisible] = useState(false);
+    const [siguiendo, setSiguiendo] = useState(false);
 
     const toggleModal = () => {
         setModalVisible(!isModalVisible);
@@ -45,6 +46,22 @@ export default function ListDescriptionScreen() {
             console.error("Error al conectar con el servidor:", error);
         }
     };
+
+    useFocusEffect(
+        React.useCallback(() => {
+        const comprobarSiSigue = async () => {
+            if (usuario?.id !== lista.usuario.id) {
+                try {
+                    const response = await ApiDelivery.get(`/usuarios/${usuario?.id}/sigue-a/${lista.usuario.id}`);
+                    setSiguiendo(response.data); // true o false
+                } catch (error) {
+                    console.error("Error comprobando seguimiento:", error);
+                }
+            }
+        };
+
+        comprobarSiSigue();
+    }, [lista.usuario.id]));
 
 
     return (
@@ -75,7 +92,7 @@ export default function ListDescriptionScreen() {
 
             </View>
 
-            {usuario?.email === lista.usuario.email && (
+            {usuario?.id === lista.usuario.id ? (
                 <View style={{flexDirection: "row", justifyContent: "center"}}>
                     <TouchableOpacity onPress={() => toggleDrawer()} style={listDescriptionStyles.button}>
                         <Text style={{color: AppColors.primary, alignSelf: "center", fontFamily: AppFonts.bold}}>
@@ -85,6 +102,31 @@ export default function ListDescriptionScreen() {
                     <TouchableOpacity onPress={() => toggleModal()} style={listDescriptionStyles.buttonInversed}>
                         <Text style={{color: AppColors.secondary, alignSelf: "center", fontFamily: AppFonts.bold}}>
                             Borrar Lista
+                        </Text>
+                    </TouchableOpacity>
+                </View>
+            ) : (
+                <View style={{ alignItems: "center", marginTop: 10 }}>
+                    <TouchableOpacity
+                        onPress={async () => {
+                            try {
+                                if (siguiendo) {
+                                    // Llamada para dejar de seguir
+                                    await ApiDelivery.put(`/usuarios/${usuario?.id}/dejar-de-seguir/${lista.usuario.id}`);
+                                } else {
+                                    // Llamada para seguir
+                                    await ApiDelivery.put(`/usuarios/${usuario?.id}/seguir/${lista.usuario.id}`);
+                                }
+
+                                setSiguiendo((prev) => !prev); // Alternar estado local
+                            } catch (error) {
+                                console.error("Error al seguir/dejar de seguir:", error);
+                            }
+                        }}
+                        style={listDescriptionStyles.button}
+                    >
+                        <Text style={{ color: AppColors.primary, fontFamily: AppFonts.bold, alignSelf: "center" }}>
+                            {siguiendo ? "Dejar de seguir" : "Seguir"}
                         </Text>
                     </TouchableOpacity>
                 </View>

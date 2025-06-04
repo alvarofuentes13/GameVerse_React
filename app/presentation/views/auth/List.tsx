@@ -8,11 +8,11 @@ import {
 } from "react-native";
 import {AppColors, AppFonts} from "../../theme/AppTheme";
 import ListCard from "../../components/cards/ListCard";
-import {useNavigation} from "@react-navigation/native";
+import {useFocusEffect, useNavigation} from "@react-navigation/native";
 import {DrawerNavigationProp} from "@react-navigation/drawer";
 import {useUser} from "../client/context/UserContext";
 import {DrawerParamsList} from "./Home";
-import {ListInterface} from "../../../domain/entitites/List";
+import {ListInterface} from "../../../domain/entities/List";
 import {FontAwesome} from "@expo/vector-icons";
 import NewListDrawer from "../../components/modals/NewListDrawer";
 import {useAuth} from "../client/context/AuthContext";
@@ -26,12 +26,13 @@ export default function ListScreen() {
     const [cargando, setCargando] = useState(true);
     const [search, setSearch] = useState("");
 
-    useEffect(() => {
+    useFocusEffect(
+        React.useCallback(() => {
         const fetchLists = async () => {
             if (!usuario) return; // Si el usuario no está definido, no hacemos la petición.
 
             try {
-                const response = await ApiDelivery.get('/listas');
+                const response = await ApiDelivery.get(`/listas/usuario/${usuario.id}`);
                 setListas(response.data);
             } catch (error) {
                 console.error("Error al obtener listas:", error);
@@ -41,7 +42,7 @@ export default function ListScreen() {
         };
 
         fetchLists();
-    }, [usuario]);
+    }, [usuario]));
 
     return (
         <View style={{backgroundColor: AppColors.background, width: "100%", height: "100%", padding: 20}}>

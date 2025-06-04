@@ -1,15 +1,20 @@
-import {Image, Text, View} from "react-native";
+import {Image, Text, TouchableOpacity, View} from "react-native";
 import React from "react";
 import styles from "../../theme/Styles";
 import {FontAwesome, MaterialIcons} from "@expo/vector-icons";
 import {AppColors} from "../../theme/AppTheme";
+import {NavigationProp, useNavigation} from "@react-navigation/native";
+import {RootStackParamsList} from "../../../../App";
 
 
 export default function ReviewCard({review}: any) {
+    const navigation = useNavigation<NavigationProp<RootStackParamsList>>();
     return (
         <View key={review.id}
               style={styles.reviewCard}>
-            <Text style={styles.titleText}>{review.videojuego.titulo}</Text>
+            <TouchableOpacity onPress={() => navigation.navigate("DescriptionScreen", {item: review.videojuego})}>
+                <Text style={styles.titleText}>{review.videojuego.titulo}</Text>
+            </TouchableOpacity>
             <View style={{flexDirection: "row", gap: 6, marginVertical: 1}}>
                 <Image source={review.usuario.avatar} style={{height: 20, width: 20, borderRadius: 50}}/>
                 <Text style={styles.headerText}>{review.usuario.name}</Text>

@@ -1,7 +1,7 @@
 import { VideojuegoRepository } from "../../domain/repositories/VideojuegoRepository";
 import { ApiDelivery } from "../sources/remote/api/ApiDelivery";
 import { AxiosError } from "axios";
-import { VideojuegoInterface } from "../../domain/entitites/Videojuego";
+import { VideojuegoInterface } from "../../domain/entities/Videojuego";
 
 export class VideojuegoRepositoryImpl implements VideojuegoRepository {
     async getVideojuegos(): Promise<VideojuegoInterface[]> {

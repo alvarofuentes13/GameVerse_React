@@ -17,12 +17,11 @@ import {RootStackParamsList} from "../../../../App";
 import ProfileScreen from "./Profile";
 import SearchScreen from "./Search";
 import {VideojuegoCategoryListHome} from "../client/category/list/CategoryList";
-import {useUser} from "../client/context/UserContext";
-import {ReviewInterface} from "../../../domain/entitites/Review";
+import {ReviewInterface} from "../../../domain/entities/Review";
 import ReviewCard from "../../components/cards/ReviewCard";
 import ListScreen from "./List";
 import SmallListCard from "../../components/cards/SmallListCard";
-import {ListInterface} from "../../../domain/entitites/List";
+import {ListInterface} from "../../../domain/entities/List";
 import GamesScreen from "./Games";
 import {useAuth} from "../client/context/AuthContext";
 import {ApiDelivery} from "../../../data/sources/remote/api/ApiDelivery";
@@ -123,6 +122,8 @@ const Drawer = createDrawerNavigator<DrawerParamsList>();
 const Tab = createBottomTabNavigator<RootStackParamsList>();
 
 export function HomeTabs() {
+   /* const {user: usuario, token: token, setAuth} = useAuth();*/
+
     return (
         <Tab.Navigator screenOptions={{
             headerShown: false, tabBarStyle: styles.bottomTab,
@@ -138,11 +139,18 @@ export function HomeTabs() {
                 tabBarItemStyle: styles.tabItem,
                 tabBarIcon: ({color}) => <MaterialIcons name="search" size={35} color={color}/>,
             }}/>
-            <Tab.Screen name="ProfileScreen" component={ProfileScreen} options={{
+            <Tab.Screen name="ProfileScreen" component={ProfileScreen}  options={{
                 tabBarShowLabel: false,
                 tabBarItemStyle: styles.tabItem,
                 tabBarIcon: ({color}) => <MaterialIcons name="person" size={35} color={color}/>,
             }}/>
+            {/*<Tab.Screen name="ProfileScreen"  options={{
+                tabBarShowLabel: false,
+                tabBarItemStyle: styles.tabItem,
+                tabBarIcon: ({color}) => <MaterialIcons name="person" size={35} color={color}/>,
+            }}>
+                {() => <ProfileScreen props={usuario}/>}
+            </Tab.Screen>*/}
         </Tab.Navigator>
     );
 }

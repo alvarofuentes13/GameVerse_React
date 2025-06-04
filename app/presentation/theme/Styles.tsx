@@ -13,6 +13,12 @@ const styles = StyleSheet.create({
         fontFamily: AppFonts.bold,
         marginVertical: 10
     },
+    superNumber:{ // Titulos muy grandes
+        color: AppColors.secondary,
+        fontSize: 26,
+        fontFamily: AppFonts.bold,
+        marginTop: 10
+    },
     titleText:{ // Titulos normales en letra blanca y en negrita
         color: AppColors.primary,
         fontSize: 16,

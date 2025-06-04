@@ -5,7 +5,7 @@ import {AppColors, AppFonts} from "../../theme/AppTheme";
 import styles from "../../theme/Styles";
 import {useUser} from "../../views/client/context/UserContext";
 import axios from "axios";
-import {VideojuegoInterface} from "../../../domain/entitites/Videojuego";
+import {VideojuegoInterface} from "../../../domain/entities/Videojuego";
 import {MaterialIcons} from "@expo/vector-icons";
 import {ApiDelivery} from "../../../data/sources/remote/api/ApiDelivery";
 

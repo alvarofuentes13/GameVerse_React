@@ -4,7 +4,7 @@ import Modal from 'react-native-modal';
 import {AppColors, AppFonts} from "../../theme/AppTheme";
 import styles from "../../theme/Styles";
 import axios from "axios";
-import {VideojuegoInterface} from "../../../domain/entitites/Videojuego";
+import {VideojuegoInterface} from "../../../domain/entities/Videojuego";
 import {ApiDelivery} from "../../../data/sources/remote/api/ApiDelivery";
 
 

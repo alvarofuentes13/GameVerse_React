@@ -1,4 +1,4 @@
-import {VideojuegoInterface} from "../entitites/Videojuego";
+import {VideojuegoInterface} from "../entities/Videojuego";
 
 export interface VideojuegoRepository {
     getVideojuegos(): Promise<VideojuegoInterface[]>;
