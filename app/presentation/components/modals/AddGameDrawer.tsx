@@ -120,9 +120,9 @@ export default function AddGameDrawer({ listaId, visible, onClose }: ModalProps)
                         keyExtractor={(item: VideojuegoInterface) => item.id.toString()} // Clave única para cada juego
                         renderItem={({ item }) => (
                             <View style={{ flex: 1, flexDirection: "row", justifyContent: "space-between", alignItems: "center", paddingHorizontal: 10 }}>
-                                <Text style={styles.headerText}>{item.name || item.titulo}</Text> // Muestra el nombre del juego
-                                <TouchableOpacity onPress={() => handleRemoveGame(item.id)}> // Botón para eliminar el juego
-                                    <Text style={modalStyles.removeButton}>x</Text> // Texto para eliminar
+                                <Text style={styles.headerText}>{item.name || item.titulo}</Text>
+                                <TouchableOpacity onPress={() => handleRemoveGame(item.id)}>
+                                    <Text style={modalStyles.removeButton}>x</Text>
                                 </TouchableOpacity>
                             </View>
                         )}
@@ -130,8 +130,8 @@ export default function AddGameDrawer({ listaId, visible, onClose }: ModalProps)
                         initialNumToRender={10} // Número inicial de elementos a renderizar
                     />
 
-                    <TouchableOpacity onPress={addGames} style={modalStyles.inputButton}> // Botón para agregar juegos
-                        <Text style={styles.headerText}>Agregar</Text> // Texto del botón
+                    <TouchableOpacity onPress={addGames} style={modalStyles.inputButton}>
+                        <Text style={styles.headerText}>Agregar</Text>
                     </TouchableOpacity>
                 </View>
             </Modal>

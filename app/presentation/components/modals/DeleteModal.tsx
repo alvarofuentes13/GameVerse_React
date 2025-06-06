@@ -13,7 +13,7 @@ interface DeleteModalProps {
 // Componente funcional que representa un modal de confirmación de eliminación
 export default function DeleteModal({ visible, onClose, onDelete }: DeleteModalProps) {
     return (
-        <Modal visible={visible} transparent animationType="fade"> // Modal con fondo transparente
+        <Modal visible={visible} transparent animationType="fade">
             <View style={{
                 flex: 1, // Ocupa todo el espacio disponible
                 backgroundColor: 'rgba(0,0,0,0.7)', // Fondo oscuro semi-transparente
@@ -30,7 +30,7 @@ export default function DeleteModal({ visible, onClose, onDelete }: DeleteModalP
                     justifyContent: "space-between" // Espaciado entre elementos
                 }}>
                     <View style={{ alignItems: "center", justifyContent: "center", height: "50%" }}>
-                        <Text style={styles.titleText}>¿Borrar lista? no se podrá recuperar</Text> // Mensaje de advertencia
+                        <Text style={styles.titleText}>¿Borrar lista? no se podrá recuperar</Text>
                     </View>
                     <View style={{ height: "50%", width: "100%", flexDirection: "row" }}>
                         <TouchableOpacity
@@ -44,7 +44,7 @@ export default function DeleteModal({ visible, onClose, onDelete }: DeleteModalP
                             }}
                             onPress={onClose} // Cierra el modal al presionar
                         >
-                            <Text style={styles.titleText}>Cancelar</Text> // Texto del botón de cancelar
+                            <Text style={styles.titleText}>Cancelar</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
                             style={{
@@ -58,7 +58,7 @@ export default function DeleteModal({ visible, onClose, onDelete }: DeleteModalP
                             }}
                             onPress={onDelete} // Ejecuta la función de eliminación al presionar
                         >
-                            <Text style={styles.titleText}>Borrar</Text> // Texto del botón de borrar
+                            <Text style={styles.titleText}>Borrar</Text>
                         </TouchableOpacity>
                     </View>
                 </View>

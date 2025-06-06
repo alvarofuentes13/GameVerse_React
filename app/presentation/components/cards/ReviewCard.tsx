@@ -12,18 +12,18 @@ export default function ReviewCard({ review }: any) {
     const navigation = useNavigation<NavigationProp<RootStackParamsList>>();
 
     return (
-        <View key={review.id} style={styles.reviewCard}> // Contenedor principal de la tarjeta de reseña
+        <View key={review.id} style={styles.reviewCard}>
             <TouchableOpacity onPress={() => navigation.navigate("DescriptionScreen", { item: review.videojuego })}>
-                <Text style={styles.titleText}>{review.videojuego.titulo}</Text> // Muestra el título del videojuego
+                <Text style={styles.titleText}>{review.videojuego.titulo}</Text>
             </TouchableOpacity>
-            <View style={{ flexDirection: "row", gap: 6, marginVertical: 1 }}> // Contenedor para el usuario y calificación
+            <View style={{ flexDirection: "row", gap: 6, marginVertical: 1 }}>
                 <Image
                     source={review.usuario.avatar} // Fuente de la imagen del avatar del usuario
                     style={{ height: 20, width: 20, borderRadius: 50 }} // Estilo del avatar
                 />
-                <Text style={styles.headerText}>{review.usuario.name}</Text> // Muestra el nombre del usuario
+                <Text style={styles.headerText}>{review.usuario.name}</Text>
                 <Text style={styles.headerText}>
-                    <View style={{ alignItems: "center", flexDirection: "row", gap: 1 }}> // Contenedor para las estrellas de calificación
+                    <View style={{ alignItems: "center", flexDirection: "row", gap: 1 }}>
                         {[...Array(review.calificacion)].map((_, index) => ( // Crea un array de estrellas basado en la calificación
                             <FontAwesome
                                 key={index} // Clave única para cada estrella
@@ -40,7 +40,7 @@ export default function ReviewCard({ review }: any) {
                     }
                 </Text>
             </View>
-            <Text style={styles.normalText}>{review.comentario}</Text> // Muestra el comentario de la reseña
+            <Text style={styles.normalText}>{review.comentario}</Text>
         </View>
     );
 }
