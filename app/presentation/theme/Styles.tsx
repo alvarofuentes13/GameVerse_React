@@ -1,35 +1,36 @@
-import {StyleSheet} from "react-native";
-import {AppColors, AppFonts} from "./AppTheme";
+import { StyleSheet } from "react-native"; // Importa StyleSheet desde React Native
+import { AppColors, AppFonts } from "./AppTheme"; // Importa colores y fuentes de la temática de la aplicación
 
+// Definición de estilos utilizando StyleSheet
 const styles = StyleSheet.create({
     container: {
         width: '100%',
         height: '100%',
-        backgroundColor: AppColors.background
+        backgroundColor: AppColors.background // Color de fondo de la aplicación
     },
-    superText:{ // Titulos muy grandes
+    superText: { // Estilo para títulos grandes
         color: AppColors.primary,
         fontSize: 20,
         fontFamily: AppFonts.bold,
         marginVertical: 10
     },
-    superNumber:{ // Titulos muy grandes
+    superNumber: { // Estilo para números grandes
         color: AppColors.secondary,
         fontSize: 26,
         fontFamily: AppFonts.bold,
         marginTop: 10
     },
-    titleText:{ // Titulos normales en letra blanca y en negrita
+    titleText: { // Estilo para títulos normales en blanco y en negrita
         color: AppColors.primary,
         fontSize: 16,
         fontFamily: AppFonts.medium,
     },
-    headerText:{ // Titulos pero mas pequeños
+    headerText: { // Estilo para encabezados más pequeños
         color: AppColors.primary,
         fontSize: 14,
         fontFamily: AppFonts.regular,
     },
-    normalText:{ // Texto normal
+    normalText: { // Estilo para texto normal
         color: AppColors.grey,
         fontSize: 12,
         fontFamily: AppFonts.regular,
@@ -56,7 +57,7 @@ const styles = StyleSheet.create({
     },
     formContainer: {
         width: '95%',
-        backgroundColor: "white",
+        backgroundColor: "white", // Color de fondo del formulario
         paddingVertical: 25,
         paddingHorizontal: 20,
         marginHorizontal: "auto",
@@ -84,7 +85,7 @@ const styles = StyleSheet.create({
         marginVertical: 7,
         borderRadius: 25,
         color: AppColors.primary,
-        backgroundColor: 'rgba(115,115,115,0.55)',
+        backgroundColor: 'rgba(115,115,115,0.55)', // Fondo semi-transparente para el input
         fontFamily: AppFonts.regular,
     },
     buttonForm: {
@@ -97,17 +98,17 @@ const styles = StyleSheet.create({
         marginBottom: 7,
     },
     buttonFormText: {
-        color: AppColors.background,
+        color: AppColors.background, // Color del texto del botón
         textAlign: "center",
         fontSize: 17,
         fontFamily: AppFonts.medium,
     },
     redirectButton: {
-        width: "100%",
+        width: "100%", // Botón de redirección que ocupa todo el ancho
     },
     redirectButtonText: {
         textAlign: "center",
-        color: "darkorange",
+        color: "darkorange", // Color del texto del botón de redirección
         fontWeight: 'bold',
     },
     redirectText: {
@@ -139,7 +140,7 @@ const styles = StyleSheet.create({
         marginTop: 10,
         fontFamily: AppFonts.regular,
     },
-    reviewCard:{
+    reviewCard: {
         backgroundColor: AppColors.cardBackground,
         padding: 12,
         paddingVertical: 8,
@@ -148,10 +149,10 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderColor: "#24243C"
     },
-    searchBar:{
-        backgroundColor: AppColors.cardBackground,
+    searchBar: {
+        backgroundColor: AppColors.cardBackground, // Fondo de la barra de búsqueda
     }
 });
 
-
+// Exporta los estilos para su uso en otros componentes
 export default styles;
