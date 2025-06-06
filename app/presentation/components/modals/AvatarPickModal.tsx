@@ -14,7 +14,7 @@ interface AvatarPickModalProps {
 // Componente funcional que representa un modal para elegir un avatar
 export default function AvatarPickModal({ visible, onClose, onSelect, avatarOptions }: AvatarPickModalProps) {
     return (
-        <Modal visible={visible} transparent animationType="fade"> // Modal con fondo transparente
+        <Modal visible={visible} transparent animationType="fade">
             <View style={{
                 flex: 1, // Ocupa todo el espacio disponible
                 backgroundColor: 'rgba(0,0,0,0.7)', // Fondo oscuro semi-transparente
@@ -30,10 +30,10 @@ export default function AvatarPickModal({ visible, onClose, onSelect, avatarOpti
                     borderWidth: 3, // Ancho del borde
                     borderColor: "#24243C" // Color del borde
                 }}>
-                    <Text style={styles.titleText}>Elige tu avatar</Text> // Título del modal
+                    <Text style={styles.titleText}>Elige tu avatar</Text>
                     <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', marginTop: 10 }}>
                         {avatarOptions.map((avatar, index) => ( // Mapea las opciones de avatares
-                            <TouchableOpacity key={index} onPress={() => onSelect(avatar)}> // Botón para seleccionar un avatar
+                            <TouchableOpacity key={index} onPress={() => onSelect(avatar)}>
                                 <Image
                                     source={avatar} // Fuente de la imagen del avatar
                                     style={{
@@ -49,7 +49,7 @@ export default function AvatarPickModal({ visible, onClose, onSelect, avatarOpti
                         ))}
                     </View>
                     <TouchableOpacity onPress={onClose}> // Botón para cerrar el modal
-                        <Text style={{ color: AppColors.yellow, textAlign: 'center', marginTop: 15, fontFamily: AppFonts.medium, fontSize: 16 }}>Cancelar</Text> // Texto del botón de cancelar
+                        <Text style={{ color: AppColors.yellow, textAlign: 'center', marginTop: 15, fontFamily: AppFonts.medium, fontSize: 16 }}>Cancelar</Text>
                     </TouchableOpacity>
                 </View>
             </View>

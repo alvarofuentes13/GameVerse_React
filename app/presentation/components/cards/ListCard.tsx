@@ -17,12 +17,12 @@ export default function ListCard({ lista }: any) {
 
                 <View style={listCardStyles.textContainer}>
                     <View style={{ width: '70%' }}>
-                        <Text style={styles.titleText}>{lista.nombre}</Text> // Muestra el nombre de la lista
+                        <Text style={styles.titleText}>{lista.nombre}</Text>
                         <Text style={styles.headerText}>
                             Aquí van las etiquetas // Placeholder para etiquetas
                         </Text>
                         <Text numberOfLines={2} style={styles.normalText}>
-                            {lista.descripcion} // Muestra la descripción de la lista
+                            {lista.descripcion}
                         </Text>
                     </View>
 
@@ -31,7 +31,7 @@ export default function ListCard({ lista }: any) {
                             source={lista.usuario.avatar} // Fuente de la imagen del avatar del usuario
                             style={{ height: 20, width: 20, borderRadius: 50 }} // Estilo del avatar
                         />
-                        <Text style={styles.headerText}>{lista.usuario.name}</Text> // Muestra el nombre del usuario
+                        <Text style={styles.headerText}>{lista.usuario.name}</Text>
                     </View>
                 </View>
 
