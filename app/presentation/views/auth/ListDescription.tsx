@@ -1,43 +1,47 @@
-import React, {useEffect, useState} from "react";
-import {View, Text, Image, TouchableOpacity, ScrollView, FlatList, StyleSheet} from "react-native";
-import {FontAwesome} from "@expo/vector-icons";
-import {NavigationProp, RouteProp, useFocusEffect, useNavigation, useRoute} from "@react-navigation/native";
-import {AppColors, AppFonts} from "../../theme/AppTheme";
-import {RootStackParamsList} from "../../../../App";
-import styles from "../../theme/Styles";
-import DeleteModal from "../../components/modals/DeleteModal";
-import AddGameDrawer from "../../components/modals/AddGameDrawer";
-import {useUser} from "../client/context/UserContext";
-import {useAuth} from "../client/context/AuthContext";
-import {ApiDelivery} from "../../../data/sources/remote/api/ApiDelivery";
+import React, { useState } from "react"; // Importa React y hooks
+import { View, Text, Image, TouchableOpacity, ScrollView, FlatList, StyleSheet } from "react-native"; // Importa componentes de React Native
+import { FontAwesome } from "@expo/vector-icons"; // Importa iconos de FontAwesome
+import { NavigationProp, RouteProp, useFocusEffect, useNavigation, useRoute } from "@react-navigation/native"; // Importa hooks de navegación
+import { AppColors, AppFonts } from "../../theme/AppTheme"; // Importa colores y fuentes de la temática
+import { RootStackParamsList } from "../../../../App"; // Importa tipos de parámetros de navegación
+import styles from "../../theme/Styles"; // Importa estilos
+import DeleteModal from "../../components/modals/DeleteModal"; // Importa componente de modal para eliminar
+import AddGameDrawer from "../../components/modals/AddGameDrawer"; // Importa componente de modal para agregar juego
+import { useUser } from "../client/context/UserContext"; // Importa contexto de usuario
+import { useAuth } from "../client/context/AuthContext"; // Importa contexto de autenticación
+import { ApiDelivery } from "../../../data/sources/remote/api/ApiDelivery"; // Importa API para operaciones remotas
 
-
+// Define el tipo de ruta para la pantalla de descripción de lista
 type ListDescriptionRouteProp = RouteProp<RootStackParamsList, "ListDescriptionScreen">;
 
+// Componente principal de la pantalla de descripción de lista
 export default function ListDescriptionScreen() {
-    const navigation = useNavigation<NavigationProp<RootStackParamsList>>();
-    const route = useRoute<ListDescriptionRouteProp>();
-    const {lista} = route.params;
-    const {user: usuario, token: token, setAuth} = useAuth();
-    const [isModalVisible, setModalVisible] = useState(false);
-    const [isDrawerVisible, setDrawerVisible] = useState(false);
-    const [siguiendo, setSiguiendo] = useState(false);
+    const navigation = useNavigation<NavigationProp<RootStackParamsList>>(); // Inicializa la navegación
+    const route = useRoute<ListDescriptionRouteProp>(); // Obtiene la ruta actual
+    const { lista } = route.params; // Extrae la lista de los parámetros de la ruta
+    const { user: usuario } = useAuth(); // Obtiene datos del usuario desde el contexto
+    const [isModalVisible, setModalVisible] = useState(false); // Estado para controlar la visibilidad del modal
+    const [isDrawerVisible, setDrawerVisible] = useState(false); // Estado para controlar la visibilidad del drawer
+    const [siguiendo, setSiguiendo] = useState(false); // Estado para controlar si se sigue a otro usuario
 
+    // Función para alternar la visibilidad del modal
     const toggleModal = () => {
         setModalVisible(!isModalVisible);
     };
 
+    // Función para alternar la visibilidad del drawer
     const toggleDrawer = () => {
         setDrawerVisible(!isDrawerVisible);
     };
 
+    // Función para eliminar la lista
     const eliminarLista = async () => {
         try {
-            const response = await ApiDelivery.delete(`/listas/${lista.id}`);
+            const response = await ApiDelivery.delete(`/listas/${lista.id}`); // Llama a la API para eliminar la lista
 
             if (response) {
                 console.log("Lista eliminada correctamente");
-                setModalVisible(false);
+                setModalVisible(false); // Cierra el modal
                 navigation.goBack(); // Vuelve a la pantalla anterior
             } else {
                 console.error("Error al eliminar la lista");
@@ -47,32 +51,32 @@ export default function ListDescriptionScreen() {
         }
     };
 
+    // Efecto para comprobar si el usuario sigue a la lista
     useFocusEffect(
         React.useCallback(() => {
-        const comprobarSiSigue = async () => {
-            if (usuario?.id !== lista.usuario.id) {
-                try {
-                    const response = await ApiDelivery.get(`/usuarios/${usuario?.id}/sigue-a/${lista.usuario.id}`);
-                    setSiguiendo(response.data); // true o false
-                } catch (error) {
-                    console.error("Error comprobando seguimiento:", error);
+            const comprobarSiSigue = async () => {
+                if (usuario?.id !== lista.usuario.id) {
+                    try {
+                        const response = await ApiDelivery.get(`/usuarios/${usuario?.id}/sigue-a/${lista.usuario.id}`);
+                        setSiguiendo(response.data); // Establece el estado de siguiendo
+                    } catch (error) {
+                        console.error("Error comprobando seguimiento:", error);
+                    }
                 }
-            }
-        };
+            };
 
-        comprobarSiSigue();
-    }, [lista.usuario.id]));
-
+            comprobarSiSigue(); // Llama a la función para comprobar seguimiento
+        }, [lista.usuario.id]) // Dependencia en el ID del usuario de la lista
+    );
 
     return (
-
-        <ScrollView style={{flex: 1, backgroundColor: "#0D0D25", padding: 20}}>
-
-            <TouchableOpacity onPress={() => navigation.goBack()} style={{marginBottom: 10}}>
-                <FontAwesome name="arrow-left" size={24} color="#FFF"/>
+        <ScrollView style={{ flex: 1, backgroundColor: "#0D0D25", padding: 20 }}>
+            {/* Botón para volver a la pantalla anterior */}
+            <TouchableOpacity onPress={() => navigation.goBack()} style={{ marginBottom: 10 }}>
+                <FontAwesome name="arrow-left" size={24} color="#FFF" />
             </TouchableOpacity>
 
-            <View style={{alignItems: "center"}}>
+            <View style={{ alignItems: "center" }}>
                 <Text style={styles.superText}>
                     {lista.nombre || "nombre"}
                 </Text>
@@ -86,21 +90,21 @@ export default function ListDescriptionScreen() {
                         alignItems: "center",
                         gap: 10, margin: 15
                     }}>
-                    <Image source={lista.usuario.avatar} style={{height: 40, width: 40, borderRadius: 50}}/>
+                    <Image source={lista.usuario.avatar} style={{ height: 40, width: 40, borderRadius: 50 }} />
                     <Text style={styles.titleText}>{lista.usuario.name}</Text>
                 </View>
-
             </View>
 
+            {/* Botones para agregar juego o borrar lista */}
             {usuario?.id === lista.usuario.id ? (
-                <View style={{flexDirection: "row", justifyContent: "center"}}>
+                <View style={{ flexDirection: "row", justifyContent: "center" }}>
                     <TouchableOpacity onPress={() => toggleDrawer()} style={listDescriptionStyles.button}>
-                        <Text style={{color: AppColors.primary, alignSelf: "center", fontFamily: AppFonts.bold}}>
+                        <Text style={{ color: AppColors.primary, alignSelf: "center", fontFamily: AppFonts.bold }}>
                             Agregar Juego
                         </Text>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => toggleModal()} style={listDescriptionStyles.buttonInversed}>
-                        <Text style={{color: AppColors.secondary, alignSelf: "center", fontFamily: AppFonts.bold}}>
+                        <Text style={{ color: AppColors.secondary, alignSelf: "center", fontFamily: AppFonts.bold }}>
                             Borrar Lista
                         </Text>
                     </TouchableOpacity>
@@ -132,15 +136,16 @@ export default function ListDescriptionScreen() {
                 </View>
             )}
 
-            <View style={{alignItems: "center"}}>
+            {/* Lista de videojuegos */}
+            <View style={{ alignItems: "center" }}>
                 <FlatList
                     numColumns={3}
                     data={lista.videojuegos}
                     keyExtractor={(item) => item.id.toString()}
-                    renderItem={({item}) => (
-                        <TouchableOpacity onPress={() => navigation.navigate("DescriptionScreen", {item})}>
+                    renderItem={({ item }) => (
+                        <TouchableOpacity onPress={() => navigation.navigate("DescriptionScreen", { item })}>
                             <Image
-                                source={{uri: item.portada}}
+                                source={{ uri: item.portada }}
                                 style={{
                                     width: 114,
                                     height: 160,
@@ -153,13 +158,14 @@ export default function ListDescriptionScreen() {
                 />
             </View>
 
-            <DeleteModal visible={isModalVisible} onClose={toggleModal} onDelete={eliminarLista}/>
-            <AddGameDrawer listaId={lista.id} visible={isDrawerVisible} onClose={toggleDrawer}/>
+            {/* Modales para eliminar lista y agregar juegos */}
+            <DeleteModal visible={isModalVisible} onClose={toggleModal} onDelete={eliminarLista} />
+            <AddGameDrawer listaId={lista.id} visible={isDrawerVisible} onClose={toggleDrawer} />
         </ScrollView>
-
     );
 }
 
+// Estilos personalizados para la pantalla de descripción de lista
 const listDescriptionStyles = StyleSheet.create({
     button: {
         backgroundColor: AppColors.secondary,
@@ -185,4 +191,4 @@ const listDescriptionStyles = StyleSheet.create({
         marginBottom: 20,
         justifyContent: "center"
     },
-})
+});
