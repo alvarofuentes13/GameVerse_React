@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import {createDrawerNavigator, DrawerNavigationProp} from "@react-navigation/drawer";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
-import {useNavigation} from "@react-navigation/native";
+import {useFocusEffect, useNavigation} from "@react-navigation/native";
 import {FontAwesome, MaterialIcons} from "@expo/vector-icons";
 import {AppColors} from "../../theme/AppTheme";
 import styles from "../../theme/Styles";
@@ -41,14 +41,14 @@ function HomeScreen() {
     const [cargando, setCargando] = useState(true);
 
 
-    useEffect(() => {
+    useFocusEffect(
+        React.useCallback(() => {
 
         const fetchReviews = async () => {
             if (!usuario) return; // Si el usuario no está definido, no hacemos la petición.
 
             try {
                 const response = await ApiDelivery.get(`/reviews`);
-                console.log(response);
                 setReviews(response.data);
             } catch (error) {
                 console.error("Error al obtener reviews:", error);
@@ -72,7 +72,7 @@ function HomeScreen() {
 
         fetchLists();
         fetchReviews();
-    }, [usuario]);
+    }, [usuario]));
 
 
     return (
