@@ -49,7 +49,7 @@ export const VideojuegoCategoryListHome = () => {
                     style={{ width: 100, height: 140, marginRight: 8, borderRadius: 4 }} // Estilo de la imagen
                     onError={() => console.log("Error loading image")} // Manejo de errores de carga de imagen
                 />
-                <Text style={{ textAlign: 'center', color: "#FFF" }}>{item.titulo}</Text> {/* Título del videojuego */}
+                <Text style={{ textAlign: 'center', color: "#FFF" }}>{item.titulo}</Text>
             </TouchableOpacity>
         ),
         [navigation] // Dependencias de useCallback
@@ -59,7 +59,7 @@ export const VideojuegoCategoryListHome = () => {
     if (loading) {
         return (
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                <ActivityIndicator size="large" /> {/* Indicador de carga */}
+                <ActivityIndicator size="large" />
             </View>
         );
     }

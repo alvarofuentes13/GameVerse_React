@@ -16,11 +16,8 @@ export default function ListCard({ lista }: any) {
             <View key={lista.id} style={listCardStyles.listaContainer}>
 
                 <View style={listCardStyles.textContainer}>
-                    <View style={{ width: '70%' }}>
+                    <View style={{ width: '65%' }}>
                         <Text style={styles.titleText}>{lista.nombre}</Text>
-                        <Text style={styles.headerText}>
-                            Aquí van las etiquetas // Placeholder para etiquetas
-                        </Text>
                         <Text numberOfLines={2} style={styles.normalText}>
                             {lista.descripcion}
                         </Text>

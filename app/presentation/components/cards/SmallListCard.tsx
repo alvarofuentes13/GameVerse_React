@@ -11,7 +11,7 @@ export default function SmallListCard({ lista }: any) {
 
     return (
         <TouchableOpacity onPress={() => navigation.navigate("ListDescriptionScreen", { lista })}>
-            <View style={{ height: "100%", width: "33%", flexDirection: "column" }}> // Contenedor principal de la tarjeta
+            <View style={{ height: "100%", width: "33%", flexDirection: "column" }}>
                 <View key={lista.id} style={listCardStyles.listaContainer}>
                     {lista.videojuegos.slice(0, 3).map((game: VideojuegoInterface, index: number) => ( // Mapea los primeros 3 videojuegos
                         <Image

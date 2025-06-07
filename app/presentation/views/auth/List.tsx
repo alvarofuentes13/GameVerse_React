@@ -49,12 +49,11 @@ export default function ListScreen() {
 
     return (
         <View style={{ backgroundColor: AppColors.background, width: "100%", height: "100%", padding: 20 }}>
-            {/* Botón para abrir el drawer */}
+
             <TouchableOpacity onPress={() => navigation.openDrawer()} style={{ marginBottom: 20 }}>
                 <FontAwesome name="bars" size={28} color="white" />
             </TouchableOpacity>
 
-            {/* Barra de búsqueda */}
             <View style={{
                 flexDirection: "row",
                 alignItems: "center",
@@ -74,7 +73,6 @@ export default function ListScreen() {
                 />
             </View>
 
-            {/* Lista de tarjetas de listas */}
             <ScrollView style={{ borderRadius: 10 }}>
                 {cargando ? ( // Muestra un indicador de carga si está cargando
                     <ActivityIndicator size="large" color={AppColors.yellow} />
@@ -87,7 +85,7 @@ export default function ListScreen() {
                 )}
             </ScrollView>
 
-            <NewListDrawer /> {/* Componente para crear una nueva lista */}
+            <NewListDrawer />
         </View>
     );
 }

@@ -22,7 +22,7 @@ export default function GameCard({ reviewedGame }: any) {
                 source={reviewedGame.videojuego.portada} // Fuente de la imagen de la portada del videojuego
                 style={{ height: 126, width: 90, borderRadius: 4 }} // Estilo de la imagen
             />
-            <View style={{ flexDirection: "row", marginTop: 2, gap: 1 }}> // Contenedor para las estrellas de calificación
+            <View style={{ flexDirection: "row", marginTop: 2, gap: 1 }}>
                 {[...Array(calificacion)].map((_, index) => ( // Crea un array de estrellas basado en la calificación
                     <FontAwesome
                         key={index} // Clave única para cada estrella

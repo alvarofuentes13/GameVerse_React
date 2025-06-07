@@ -79,7 +79,7 @@ export default function NewListDrawer() {
     return (
         <View style={modalStyles.container}>
             <TouchableOpacity style={{ position: 'fixed', bottom: 35 }} onPress={toggleModal}>
-                <MaterialIcons name="add-circle" size={60} color={AppColors.primary} /> {/* Botón para abrir el modal */}
+                <MaterialIcons name="add-circle" size={60} color={AppColors.primary} />
             </TouchableOpacity>
 
             <Modal
@@ -150,9 +150,9 @@ export default function NewListDrawer() {
                         keyExtractor={(item: VideojuegoInterface) => item.id.toString()} // Clave única para cada juego
                         renderItem={({ item }) => (
                             <View style={{ flex: 1, flexDirection: "row", justifyContent: "space-between", alignItems: "center", paddingHorizontal: 10 }}>
-                                <Text style={styles.headerText}>{item.name || item.titulo}</Text> {/* Nombre del juego */}
+                                <Text style={styles.headerText}>{item.name || item.titulo}</Text>
                                 <TouchableOpacity onPress={() => handleRemoveGame(item.id)}>
-                                    <Text style={modalStyles.removeButton}>x</Text> {/* Botón para eliminar el juego */}
+                                    <Text style={modalStyles.removeButton}>x</Text>
                                 </TouchableOpacity>
                             </View>
                         )}
@@ -164,7 +164,7 @@ export default function NewListDrawer() {
                         onPress={handleSubmitList} // Envía la lista al presionar
                         style={modalStyles.inputButton}
                     >
-                        <Text style={styles.headerText}>Crear</Text> {/* Texto del botón de crear */}
+                        <Text style={styles.headerText}>Crear</Text>
                     </TouchableOpacity>
                 </View>
             </Modal>

@@ -123,9 +123,9 @@ export default function ProfileScreen() {
                 avatarOptions={avatarOptions} // Pasa las opciones de avatar al modal
             />
 
-            {/* Información del usuario */}
+
             <View style={{ alignItems: "center", marginVertical: 10 }}>
-                <TouchableOpacity onPress={() => setModalVisible(true)}> {/* Abre el modal al tocar la imagen */}
+                <TouchableOpacity onPress={() => setModalVisible(true)}>
                     <Image
                         source={
                             usuario?.avatar
@@ -135,7 +135,7 @@ export default function ProfileScreen() {
                         style={{ width: 100, height: 100, borderRadius: 50, marginBottom: 10 }} // Estilo de la imagen
                     />
                 </TouchableOpacity>
-                <Text style={styles.superText}>{usuario?.name}</Text> {/* Nombre del usuario */}
+                <Text style={styles.superText}>{usuario?.name}</Text>
                 <View style={{ flexDirection: "row", gap: 5 }}>
                     {isEditing ? (
                         <TextInput
@@ -148,23 +148,22 @@ export default function ProfileScreen() {
                     ) : (
                         <Text style={styles.normalText}>{text}</Text> // Muestra la biografía
                     )}
-                    <MaterialIcons name="edit" size={16} color={AppColors.grey} onPress={toggleEdit} /> {/* Icono de editar */}
+                    <MaterialIcons name="edit" size={16} color={AppColors.grey} onPress={toggleEdit} />
                 </View>
                 <View style={{ flexDirection: "row", gap: 20, marginTop: 10 }}>
                     <View style={{ alignItems: "center" }}>
-                        <Text style={styles.superNumber}>{seguidores}</Text> {/* Número de seguidores */}
-                        <Text style={styles.headerText}>Seguidores</Text> {/* Texto de seguidores */}
+                        <Text style={styles.superNumber}>{seguidores}</Text>
+                        <Text style={styles.headerText}>Seguidores</Text>
                     </View>
                     <View style={{ alignItems: "center" }}>
-                        <Text style={styles.superNumber}>{seguidos}</Text> {/* Número de seguidos */}
-                        <Text style={styles.headerText}>Seguidos</Text> {/* Texto de seguidos */}
+                        <Text style={styles.superNumber}>{seguidos}</Text>
+                        <Text style={styles.headerText}>Seguidos</Text>
                     </View>
                 </View>
             </View>
 
-            {/* Videojuegos favoritos */}
             <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 20, marginBottom: 15 }}>
-                <Text style={styles.titleText}>Tus videojuegos favoritos</Text> {/* Título de videojuegos favoritos */}
+                <Text style={styles.titleText}>Tus videojuegos favoritos</Text>
             </View>
             {cargando ? (
                 <ActivityIndicator size="large" color={AppColors.yellow} /> // Indicador de carga
@@ -183,9 +182,8 @@ export default function ProfileScreen() {
                 />
             )}
 
-            {/* Últimas reviews */}
             <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 20 }}>
-                <Text style={styles.titleText}>Tus últimas reseñas</Text> {/* Título de últimas reseñas */}
+                <Text style={styles.titleText}>Tus últimas reseñas</Text>
             </View>
             {cargando ? (
                 <ActivityIndicator size="large" color={AppColors.yellow} style={{ marginTop: 10 }} /> // Indicador de carga

@@ -48,7 +48,7 @@ export default function AvatarPickModal({ visible, onClose, onSelect, avatarOpti
                             </TouchableOpacity>
                         ))}
                     </View>
-                    <TouchableOpacity onPress={onClose}> // Botón para cerrar el modal
+                    <TouchableOpacity onPress={onClose}>
                         <Text style={{ color: AppColors.yellow, textAlign: 'center', marginTop: 15, fontFamily: AppFonts.medium, fontSize: 16 }}>Cancelar</Text>
                     </TouchableOpacity>
                 </View>

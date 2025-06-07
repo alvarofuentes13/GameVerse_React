@@ -77,16 +77,15 @@ function HomeScreen() {
 
     return (
         <ScrollView style={{ backgroundColor: AppColors.background, width: "100%", height: "100%", padding: 20 }}>
-            {/* Botón para abrir el drawer */}
             <TouchableOpacity onPress={() => navigation.openDrawer()} style={{ marginBottom: 20 }}>
                 <FontAwesome name="bars" size={28} color="white" />
             </TouchableOpacity>
 
-            <Text style={styles.superText}>Hola, {usuario?.name}!</Text> {/* Saludo al usuario */}
+            <Text style={styles.superText}>Hola, {usuario?.name}!</Text>
 
             <View>
                 <Text style={styles.titleText}>Videojuegos populares de este mes</Text>
-                <VideojuegoCategoryListHome /> {/* Componente que muestra la lista de videojuegos */}
+                <VideojuegoCategoryListHome />
             </View>
 
             <View style={{ marginVertical: 20 }}>

@@ -71,7 +71,7 @@ export default function ListDescriptionScreen() {
 
     return (
         <ScrollView style={{ flex: 1, backgroundColor: "#0D0D25", padding: 20 }}>
-            {/* Botón para volver a la pantalla anterior */}
+
             <TouchableOpacity onPress={() => navigation.goBack()} style={{ marginBottom: 10 }}>
                 <FontAwesome name="arrow-left" size={24} color="#FFF" />
             </TouchableOpacity>
@@ -95,7 +95,6 @@ export default function ListDescriptionScreen() {
                 </View>
             </View>
 
-            {/* Botones para agregar juego o borrar lista */}
             {usuario?.id === lista.usuario.id ? (
                 <View style={{ flexDirection: "row", justifyContent: "center" }}>
                     <TouchableOpacity onPress={() => toggleDrawer()} style={listDescriptionStyles.button}>
@@ -136,7 +135,6 @@ export default function ListDescriptionScreen() {
                 </View>
             )}
 
-            {/* Lista de videojuegos */}
             <View style={{ alignItems: "center" }}>
                 <FlatList
                     numColumns={3}
@@ -158,7 +156,6 @@ export default function ListDescriptionScreen() {
                 />
             </View>
 
-            {/* Modales para eliminar lista y agregar juegos */}
             <DeleteModal visible={isModalVisible} onClose={toggleModal} onDelete={eliminarLista} />
             <AddGameDrawer listaId={lista.id} visible={isDrawerVisible} onClose={toggleDrawer} />
         </ScrollView>

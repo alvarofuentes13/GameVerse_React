@@ -40,29 +40,27 @@ export default function DescriptionScreen() {
 
     return (
         <ScrollView style={{ flex: 1, backgroundColor: "#0D0D25", padding: 20 }}>
-            {/* Botón de retroceso */}
+
             <TouchableOpacity onPress={() => navigation.goBack()} style={{ marginBottom: 10 }}>
                 <FontAwesome name="arrow-left" size={24} color="#FFF" />
             </TouchableOpacity>
 
-            {/* Información del juego */}
             <View style={{ alignItems: "center", marginBottom: 20 }}>
                 <Image
                     source={{ uri: item.coverUrl || item.portada }} // Imagen del juego
                     style={{ width: 150, height: 220, borderRadius: 10 }}
                 />
                 <Text style={styles.superText}>
-                    {item.name || item.titulo} {/* Nombre del juego */}
+                    {item.name || item.titulo}
                 </Text>
                 <Text style={{ fontSize: 16, color: "#AAA", fontFamily: AppFonts.regular }}>
-                    {(item.releaseDate || item.fechaLanzamiento)?.split("/")[2] ?? "Sin año"} {/* Fecha de lanzamiento */}
+                    {(item.releaseDate || item.fechaLanzamiento)?.split("/")[2] ?? "Sin año"}
                 </Text>
                 <Text style={styles.normalText}>
-                    {item.descripcion || item.summary} {/* Descripción del juego */}
+                    {item.descripcion || item.summary}
                 </Text>
             </View>
 
-            {/* Botón para valorar */}
             <View style={{ flexDirection: "row", justifyContent: "center", marginBottom: 20 }}>
                 <TouchableOpacity
                     style={{
@@ -80,7 +78,6 @@ export default function DescriptionScreen() {
                 </TouchableOpacity>
             </View>
 
-            {/* Muestra las reseñas o un mensaje si no hay reseñas */}
             {reviews.length !== 0 ? (
                 <View style={{ flexDirection: "row", justifyContent: "center", marginTop: 20 }}>
                     <Text style={styles.titleText}>Reviews de {item.titulo}</Text>
@@ -91,7 +88,6 @@ export default function DescriptionScreen() {
                 </View>
             )}
 
-            {/* Muestra un indicador de carga o las reseñas */}
             {cargando ? (
                 <ActivityIndicator size="large" color={AppColors.yellow} style={{ marginTop: 10 }} />
             ) : (

@@ -55,21 +55,19 @@ export default function ReviewScreen() {
 
     return (
         <View style={{ flex: 1, backgroundColor: "#0D0D25", padding: 20 }}>
-            {/* Botón para regresar */}
+
             <TouchableOpacity onPress={() => navigation.goBack()} style={{ marginBottom: 10 }}>
                 <FontAwesome name="arrow-left" size={24} color="#FFF" />
             </TouchableOpacity>
 
-            {/* Información del videojuego */}
             <View style={{ flexDirection: "row", alignItems: "center", marginBottom: 20 }}>
                 <Image source={{ uri: item.coverUrl || item.portada }} style={{ width: 100, height: 150, borderRadius: 10, marginRight: 15 }} />
                 <View>
-                    <Text style={styles.titleText}>{item.name || item.titulo}</Text> {/* Título del videojuego */}
-                    <Text style={styles.normalText}>{item.releaseDate || item.fechaLanzamiento}</Text> {/* Fecha de lanzamiento */}
+                    <Text style={styles.titleText}>{item.name || item.titulo}</Text>
+                    <Text style={styles.normalText}>{item.releaseDate || item.fechaLanzamiento}</Text>
                 </View>
             </View>
 
-            {/* Sección para calificar */}
             <Text style={styles.headerText}>¿Qué valoración le das?</Text>
             <View style={{ flexDirection: "row", marginBottom: 20 }}>
                 {[1, 2, 3, 4, 5].map((star) => (
@@ -77,7 +75,7 @@ export default function ReviewScreen() {
                         <FontAwesome name="star" size={28} color={star <= rating ? AppColors.yellow : AppColors.grey} style={{ marginRight: 5 }} />
                     </TouchableOpacity>
                 ))}
-                {/* Botón para marcar como favorito */}
+
                 <TouchableOpacity onPress={() => setFavorite(!favorite)}>
                     <FontAwesome
                         name={favorite ? "heart" : "heart-o"} // "heart" si favorito, "heart-o" si no
@@ -88,7 +86,6 @@ export default function ReviewScreen() {
                 </TouchableOpacity>
             </View>
 
-            {/* Campo de texto para el comentario */}
             <TextInput
                 style={{
                     backgroundColor: "#1C1C3A",
@@ -107,12 +104,11 @@ export default function ReviewScreen() {
                 onChangeText={setReview} // Actualiza el estado del comentario
             />
 
-            {/* Botón para enviar la reseña */}
             <TouchableOpacity
                 style={styles.buttonForm}
                 onPress={handleSubmitReview}
             >
-                <Text style={styles.buttonFormText}>Listo</Text> {/* Texto del botón */}
+                <Text style={styles.buttonFormText}>Listo</Text>
             </TouchableOpacity>
         </View>
     );

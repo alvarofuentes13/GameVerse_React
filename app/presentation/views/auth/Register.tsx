@@ -97,11 +97,11 @@ function RegisterScreen() {
     return (
         <View style={styles.container}>
             <View style={styles.imageContainer}>
-                <Image source={require('../../../../assets/img/logo.png')} style={styles.image} /> {/* Logo de la aplicación */}
+                <Image source={require('../../../../assets/img/logo.png')} style={styles.image} />
             </View>
 
             <View style={styles.imageContainer}>
-                <Text style={styles.formTitle}>Registro</Text> {/* Título de la pantalla */}
+                <Text style={styles.formTitle}>Registro</Text>
 
                 <TextInput
                     value={name}

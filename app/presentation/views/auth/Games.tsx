@@ -46,15 +46,14 @@ export default function GamesScreen() {
 
     return (
         <ScrollView style={{ backgroundColor: AppColors.background, width: "100%", height: "100%", padding: 20 }}>
-            {/* Botón para abrir el drawer */}
+
             <TouchableOpacity onPress={() => navigation.openDrawer()} style={{ marginBottom: 20 }}>
                 <FontAwesome name="bars" size={28} color="white" />
             </TouchableOpacity>
             <View>
-                <Text style={styles.titleText}>Juegos que has valorado</Text> {/* Título de la sección */}
+                <Text style={styles.titleText}>Juegos que has valorado</Text>
             </View>
 
-            {/* Contenedor para las tarjetas de juegos */}
             <View style={{ flexDirection: "row", flexWrap: "wrap", justifyContent: "space-between" }}>
                 {cargando ? ( // Muestra un indicador de carga si está cargando
                     <ActivityIndicator size="large" color={AppColors.yellow} />

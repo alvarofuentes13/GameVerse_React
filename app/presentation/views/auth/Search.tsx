@@ -74,7 +74,7 @@ export default function SearchScreen() {
 
     return (
         <View style={{ backgroundColor: AppColors.background, flex: 1, padding: 20 }}>
-            {/* Campo de búsqueda */}
+
             <View style={{
                 flexDirection: "row",
                 alignItems: "center",
@@ -99,7 +99,6 @@ export default function SearchScreen() {
                 />
             </View>
 
-            {/* Botones para seleccionar tipo de búsqueda */}
             <View style={{ flexDirection: "row", justifyContent: "center", padding: 20 }}>
                 <TouchableOpacity
                     onPress={() => setTipoBusqueda("juegos")} // Cambia a búsqueda de juegos
@@ -135,10 +134,8 @@ export default function SearchScreen() {
                 </TouchableOpacity>
             </View>
 
-            {/* Indicador de carga */}
             {loading && <ActivityIndicator size="large" color="#FFF" style={{ marginTop: 20 }} />}
 
-            {/* Renderiza los resultados de búsqueda */}
             {tipoBusqueda === "juegos" ? (
                 <FlatList
                     showsVerticalScrollIndicator={false}
@@ -159,9 +156,9 @@ export default function SearchScreen() {
                             <Image source={{ uri: item.coverUrl || item.portada }}
                                    style={{ width: 60, height: 80, borderRadius: 8, marginRight: 10 }} />
                             <View style={{ flex: 1 }}>
-                                <Text style={styles.titleText}>{item.name || item.titulo}</Text> {/* Título del juego */}
+                                <Text style={styles.titleText}>{item.name || item.titulo}</Text>
                                 <Text style={styles.normalText}>
-                                    {(item.releaseDate || item.fechaLanzamiento)?.split("/")[2] ?? "Sin año"} {/* Año de lanzamiento */}
+                                    {(item.releaseDate || item.fechaLanzamiento)?.split("/")[2] ?? "Sin año"}
                                 </Text>
                             </View>
                         </TouchableOpacity>
