@@ -38,6 +38,10 @@ export default function NewListDrawer() {
             // Enviar la lista al backend
             await ApiDelivery.post("/listas", listData);
             toggleModal(); // Cierra el modal después de enviar
+            setName("");
+            setDescription("");
+            setSearch("");
+            setGames([]);
         } catch (error) {
             console.error("Error al enviar la lista:", error); // Manejo de errores
         }
